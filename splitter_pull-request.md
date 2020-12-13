@@ -92,7 +92,7 @@ git cherry-pick --no-commit tmp
 
  Git nous guide tout au long de la fonctionnalité, je vous invite donc à l'essayer :)
 
- Ou bien on utilise un GUI comme [GitKraken](https://www.gitkraken.com/invite/whLo3ms9) <3
+ Ou bien on utilise un GUI comme [GitKraken](https://www.gitkraken.com/invite/whLo3ms9) :heart_eyes:
 
  J'aime beaucoup cet outil, mais je ne peux pas me passer de la command-line pour certaines manipulations.
 
