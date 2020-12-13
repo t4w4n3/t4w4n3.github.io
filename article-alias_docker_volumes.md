@@ -20,7 +20,7 @@ Je le run **sans aucun binding** :
 ```shell
 docker run --rm -it hello-world
 ```
-(Grâce au paramêtre `--rm`, le volume sera supprimé dès l'arrêt du conteneur).
+(Grâce au paramêtre `--rm`, le volume sera supprimé dès l'arrêt du conteneur).  
 Dans le conteneur, je regarde le contenu de /myvol :
 ```shell
 ls /myvol
@@ -39,13 +39,13 @@ local               574b5d1846a2608a682ba4d6d7405c7c05870c2a858d0d16c0be40fe5503
 local               f235c4a14e4e66fbdd6664d373864608b77be0bf706e23b1c3d924ea469190bf
 local               server
 ```
-Et là, misère, lequel est mon volume.
-Ils sont bien triés par ordre de dernière utilisation, mais vous imaginez que la situation pourrait être bien pire...
+Et là, misère, lequel est mon volume ??  
+Ils sont bien triés par ordre de dernière utilisation, mais vous imaginez que la situation pourrait être bien pire...  
 S'ensuit alors une série de `docker volume inspect` et de copié-collés, jusqu'à trouver celui qui nous intéresse.
 
 ## Un pitit alias
 
-Je me suis alors créé l'alias `dkvls` (DocKerVolumeLS).
+Je me suis alors créé l'alias `dkvls` (DocKerVolumeLS).  
 Il dépend de [jq](https://stedolan.github.io/jq/).
 
 ```shell
@@ -72,4 +72,7 @@ dkvls #Revient à faire docker volume ls
 dkvls all #Fait un ls dans chaque volume
 dkvls <volume_id> # Fait un ls dans le volume dont l'id commence par volume_id
 ```
-![](dkvls_cut.webm)
+<video controls width="640">
+    <source src="dkvls_cut.webm" type="video/webm">
+</video>
+<!-- ![](dkvls_cut.webm) -->
