@@ -55,8 +55,6 @@ Le rapport est transmis à la dev-team, et la feature repart en fabrication.
 Que d'efforts d'adaptation, pour au final se prendre un bon vieux tunnel.  
 ![](taupiqueur2.png)
 
-Attention image non libre de droit. Vérifier si on peut se le permettre.
-
 ### Reflection time
 Sans pour autant affirmer qu'on devrait se passer du bench, je vous annonce que là aussi on peut réduire la boucle de feedback en ce qui concerne les choix techniques, liés, entres autres, à la volumétrie !
 
@@ -251,7 +249,7 @@ Il semble que le benchmark compte faire 5 forks. Voyons déjà ce que les log du
 * On voit que 2 étapes de warmup semblent suffire à stabiliser
 
 Et si vous tenez vraiment aux 4 forks restants :
-![](4_forks.jpg) resize it smaller please :)
+![](4_forks.jpg)
 
 La synthèse des 5 forks :
 
