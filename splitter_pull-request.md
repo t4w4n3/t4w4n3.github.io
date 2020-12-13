@@ -48,7 +48,7 @@ La dissonance lui fait alors se dire :
 
 ## Roll up your sleeves
 
-### 1. Un commit pour les gouverner tous :ring:
+### 1. Un commit pour les gouverner tous :dvd:
 Pour faciliter les cherry-pick à venir, Bob créé un merge **local** de sa big-branch dans la branch develop.
 ```shell
 git checkout develop
