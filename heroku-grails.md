@@ -278,7 +278,7 @@ We re-use the min size constraint for dry reasons.
 
 ## Step 7 : Change redirection on create submit
 
-> ![](t4w4n3.github.io/show_page.png)
+> ![](show_page.png)
 
 When we create a shorturl, by submitting the form, the 'save' action is run, and we are conventionally redirected to the show page of the created ShortUrl Entity.
 
@@ -445,38 +445,6 @@ This way, the master reflects production effortlessly.
 
 So, it's live and alive :smiley: !
 
-## Conclusion
-
-We just developed a full feature from scratch, in the DRYiest way possible, thanks to Grails, and we deploy it to production on a cloud platform in about 1 minute.
-
-We stayed focus on our MVP, but we have plenty of nice bonuses from Grails :
-
-* **Pagination of the shorturls list !**
-* Full specific form validation with errors display
-* Errors redirection to 404/500 pages
-* We wrote ZERO css and still have a decent front
-* Css files already exist, and css classes are ready to be edited
-* The test stack (unit / integration / functional) is ready
-* Our app is responsive, thanks to mobile.css
-* Our form is **SECURE** ! Grails escape every user prompt
-* Assets (images/css/js) files are minified and name-hashed thanks to the asset-pipeline plugin
-* Internationalization is ready : just set the labels in messages_ru.properties and russians can use it
-
-If you felt the power of Grails here, just try it with this url-shortener or any simple app, I promise you will love this framework.
-
-You can try it on https://t4w4n3-shorturl2.herokuapp.com/, if you really want to lengthen some urls :wink:
-
-Heroku apps are shutdown when not used for 30 mins, so you certainly will have to wait for the container to start the app (15 seconds).
-
-You are definitively not into server-pages, and you prefer JS frameworks (Vue, React, Angular) ? No problem, Grails has profiles for them :
-
-```sh
-grails create-app myapp --profile=angular
-cd myapp
-./gradlew bootRun --parallel
-#You have a Grails server and a binded Angular client alive ;)
-```
-
 ## (Optional Step : Postgres database)
 
 Our production app has an ephemeral database (on ram), so every deploy or reboot will erase it.
@@ -517,4 +485,37 @@ git push heroku master
 ```
 
 It's again live and alive, and the data are reboot-proof.
-No schema creation needed, the `dbCreate: update` will handle it from the domain-classes.
+No schema creation is needed, the `dbCreate: update` will handle it from the domain-classes.
+
+## Conclusion
+
+We just developed a full feature from scratch, in the DRYiest way possible, thanks to Grails, and we deploy it to production on a cloud platform in about 1 minute.
+
+We stayed focus on our MVP, but we have plenty of nice bonuses from Grails :
+
+* **Pagination of the shorturls list !**
+* Full specific form validation with errors display
+* Errors redirection to 404/500 pages
+* We wrote ZERO css and still have a decent front
+* Css files already exist, and css classes are ready to be edited
+* The test stack (unit / integration / functional) is ready
+* Our app is responsive, thanks to mobile.css
+* Our form is **SECURE** ! Grails escape every user prompt
+* Assets (images/css/js) files are minified and name-hashed thanks to the asset-pipeline plugin
+* Internationalization is ready : just set the labels in messages_ru.properties and russians can use it
+
+If you felt the power of Grails here, just try it with this url-shortener or any simple app, I promise you will love this framework.
+
+You can try it on [t4w4n3-shorturl2.herokuapp.com](https://t4w4n3-shorturl2.herokuapp.com/), if you really want to lengthen some urls :wink:
+
+Heroku apps are shutdown when not used for 30 mins, so you certainly will have to wait for the container to start the app (15 seconds).
+
+You are definitively not into server-pages, and you prefer JS frameworks (Vue, React, Angular) ? No problem, Grails has profiles for them :
+
+```sh
+grails create-app myapp --profile=angular
+cd myapp
+./gradlew bootRun --parallel
+#That's it, you have a Grails server and a binded Angular client alive ;)
+```
+
