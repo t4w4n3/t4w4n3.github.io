@@ -1,8 +1,8 @@
 # Personne n'a pris le temps de reviewer ma (gigantesque) PR :(
 
-Bob a développé une user-story dans une code-base legacy<sup>[1](#legacy)</sup>.
+Bob a développé une user-story dans une code-base legacy<sup>[^1]</sup>.
 
-Le Dod[^2] contient, entre autres :
+Le Dod<sup>[^2]</sup> contient, entre autres :
 
 >Le code style de l'équipe est appliqué sur tous les fichiers impactés
 
@@ -142,4 +142,5 @@ Les reviews déjà faites ne seront heueusement pas affectées.
 ## 9. Et on continu ce cycle jusqu'à ce que toutes les sous-PR soient mergées.
 
 
-<a name="legacy">1</a>. Pouet
+[^1]: Pouet
+[^2]: Pouet2
