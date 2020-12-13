@@ -48,7 +48,7 @@ La disonnance lui fait alors se dire :
 
 ### 1. Un commit pour les gouverner tous
 Pour faciliter les cherry-pick à venir, Bob créé un merge **local** de sa big-branch dans la branch develop.
-```bash
+```shell
 git checkout develop
 git merge feature/big-branch
 ```
@@ -57,7 +57,7 @@ git merge feature/big-branch
 ### 2. Tirer une nouvelle branche depuis l'origine de la branche à splitter
 
  On choisira un nom proche du nom de la big-branch, mais avec un numéro, afin de bien identifier l'ordre de merge des sous-PR.
-```bash
+```shell
 git checkout develop # Le commit d'origine de la big-branch
 git co -b feature/01-big-branch
 ```
