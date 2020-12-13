@@ -1,4 +1,4 @@
-Explorer ses volumes docker unbinded en 1 alias
+Explorer ses volumes docker unbinded en 1 function
 ======================================
 
 L'instruction `VOLUME` du Dockerfile permet de monter un dossier du conteneur dans son hôte.  
@@ -43,9 +43,9 @@ Et là, misère, lequel est mon volume ??
 Ils sont bien triés par ordre de dernière utilisation, mais vous imaginez que la situation pourrait être bien pire...  
 S'ensuit alors une série de `docker volume inspect` et de copié-collés, jusqu'à trouver celui qui nous intéresse.
 
-## Un pitit alias
+## Une pitite function
 
-Je me suis alors créé l'alias `dkvls` (DocKerVolumeLS).  
+Je me suis alors créé la function `dkvls` (DocKerVolumeLS) dans mon .bashrc.  
 Il dépend de [jq](https://stedolan.github.io/jq/).
 
 ```shell
