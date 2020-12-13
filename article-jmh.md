@@ -498,7 +498,7 @@ Grace aux microbenchmarks et JMH, ils savent qu'ils ont résolu leur problème d
 
 Les microbenchmarks révèlent effectivement que des implémentations sont plus efficaces que d'autres.
 Cependant il faut toujours avoir en tête la volumétrie de production, afin de pouvoir répondre à la question :
-**"Est-ce que ca vaut vraiment le cout de refactorer ?"**
+**"Est-ce que ca vaut vraiment le coup de refactorer ?"**
 Car il y a d'autres objectifs pour le code, entre autres :
 * La lisibilité
 * L'évolutivité
