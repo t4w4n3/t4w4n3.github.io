@@ -36,7 +36,7 @@ When we click on it or we open it,
 Then we are redirected to the target url.
 ```
 
-## My stack
+## My own stack
 
 I'm a Java backend guy, who can also do some stuff on frontend.
 
@@ -61,10 +61,10 @@ Of course : Grails  !
 ## Requirements
 
 * A JDK 15
-* An Heroku account
+* An Heroku account (free, no CB required)
 * The [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
 * Grails 4.1.0.M2 (or any other version >= 3.0.0, because they have Gradle)
-* (optional) Intellij
+* (optional) Intellij => great Grails support
 
 If you have [sdkman](https://sdkman.io/) :
 
@@ -153,6 +153,11 @@ And so he will scaffold it for us !
 Grails implements [Micronaut for Spring](https://micronaut-projects.github.io/micronaut-spring), so we are working on a MVC.
 
 The scaffold starts from a Controller. Let's create it :
+
+```sh
+./grailsw generate-controller ShortUrl
+```
+
 ```Groovy
 class ShortUrlController {
 	static scaffold = ShortUrl
@@ -246,27 +251,38 @@ But, we now have to randomly generate one if not set.
 
 Let's init it (if not user-provided) in the beforeValidate of ShortUrl :
 ```groovy
+import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric
+
+[...]
+
 def beforeValidate() {
-	fragment ?= UUID.randomUUID().toString().take(5)
+    def fragmentMinSize = constrainedProperties.fragment.size.from as int
+	fragment ?= RandomStringUtils.randomAlphanumeric(fragmentMinSize)
 }
 ```
-The UUID is far too long, so we only take the 5 first chars.
+We re-use the min size constraint for dry reasons.
 
 ------
-### About Randomness
+### Quicky about randomness
 
-Here, the fragment doesn't have to be secure. We just want 5 chars words. Yes we will have collisions, and we will not address this low value problem now.
+1. Here, the fragment doesn't have to be secure. We just want 5 chars words. Yes we will have collisions, and we will not address this low value problem now.
+
+1. `RandomStringUtils.randomAlphanumeric` uses `java.util.Random`, which is thread safe, but also **thread-blocking** ! It's an horrible bottleneck for multi-threaded contexts. We just don't care for our hacky app. The right way would be :
+
+   ```groovy
+   RandomStringUtils.random(fragmentMinSize, 0, 0, true, true, null, ThreadLocalRandom.current())
+   ```
 
 -----
 
 
-## Step 7 : Change create redirection
+## Step 7 : Change redirection on create submit
 
 > ![](t4w4n3.github.io/show_page.png)
 
 When we create a shorturl, by submitting the form, the 'save' action is run, and we are conventionally redirected to the show page of the created ShortUrl Entity.
 
-It has no value in our MVP, so we prefer to be redirected to a new create page, with the new fragment into a conditional div.
+The show page has no value in our MVP, so we prefer to be redirected to a new create page, with the new fragment into a conditional div.
 
 Let's override the scaffolded implementation :
 
@@ -322,7 +338,7 @@ At the end of the create.gsp body, we add the conditional div :
 </html>
 ```
 
-We can add it some code from the show.gsp:
+We can add some code from the show.gsp to it :
 
 ```html
 [...]
@@ -339,7 +355,7 @@ We can add it some code from the show.gsp:
 </html>
 ```
 
-Then we just show the link :
+Then we generate the link and simply display it :
 ```html
 [...]
 </div>
@@ -365,9 +381,7 @@ rm grails-app/views/shortUrl/edit.gsp
 Great ! Now we can see the created shorturl in the same page :
 > ![](conditional_div.png)
 
-Look back to all the code we wrote. It's not that much compared to the product we have, right ?
-
-
+Now, take a moment to look back to all the code we wrote. It's not that much compared to the product we have, right ?
 
 ## Final step : deploy to production
 
@@ -381,7 +395,7 @@ You should have done that already :wink:
 git init .
 ```
 
-### 2. Create the heroku app
+### 2. Create the Heroku app
 
 ```sh
 heroku create t4w4n3-shorturl --buildpack=heroku/gradle --region=eu --stack=heroku-20
@@ -406,7 +420,7 @@ echo "web: java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/*.war" > Procfile
 
 ### 5. Specify a jdk version
 
-Our Grails app embed Groovy 3.0.7, which supports java up to 15.
+Our Grails app embed Groovy 3.0.7, which supports Java up to 15.
 
 So why would we take a lower version ?
 
@@ -422,8 +436,85 @@ git commit -m "shorturl mvp"
 git push heroku master
 ```
 
-It's live and alive :smiley: !
+Heroku has a pre-hooks on the pushes : it makes the deployment as parts of the push.
+
+* If the deployment success, the push successes
+* If the deployment fail, the push fails
+
+This way, the master reflects production effortlessly.
+
+So, it's live and alive :smiley: !
 
 ## Conclusion
 
-We just developed a full feature from scratch, in the DRYiest way 
+We just developed a full feature from scratch, in the DRYiest way possible, thanks to Grails, and we deploy it to production on a cloud platform in about 1 minute.
+
+We stayed focus on our MVP, but we have plenty of nice bonuses from Grails :
+
+* **Pagination of the shorturls list !**
+* Full specific form validation with errors display
+* Errors redirection to 404/500 pages
+* We wrote ZERO css and still have a decent front
+* Css files already exist, and css classes are ready to be edited
+* The test stack (unit / integration / functional) is ready
+* Our app is responsive, thanks to mobile.css
+* Our form is **SECURE** ! Grails escape every user prompt
+* Assets (images/css/js) files are minified and name-hashed thanks to the asset-pipeline plugin
+* Internationalization is ready : just set the labels in messages_ru.properties and russians can use it
+
+If you felt the power of Grails here, just try it with this url-shortener or any simple app, I promise you will love this framework.
+
+You can try it on https://t4w4n3-shorturl2.herokuapp.com/, if you really want to lengthen some urls :wink:
+
+Heroku apps are shutdown when not used for 30 mins, so you certainly will have to wait for the container to start the app (15 seconds).
+
+You are definitively not into server-pages, and you prefer JS frameworks (Vue, React, Angular) ? No problem, Grails has profiles for them :
+
+```sh
+grails create-app myapp --profile=angular
+cd myapp
+./gradlew bootRun --parallel
+#You have a Grails server and a binded Angular client alive ;)
+```
+
+## (Optional Step : Postgres database)
+
+Our production app has an ephemeral database (on ram), so every deploy or reboot will erase it.
+
+It's very easy to plug a postgres DB :
+
+### 1. Create the database in Heroku
+
+```sh
+heroku addons:create heroku-postgresql:hobby-dev
+```
+
+### 2. Change the production datasource
+
+```yaml
+environments:
+	production:
+        dataSource:
+            dbCreate: update
+            driverClassName: org.postgresql.Driver
+            dialect: org.hibernate.dialect.PostgreSQLDialect
+            url: ${JDBC_DATABASE_URL}
+```
+Credentials are embedded in the JDBC_DATABASE_URL variable provided by Heroku.
+
+### 3. Add the dependency
+
+```groovy
+dependencies {
+    runtimeOnly "org.postgresql:postgresql:42.2.18"
+}
+```
+
+### 4. Redeploy
+
+```sh
+git push heroku master
+```
+
+It's again live and alive, and the data are reboot-proof.
+No schema creation needed, the `dbCreate: update` will handle it from the domain-classes.
