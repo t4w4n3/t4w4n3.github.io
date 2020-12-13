@@ -99,9 +99,7 @@ mvn archetype:generate \
     -DartifactId=quackquack
 ```
 
-<details>
-  <summary>Exraits du pom.xml</summary>
-
+Exraits du pom.xml :
 ```xml
 <dependency>
     <groupId>org.openjdk.jmh</groupId>
@@ -115,7 +113,6 @@ mvn archetype:generate \
     <scope>provided</scope>
 </dependency>
 ```
-
 ```xml
 <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -124,7 +121,6 @@ mvn archetype:generate \
     <uberjar.name>benchmarks</uberjar.name>
 </properties>
 ```
-
 ```xml
 <plugin>
     <groupId>org.apache.maven.plugins</groupId>
@@ -169,8 +165,6 @@ mvn archetype:generate \
     </executions>
 </plugin>
 ```
-
-</details>
 Le plugin Maven `shade` permet de packager tout le projet **et ses dépendances** dans un uber-jar.
 >An uber-jar is an "over-jar", one level up from a simple JAR, defined as one that contains both your package and all its dependencies in one single JAR file.
 
