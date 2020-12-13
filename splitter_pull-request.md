@@ -82,6 +82,8 @@ git cherry-pick --no-commit tmp
  * staged
  * unstaged
 
+![](staged_unstaged.png)
+
  La commande `git commit` ne commit que les lignes qui sont dans l'état `staged`.
 
  Les commandes `git add my_file` et `git add --all` envoient 100% des lignes dans l'état `staged`.
