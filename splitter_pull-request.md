@@ -32,6 +32,8 @@ Et tadaaaaa !
 
 ![](big_pr.png)
 
+:see_no_evil:
+
 Personne ne se dévoue pour reviewer...
 
 En bon artisant du logiciel, Bob a le respect dans ses valeurs.  
