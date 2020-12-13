@@ -41,7 +41,7 @@ public class MyBenchmark {
 #### L'annotation `@State`
 L'étape d'instanciation du JDD ne doit pas être comptabilisée dans le bench.  
 On le génère donc dans une classe (statique ou pas) annotée de `@State`.  
-Le scope se limite aux méthodes de benchmark, ou aux threads (forks).  
+Son scope se limite aux méthodes de benchmark, ou aux threads (forks).  
 Cela signifie qu'entre le benchmark de la méthode `makeAllYellowDucksQuackWithStreamBenchMark` et celui de la méthode `filterYellowDucksWithForLoopBenchmark`, l'état (`State`) sera ré-instancié marlgré sa nature static.
 
 #### Idempotence
