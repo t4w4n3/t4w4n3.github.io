@@ -373,7 +373,7 @@ Cela signifie qu'entre le benchmark de la méthode `makeAllYellowDucksQuackWithS
 
 Ici la méthode `createDucksWithRandomColors()` n'est donc pas vraiment random.  
 Elle est [idempotente](https://fr.wikipedia.org/wiki/Idempotence). Elle créé toujours le même JDD (depuis un fichier CSV).  
-Le csv, lui, contient un JDD randomisé.  
+Ce csv contient un JDD randomisé.  
 Ce n'est pas le sujet ici, mais je vous donne une implémentation grossière (et efficace) :
 ```java
 public List<Duck> createDucksWithRandomColors(int number) {
@@ -422,7 +422,7 @@ Et pour d'autres tailles d'élevage :
 
 Un quack mettant environ 1ms, on note que la compilation JIT a économisé pas mal d'instructions sur les longues listes.
 
-### stream vs forLoop vs parallelStream
+### Stream vs forLoop vs parallelStream
 
 Voyons les performances d'autres implémentations de quacking :
 
