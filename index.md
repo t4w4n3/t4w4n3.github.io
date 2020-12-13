@@ -10,3 +10,7 @@ Articles tech
   * [Github reviews PR](github_pr_reviews_style)
 * ffmpeg
   * [mp4 to gif](https://t4w4n3.github.io/extraire_gif_hq_long_videos.html)
+
+---------------
+Antoine Salesse  
+LinkedIn : [https://fr.linkedin.com/in/antoine-salesse-385318101](https://fr.linkedin.com/in/antoine-salesse-385318101)
