@@ -1,25 +1,33 @@
-Tester ses controller Spring avec mockMvc (sans spring-boot) (mais avec Spock)
-=====================================================================
+# Tester un controller Spring avec Spock
 
-La [doc Spring.io](https://spring.io/guides/gs/testing-web/) est bien gentille, mais elle suppose d'avoir (ou de pouvoir avoir) des dépendances spring-boot avec Gradle.  
+Tous les projets Spring ne sont pas des projets Springboot. Et dans un contexte de production, ajouter les dépendances springboot pour juste disposer des apports  dev-tools risque de faire bien plus que cela, comme par exemple : Forcer des montées de versions de dépendances communes.
+
+J'ai eu à apporter des changements sur un controller Spring MVC non couvert unitairement, tandis que le framework de test de l'équipe était [Spock](http://spockframework.org/).
+
+Il me fallait donc ajouter la conf adéquate pour l'autowiring du MVC dans la class de Spec.
+
+Pour cela, la [doc Spring.io](https://spring.io/guides/gs/testing-web/) est bien gentille, mais elle suppose d'avoir (ou de pouvoir avoir) des dépendances spring-boot avec Gradle.  
 Or les contraintes d'un projet de donnent pas toujours la possibilité d'ajouter les dépendances spring-boot-starter, ou alors notre projet est un bon vieux Spring/Maven.
 
-Quand je test unitairement un controller de framework MVC, je préfère entrer dans les méthodes d'action par le même méchanisme que dans le code de prod. Appeler directement la méthode laisse d'annotation 
+Je détail donc dans cet article comment intégrer le framework de test Spock dans un projet Spring MVC sans Springboot, à l'aide de :
 
-## Minimal versions pour mockMvc
+* spock-core
+* MockMVC
+* spock-spring
 
-Il faut tout de même se conformer aux versions suivantes :
-* Spring : 3.2.x**+**
+## MockMvc requirements
 
-## Minimal versions pour spock-spring
+* Spring : 3.2.x **+**
 
-* Junit  : 4.9**+**
-* spock-core : 1.2**+**-groovy-2.4
-* spock-spring : 1.2**+**-groovy-2.4
+## Spock-spring requirements
+
+* Junit  : 4.9
+* spock-core : 1.3-groovy-2.4
+* Groovy : 2.4
 
 ## Configuration du projet Maven
 
-### Utiliser des fichiers groovy dans un projet Maven :
+Le langage utilisé dans Spock est Groovy, et il faut alors ajouter la dépendance `groovy-all`  au scope de test :
 ```xml
 <dependency>
     <groupId>org.codehaus.groovy</groupId>
@@ -28,8 +36,7 @@ Il faut tout de même se conformer aux versions suivantes :
     <scope>test</scope>
 </dependency>
 ```
-
-### Dépendances
+Puis on ajoute les autres dépendances (toujours dans le scope de test) :
 
 ```xml
 <dependency>
@@ -52,8 +59,10 @@ Il faut tout de même se conformer aux versions suivantes :
 </dependency>
 ```
 
+MockMvc appartient à spring-test, qui est tirée par spock-spring.
 
 Pour que les tests Spock soient exécutés par la phase `test` de Maven, il faut y inclure leur filename pattern :
+
 ```xml
 <plugin>
     <artifactId>maven-surefire-plugin</artifactId>
@@ -106,13 +115,16 @@ import org.springframework.ui.ModelMap;
 
 @Controller
 public class HelloWorldController {
+
     @RequestMapping(value = {"/helloworld/html/"})
     public final String showHelloWorld(
         @ModelAttribute(value = "helloWorldModel") final HelloWorldModel helloWorldModel,
-        final ModelMap model, final HttpServletRequest request) {
-    model.addAllAttributes("helloWorldModel", helloWorldModel);
-    return "/pages/helloWorld";
-}
+        final ModelMap model,
+        final HttpServletRequest request
+    ) {
+        model.addAllAttributes("helloWorldModel", helloWorldModel);
+        return "/pages/helloWorld";
+    }
 }
 ```
 
@@ -169,3 +181,6 @@ class HelloWorldControllerSpec extends Specification {
     }
 }
 ```
+
+## Conclusion
+
