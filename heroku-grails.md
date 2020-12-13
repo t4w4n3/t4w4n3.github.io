@@ -3,7 +3,7 @@ Heroku + Grails : from idea to prod in 1 article
 
 I recently (re-)discovered Heroku by watching [this video](https://www.youtube.com/watch?v=gq5yubc1u18) from the channel [Coding Garden](https://coding.garden/).
 
-In this live coding, he try (and success) to build an urlshortener website from scratch, and deploy it to production thanks to Heroku PAAS and hits CLI, in 1 hour.
+In this live coding, he try (and success) to build an urlshortener website from scratch, and deploy it to production thanks to Heroku PAAS and its CLI, in 1 hour.
 
 I asked myself "Could I do the same with my own stack ?"
 
@@ -64,14 +64,21 @@ Requirements
 * Grails 4.1.0.M2 (any other version should do it)
 * (optional) Intellij
 
-If you have sdkman :
+If you have [sdkman](https://sdkman.io/) :
 
 ```sh
 sdk install grails 4.1.0.M2
 sdk install java 15.0.1-open
 ```
 
+And if you don't have it :
+```sh
+curl -s "https://get.sdkman.io" | bash
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+```
+
 Step 1 : bare Grails project
+---
 
 First, we have to start the grails project :
 
@@ -133,13 +140,13 @@ static constraints = {
 
 Step 3 : Scaffold the ShortUrl entity
 
-Now our domain is modelised, we can assume that every action a user can do in the frontend, is an aggregation of CRUD operation on the domain entities.
+Now our domain is modelised, we can assume that every action a user can do in the frontend, is an aggregation of CRUD operations on the domain entities.
 
 Luckily, we have only one entity, and the only CRUD operation available will be CREATE.
 
-Building a frontend form for the CREATE operation is a wheel, and Grails know we don't want to re-invent it.
+Building a frontend form for the CREATE operation is a wheel, and Grails knows we don't want to re-invent it.
 
-And so we will scaffold it !
+And so he will scaffold it for us !
 
 Grails implements [Micronaut for Spring](https://micronaut-projects.github.io/micronaut-spring), so we are working on a MVC.
 
@@ -187,12 +194,12 @@ When a user reach '/', he will be redirected to the 'create' action of the contr
 
 > Which action you said ? There is no method in the ShortUrlController.
 
-Yes, but no. The action 'create', 'save', 'get', 'update' are injected at compile-time in the controller, thanks to the scaffolding ;)
+Yes, but no. The actions 'create', 'save', 'get', 'update' are injected at compile-time in the controller, thanks to the scaffolding ;)
 
 Step 5 : Make the fragment optional
 ---
 
-Grails built the form based on the entity attributs types and constraints.
+Grails built the form based on the entity attributs type and constraints.
 
 Let's make the fragment nullable :
 ```groovy
@@ -208,7 +215,7 @@ Much better ^^
 
 But, we now have to randomly generate one if not set.
 
-Let's create an initMethod in ShortUrl :
+Let's create an init method in ShortUrl :
 ```groovy
 void initFragment() {
 	fragment = UUID.randomUUID().toString().take(5)
@@ -225,7 +232,11 @@ rm grails-app/controllers/shorturl/ShortUrlController.groovy
 ./grailsw generate-controller ShortUrl
 ```
 
-Now we can add behavior to the default save :
+The ShortUrlController is recreated with all the actions.
+
+Don't forget to re-add the scaffold option : `static scaffold = ShortUrl`
+
+Now we can add behaviors to the default save :
 ```groovy
 def save(ShortUrl shortUrl) {
     if (shortUrl == null) {
@@ -252,9 +263,11 @@ def show(Long id) {
 ```
 It still allows an id as param, but it also accept a fragment.
 
-If a ShortUrl exists in the database with a matching id or fragment, it redirects to hits stored url.
+If a ShortUrl exists in the database with a matching id or fragment, it redirects to its stored url.
 
-Yes, ids and fragments can have collisions. Fixing that is not part of the mvp.
+> What happens if the `id` AND the `fragment` exist ?
+
+The 'id' is first, so the `fragment` will be ignored.
 
 Now, the
 
