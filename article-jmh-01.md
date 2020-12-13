@@ -18,7 +18,7 @@ Ils ont commencé par développer :
 
 Et enfin ils ont développé les tests unitaires et le code de production en TDD.
 
-![](bisounours.jpg)
+<img src="https://t4w4n3.github.io/bisounours.jpg" style="display: block; margin-left: auto; margin-right: auto; width: 50%;"/>
 
 ### Ducks everywhere
 Voici comment ils ont décidé de faire quacker tous les canards jaunes dans le `DuckService` :
@@ -53,7 +53,8 @@ Le verdict tombe, il y a un point de contention au niveau de la méthode `makeAl
 Le rapport est transmis à la dev-team, et la feature repart en fabrication.
 
 Que d'efforts d'adaptation, pour au final se prendre un bon vieux tunnel.  
-![](taupiqueur2.png)
+
+<img src="https://t4w4n3.github.io/taupiqueur2.png" style="display: block; margin-left: auto; margin-right: auto; width: 50%;"/>
 
 ### Reflection time
 Sans pour autant affirmer qu'on devrait se passer du bench, je vous annonce que là aussi on peut réduire la boucle de feedback en ce qui concerne les choix techniques, liés, entres autres, à la volumétrie !
