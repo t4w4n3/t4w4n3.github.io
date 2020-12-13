@@ -14,3 +14,4 @@ Articles tech
 ---------------
 Antoine Salesse  
 LinkedIn : [https://fr.linkedin.com/in/antoine-salesse-385318101](https://fr.linkedin.com/in/antoine-salesse-385318101)
+[clé publique gpg](antoine_salesse_pub.gpg)
