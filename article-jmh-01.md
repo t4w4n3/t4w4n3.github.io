@@ -59,7 +59,7 @@ Que d'efforts d'adaptation, pour au final se prendre un bon vieux tunnel.
 ### Reflection time
 Sans pour autant affirmer qu'on devrait se passer du bench, je vous annonce que là aussi on peut réduire la boucle de feedback en ce qui concerne les choix techniques, liés, entres autres, à la volumétrie !
 
-Suivez bien comment va s'y prendre notre binome.
+Suivez bien comment va s'y prendre notre binôme.
 
 ## MicroBenchmarking
 
@@ -243,9 +243,9 @@ Iteration   3: 203443620,476 ops/s
 Iteration   4: 200002433,027 ops/s
 Iteration   5: 204119799,321 ops/s
 ```
-Un **Fork** de benchmark permet de le répéter dans des sous-process isolés, afin de se rapprocher du contexte de prod en ce qui concerne le cpu, le compilateur JIT, le GC, les caches mémoires, et j'en oubli très certainement.
+Un **Fork** de benchmark permet de le répéter dans des sous-process isolés, afin de se rapprocher du contexte de prod en ce qui concerne le cpu, le compilateur JIT, le GC, les caches mémoires, et j'en oublie très certainement.
 
-Il semble que le benchmark compte faire 5 forks. Voyons déjà ce que les log du 1er nous apprennent :
+Il semble que le benchmark compte faire 5 forks. Voyons déjà ce que les logs du 1er nous apprennent :
 * Leur système parvient à faire environ 200 millions de Hello World par seconde !
 * On voit que 2 étapes de warmup semblent suffire à stabiliser
 
@@ -262,7 +262,7 @@ Result "fr.younup.MyBenchmark.helloWorldBenchmark":
   CI (99.9%): [199488763,897, 202417406,165] (assumes normal distribution)
 ```
 Le rapport donne ici :
-* La moyenne d'opération par seconde (200 953 085)
+* La moyenne d'opérations par seconde (200 953 085)
 * La variance (1 464 321)
 * La distribution
 
@@ -289,7 +289,7 @@ En résumé : prenez les résultats avec des pincettes et méfiez vous du [biais
 Benchmark                         Mode  Cnt          Score         Error  Units
 MyBenchmark.helloWorldBenchmark  thrpt   25  200953085,031 ± 1464321,134  ops/s
 ```
-Et pour finir, on a une synthèse des benchmark effectués dans ce run (ici 1 seul).  
+Et pour finir, on a une synthèse des benchmarks effectués dans ce run (ici 1 seul).  
 On notera que la moyenne est nommée "Score", et que la variance est nommée "error".  
 On notera aussi que le "Cnt" (Count) correspond à nb_fork * nb_iteration.
 
