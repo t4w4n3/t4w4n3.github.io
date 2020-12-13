@@ -29,12 +29,7 @@ Sous Firefox ou Chrome : Plugin Stylus
 ![![](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne)](stylus_chrome.png)
 
 * [Recommandé](https://support.mozilla.org/fr/kb/programme-extensions-recommandees#w_comment-les-extensions-recommandaees-sont-elles-saelectionnaees) par Mozilla
-* [Open Source](https://github.com/openstyles/stylus)
-
-> :warning:  
-> Open Source = Les sources du logiciel sont ouvertes  
-> Libre       = Le logiciel respecte vos libertés  
-> [Open Source is not Free](https://www.gnu.org/philosophy/open-source-misses-the-point.fr.html)
+* [Sources](https://github.com/openstyles/stylus)
 
 ### Configuration
 
