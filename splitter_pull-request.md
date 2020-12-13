@@ -140,7 +140,7 @@ Et on discard tout le reste : `git reset --hard`
  On la merge dans la develop
 
  PUIS on fait pointer la sous-PR suivante vers la develop !
-Les reviews déjà faites ne seront heueusement pas affectées.
+Les reviews déjà faites ne seront heureusement pas affectées.
 
 ## 9. Et on continu ce cycle jusqu'à ce que toutes les sous-PR soient mergées.
 
