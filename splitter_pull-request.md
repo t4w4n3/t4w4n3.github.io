@@ -38,7 +38,7 @@ Personne ne se dévoue pour reviewer...
 
 En bon artisan du logiciel, Bob a le respect dans ses valeurs.  
 Il sent bien que sa PR n'est pas respectueuse envers sa team.  
-La disonnance lui fait alors se dire :
+La dissonance lui fait alors se dire :
 >Let's split this PR !
 
 ## Contraintes
