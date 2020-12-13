@@ -88,7 +88,7 @@ git cherry-pick --no-commit tmp
 
  Les commandes `git add my_file` et `git add --all` envoient 100% des lignes dans l'état `staged`.
  
- Pour stagger partiellement, on peut soit utiliser la commande `git add -p` ou `git add -p my_file`.
+ Pour stagger partiellement, on peut utiliser la commande `git add -p` ou `git add -p my_file`.
 
  Git nous guide tout au long de la fonctionnalité, je vous invite donc à l'essayer :)
 
