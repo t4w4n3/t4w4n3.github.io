@@ -194,13 +194,6 @@ En changeant le scope de la dépendance Maven JMH en `test`, on peut envisager d
 
 Et donc, à suivre : [Benchmark As Unit-Test, asserting methods performances](en-construction.html) ;)
 
-### Java 12
-
-JMH s'est imposé comme un standard du microbenchmarking en Java et a alors été intégré nativement dans Java 12, dans la [JEP 230](https://openjdk.java.net/jeps/230).
-
-Et donc, à suivre : [MicroBenchmarks natif avec Java 12](en-construction.html) ;)
-
-
 --------------------
 
 [^4]: Complexe : Difficile à prédire.  
