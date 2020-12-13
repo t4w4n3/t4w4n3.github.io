@@ -202,7 +202,7 @@ public class MyBenchmark {
 ### First run !
 
 Command line :
-```
+```bash
 mvn package
 java -jar target/benchmarks.jar
 ```
