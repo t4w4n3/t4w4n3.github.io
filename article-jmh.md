@@ -24,21 +24,21 @@ Et enfin ils ont développé les tests unitaires et le code de production en TDD
 Voici comment ils ont décidé de faire quacker tous les canards jaunes dans le `DuckService` :
 
 ```Java
-public void makeAllYellowDucksQuack() {
-    filterAllYellowDucksThen().forEach(makeItQuack);
-}
+    public void makeAllYellowDucksQuack() {
+        filterAllYellowDucksThen().forEach(makeItQuack);
+    }
 
-private Stream<Duck> filterAllYellowDucksThen(){
-    return iterateAllDucksThen().filter(yellowDucks);
-}
+    private Stream<Duck> filterAllYellowDucksThen(){
+        return iterateAllDucksThen().filter(yellowDucks);
+    }
 
-private static Consumer<Duck> makeItQuack = Duck::quack;
+    private static Consumer<Duck> makeItQuack = Duck::quack;
 
-private Stream<Duck> iterateAllDucksThen() {
-    return ducks.stream();
-}
+    private Stream<Duck> iterateAllDucksThen() {
+        return ducks.stream();
+    }
 
-private static Predicate<Duck> yellowDucks = Duck::isYellow;
+    private static Predicate<Duck> yellowDucks = Duck::isYellow;
 ```
 
 Après quelques itérations, la PIC[^1] finit par indiquer que 100% des tests passent : le [DoD](https://www.leadingagile.com/2017/02/definition-of-done/) est rempli.
@@ -90,7 +90,7 @@ Pour des résultats plus fiables, [openjdk](https://openjdk.java.net/projects/co
 ##### Maven
 
 Ils créent donc un nouveau projet de benchmark avec l'archetype maven :
-```
+```xml
 mvn archetype:generate \
     -DinteractiveMode=false \
     -DarchetypeGroupId=org.openjdk.jmh \
