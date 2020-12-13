@@ -41,7 +41,7 @@ Voici comment ils ont décidé de faire quacker tous les canards jaunes dans le 
     private static Predicate<Duck> yellowDucks = Duck::isYellow;
 ```
 
-Après quelques itérations, la PIC[^1] finit par indiquer que 100% des tests passent : le [DoD](https://www.leadingagile.com/2017/02/definition-of-done/) est rempli.
+Après quelques itérations, la PIC<sup>[^1]</sup> finit par indiquer que 100% des tests passent : le [DoD](https://www.leadingagile.com/2017/02/definition-of-done/) est rempli.
 
 ### Delivery time
 La branche de feature est alors livrée au bencheur.
