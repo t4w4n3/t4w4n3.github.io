@@ -12,7 +12,7 @@ RUN mkdir /myvol
 RUN echo "hello world" > /myvol/greeting
 VOLUME /myvol
 ```
-Je le construit :
+Je le construis :
 ```shell
 docker build -t hello-world .
 ```
@@ -46,7 +46,7 @@ S'ensuit alors une série de `docker volume inspect` et de copié-collés, jusqu
 ## Une pitite function
 
 Je me suis alors créé la function `dkvls` (DocKerVolumeLS) dans mon .bashrc.  
-Il dépend de [jq](https://stedolan.github.io/jq/).
+Elle dépend de [jq](https://stedolan.github.io/jq/).
 
 ```shell
 function dkvls() {
