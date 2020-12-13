@@ -105,12 +105,11 @@ Exemples :
 * spliter des chunk à stagger avec `git add -p`
 * stash partiel avec `--keep-index`
 
-  Tant que je n'ai pas à slippter des chunk de nouveau code, je privilégie GitKraken pour le stage.
->Ajouter un screenshot de GitKraken
+Tant que je n'ai pas à slippter des chunk de nouveau code, je privilégie GitKraken pour le stage.
 
- Une fois qu'on a bien isolé notre code dans l'état `stagged`, on commit le tout avec un joli message simple mais explicite.
+Une fois qu'on a bien isolé notre code dans l'état `stagged`, on commit le tout avec un joli message simple mais explicite.
 
- Et on discard tout le reste : `git reset --hard`
+Et on discard tout le reste : `git reset --hard`
  
 ## 4. ON LANCE LES TESTS
 
