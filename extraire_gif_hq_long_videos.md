@@ -73,7 +73,7 @@ Je retire 100 pixels en haut et en bas :
 `"text='Coupe-coupe \!'"`
 
 ##### La couleur de la font
-`": fontcolor=white"`
+`"fontcolor=white"`
 
 ##### La taille de la font
 `"fontsize=24"`
