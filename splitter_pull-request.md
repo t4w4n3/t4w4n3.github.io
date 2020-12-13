@@ -1,4 +1,4 @@
-# Personne n'a pris le temps de reviewer ma (gigantesque) PR :(
+# Personne n'a pris le temps de reviewer ma (gigantesque) PR :worried:
 
 Bob a développé une user-story dans une code-base legacy<sup>[^1]</sup>.
 
