@@ -369,8 +369,6 @@ On le génère donc dans une classe (statique ou pas) annotée de `@State`.
 Le scope se limite aux méthodes de benchmark, ou aux threads (forks).  
 Cela signifie qu'entre le benchmark de la méthode `makeAllYellowDucksQuackWithStreamBenchMark` et celui de la méthode `filterYellowDucksWithForLoopBenchmark`, l'état (`State`) sera ré-instancié marlgré sa nature static.
 
-/!\ Attention aux JDD randomisés !
-
 > :warning: **Attention aux JDD randomisés !**
 
 Ici la méthode `createDucksWithRandomColors()` n'est donc pas vraiment random.  
