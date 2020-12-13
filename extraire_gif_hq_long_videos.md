@@ -1,6 +1,6 @@
 # Extraire des gif HQ de longues vidéos sans logiciel d'édition
 
-Vous écrivez votre prochain article/talk tech, et une métaphore vous vient en tête !
+Vous écrivez votre prochain article/talk tech, et une métaphore vous vient en tête !  
 Ça tombe bien, il était temps de faire un trait d'humour pour garder l'attention.
 
 Vous avez une réplique de film bien précise en tête et vous aimeriez la coller, juste là.
