@@ -372,7 +372,7 @@ Cela signifie qu'entre le benchmark de la méthode `makeAllYellowDucksQuackWithS
 > :warning: **Attention aux JDD randomisés !**
 
 Ici la méthode `createDucksWithRandomColors()` n'est donc pas vraiment random.  
-Elle est [idempotente](https://fr.wikipedia.org/wiki/Idempotence). Elle créé toujours le même JDD depuis un fichier CSV.  
+Elle est [idempotente](https://fr.wikipedia.org/wiki/Idempotence). Elle créé toujours le même JDD (depuis un fichier CSV).  
 Le csv, lui, contient un JDD randomisé.  
 Ce n'est pas le sujet ici, mais je vous donne une implémentation grossière (et efficace) :
 ```java
