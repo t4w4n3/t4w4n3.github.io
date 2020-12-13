@@ -1,8 +1,8 @@
-Des Pull-Request reviews plus facile dans Github
-================================================
+Reviewer de gros fichers dans les Pull-Request Github
+=====================================================
 
-Quand on review une pull-request dans Github, l'onglet "files changed" nous montre les fichiers modifés.
-Mais il les tronque à la même largeur que le reste de l'interface :(
+Quand on review une pull-request dans Github, l'onglet "files changed" nous montre les fichiers modifés.  
+Mais il les tronque à la même largeur que le reste de l'interface :confused:
 
 ![](github_review_files.png)
 
@@ -16,7 +16,7 @@ De plus gros fichiers sont moins facile à reviewer.
 
 ![](max_width_none.png)
 
-Ahhhhh, on y voit plus clair :D
+Ahhhhh, on y voit plus clair :relaxed:
 
 ## Automatiser le change-style
 
@@ -33,11 +33,11 @@ Sous Firefox ou Chrome : Plugin Stylus
 
 ### Configuration
 
-1. New style
+#### 1. New style
 
 ![](stylus_new_style.png)
 
-2. Style css code
+#### 2. Style css code
 
 ![](stylus_style_code.png)
 
@@ -47,12 +47,12 @@ Sous Firefox ou Chrome : Plugin Stylus
 }
 ```
 
-3. Url matching
+#### 3. Url matching
 
 ![](stylus_style_regex.png)
 
 `https://github.com/.*/files`
 
-4. Enregistrer
+#### 4. Enregistrer
 
-5. Tadaaaaa
+#### 5. Tadaaaaa
