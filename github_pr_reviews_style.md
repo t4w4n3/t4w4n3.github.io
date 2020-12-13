@@ -45,7 +45,7 @@ Sous Firefox ou Chrome : Plugin Stylus
 ![](stylus_style_code.png)
 
 ```css
-.container-lg {
+.container-xl {
     max-width: none;
 }
 ```
