@@ -332,7 +332,7 @@ MyBenchmark.helloWorldBenchmark  avgt    3  2,513 ± 0,188  ns/op
 Je trouve que l'unité seconde/opération est souvent plus parlante.  
 C'est ce que permet le mode `AverageTime`.
 
-Benjamin et Bertrand sortent le carte :coffee:.  
+Benjamin et Bertrand sortent alors la carte :coffee:.  
 À leur retour, ils créeront un benchark de leur code de production.  
 À suivre : [partie 2](article-jmh-02.html)
 
