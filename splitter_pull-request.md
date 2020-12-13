@@ -127,7 +127,7 @@ Et on discard tout le reste : `git reset --hard`
 
 ## 6. Deuxième sous-branche
 
- On la tire depuis la 1ère, et on recommence à l'étape 5.
+ On la tire depuis la 1ère, et on recommence à l'étape 3.
 
 ## 7. PR de la 2nd sous-branche
 
