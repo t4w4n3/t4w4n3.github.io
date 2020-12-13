@@ -184,7 +184,7 @@ Ils ajoutent la dépendance vers leur projet :
 ### Gradle
 
 Il est également possible d'utiliser JMH dans un projet Gradle.  
-https://github.com/melix/jmh-gradle-plugin
+[https://github.com/melix/jmh-gradle-plugin](https://github.com/melix/jmh-gradle-plugin)
 
 ### Hello World
 
