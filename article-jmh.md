@@ -23,22 +23,22 @@ Et enfin ils ont développé les tests unitaires et le code de production en TDD
 ### Ducks everywhere
 Voici comment ils ont décidé de faire quacker tous les canards jaunes dans le `DuckService` :
 
-```Java
-    public void makeAllYellowDucksQuack() {
-        filterAllYellowDucksThen().forEach(makeItQuack);
-    }
+```java
+public void makeAllYellowDucksQuack() {
+    filterAllYellowDucksThen().forEach(makeItQuack);
+}
 
-    private Stream<Duck> filterAllYellowDucksThen(){
-        return iterateAllDucksThen().filter(yellowDucks);
-    }
+private Stream<Duck> filterAllYellowDucksThen(){
+    return iterateAllDucksThen().filter(yellowDucks);
+}
 
-    private static Consumer<Duck> makeItQuack = Duck::quack;
+private static Consumer<Duck> makeItQuack = Duck::quack;
 
-    private Stream<Duck> iterateAllDucksThen() {
-        return ducks.stream();
-    }
+private Stream<Duck> iterateAllDucksThen() {
+    return ducks.stream();
+}
 
-    private static Predicate<Duck> yellowDucks = Duck::isYellow;
+private static Predicate<Duck> yellowDucks = Duck::isYellow;
 ```
 
 Après quelques itérations, la PIC<sup>[^1]</sup> finit par indiquer que 100% des tests passent : le [DoD](https://www.leadingagile.com/2017/02/definition-of-done/) est rempli.
