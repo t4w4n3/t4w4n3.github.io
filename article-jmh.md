@@ -428,7 +428,7 @@ Un quack mettant environ 1ms, on note que la compilation JIT a économisé pas m
 
 Voyons les performances d'autres implémentations de quacking :
 
-```Java
+```java
 public void makeAllYellowDucksQuackWithForLoop() {
     for (Duck duck : ducks) {
         if (duck.isYellow()){
