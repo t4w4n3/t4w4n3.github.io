@@ -1,6 +1,6 @@
 # Personne n'a pris le temps de reviewer ma (gigantesque) PR :(
 
-Bob a développé une user-story dans une code-base legacy[^1].
+Bob a développé une user-story dans une code-base legacy<sup>[1](#legacy)</sup>.
 
 Le Dod[^2] contient, entre autres :
 
@@ -91,15 +91,15 @@ git cherry-pick --no-commit tmp
  Ou bien on utilise un GUI comme [GitKraken](https://www.gitkraken.com/invite/whLo3ms9) <3
 
  J'aime beaucoup cet outil, mais je ne peux pas me passer de la command-line pour certaines manipulations.
- 
+
 Exemples :
-    * rebase interractif pour
-      * squash
-      * ré-écrire un commit en plein milieu de ma branche
-    * Lancer une résolution de conflits compliquée avec `git mergetool`, qui va ouvrir mon merveilleux GUI Kdiff3
-    * spliter des chunk à stagger avec `git add -p`
-    * stash partiel avec `--keep-index`
-</br></br>
+
+* rebase interractif pour
+  * squash
+  * ré-écrire un commit en plein milieu de ma branche
+* Lancer une résolution de conflits compliquée avec `git mergetool`, qui va ouvrir le merveilleux GUI [Kdiff3](http://kdiff3.sourceforge.net/)
+* spliter des chunk à stagger avec `git add -p`
+* stash partiel avec `--keep-index`
 
   Tant que je n'ai pas à slippter des chunk de nouveau code, je privilégie GitKraken pour le stage.
 >Ajouter un screenshot de GitKraken
@@ -107,8 +107,8 @@ Exemples :
  Une fois qu'on a bien isolé notre code dans l'état `stagged`, on commit le tout avec un joli message simple mais explicite.
 
  Et on discard tout le reste : `git reset --hard`
-
-6. ON LANCE LES TESTS
+ 
+## 4. ON LANCE LES TESTS
 
  Rappel de la 1ère contrainte :
 >Chaque sous-PR doit être stable
@@ -118,25 +118,28 @@ Exemples :
  * On commit les fix (ou on amend dans le précédent `git commit --amend`)
  * On merge nos fix dans le big-commit temporaire
 
-7. Quand la première sous-branche est stable
+## 5. Quand la première sous-branche est stable
 
  On peut déjà la push et lancer la PR vers la branche d'origine (surement la branche develop).
 
-8. Deuxième sous-branche
+## 6. Deuxième sous-branche
 
  On la tire depuis la 1ère, et on recommence à l'étape 5.
 
-9. PR de la 2nd sous-branche
+## 7. PR de la 2nd sous-branche
 
  Quand la 2ème sous-branche est stable, on lance la PR *vers la précédente sous-branche* (et non vers la branche develop).
 
  C'est cela qui permet de les reviewer en parrallel : chaque sous-PR ne contient que le diff entre elle et la précédente.
 
-10. Quand la 1ère PR est reviewée
+## 8. Quand la 1ère PR est reviewée
 
  On la merge dans la develop
 
  PUIS on fait pointer la sous-PR suivante vers la develop !
 Les reviews déjà faites ne seront heueusement pas affectées.
 
-11. Et on continu ce cycle jusqu'à ce que toutes les sous-PR soient mergées.
+## 9. Et on continu ce cycle jusqu'à ce que toutes les sous-PR soient mergées.
+
+
+<a name="legacy">1</a>Pouet
