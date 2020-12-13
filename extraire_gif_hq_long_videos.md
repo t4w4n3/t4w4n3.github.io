@@ -29,7 +29,7 @@ Habituellement je l'utilise pour transformer des tracks audio en [Ogg Opus](http
 ### Raw command
 
 ```shell
-ffmpeg -ss 1:21 -t 4 -i Scalpel.mp4 -vf "fps=20,crop=1280:530:0:100,scale=500:-1" -gifflags +transdiff -y output.gif
+ffmpeg -ss 1:21 -t 4 -i Scalpel.mp4 -vf "fps=20,crop=1280:530:0:100,scale=500:-1,drawtext=enable='between(t,1,4)':text='Coupe-coupe \!': fontcolor=white: fontsize=24: box=1: boxcolor=black@0.5:boxborderw=5: x=(w-text_w)/2: y=h-text_h" -gifflags +transdiff -y output.gif
 ```
 
 #### Cibler la séquence
@@ -61,11 +61,39 @@ Je retire 100 pixels en haut et en bas :
 `ffplay -i Scalpel.mp4 -vf "crop=1280:520:0:100"`
 
 #### Redimensionner la vidéo (découpée) à 500 pixels de long
-
 `-vf "scale=500:-1"`
 
-#### La magie gif de ffmpeg
+#### Incruster la subtile réplique
+`-vf "drawtext=enable='between(t,1,4)':text='Coupe-coupe \!': fontcolor=white: fontsize=24: box=1: boxcolor=black@0.5:boxborderw=5: x=(w-text_w)/2: y=h-text_h"`
 
+##### À partir de 1s jusqu'à la fin
+`"enable='between(t,1,4)'"`
+
+##### Le contenu
+`"text='Coupe-coupe \!'"`
+
+##### La couleur de la font
+`": fontcolor=white"`
+
+##### La taille de la font
+`"fontsize=24"`
+
+##### La taille du background
+`"box=1"`
+
+##### La couleur de background
+`"boxcolor=black"`
+
+##### L'opacité du background
+`"@0.5"`
+
+##### La taille des bordures du background
+`"boxborderw=5"`
+
+##### Les coordonnées du text
+`"x=(w-text_w)/2: y=h-text_h"`
+
+#### La magie gif de ffmpeg
 `-gifflags +transdiff`
 
 Dans les `gifFlags` il y a, entre autres, le mode loop.
@@ -73,7 +101,6 @@ Dans les `gifFlags` il y a, entre autres, le mode loop.
 ### Résultat
 
 ![](cut-cut.gif)
-
 
 ## Source
 J'ai découvert cette feature de ffmpeg grâce à [cet article](http://blog.pkh.me/p/21-high-quality-gif-with-ffmpeg.html), qui explique, en plus, comment ffmpeg s'y prend pour avoir des gif HQ (changer la palette de couleur à chaque frame).
