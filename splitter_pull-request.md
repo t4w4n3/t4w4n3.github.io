@@ -146,11 +146,6 @@ Les reviews déjà faites ne seront heueusement pas affectées.
 ## 9. Et on continu ce cycle jusqu'à ce que toutes les sous-PR soient mergées.
 
 
-[^1]: Ma définition : Un code qui a au moins une des caractéristiques suivantes :
-Ne respecte pas les conventions de la team
-N'est pas couvert par des tests d'acceptation
-N'est pas couvert par des tests unitaires
-N'a pas été suffisamment refactoré
-N'est pas compréhensible rapidement par la majorité de la team
+[^1]: Ma définition : Un code qui a au moins une des caractéristiques suivantes : <br/>Ne respecte pas les conventions de la team<br/>N'est pas couvert par des tests d'acceptation<br/>N'est pas couvert par des tests unitaires<br/>N'a pas été suffisamment refactoré<br/>N'est pas compréhensible rapidement par la majorité de la team
 
 [^2]: Pouet2
