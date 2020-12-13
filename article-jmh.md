@@ -90,7 +90,7 @@ Pour des résultats plus fiables, [openjdk](https://openjdk.java.net/projects/co
 ##### Maven
 
 Ils créent donc un nouveau projet de benchmark avec l'archetype maven :
-```xml
+```bash
 mvn archetype:generate \
     -DinteractiveMode=false \
     -DarchetypeGroupId=org.openjdk.jmh \
