@@ -250,7 +250,8 @@ Il semble que le benchmark compte faire 5 forks. Voyons déjà ce que les log du
 * On voit que 2 étapes de warmup semblent suffire à stabiliser
 
 Et si vous tenez vraiment aux 4 forks restants :
-![](4_forks.jpg)
+
+<img src="https://t4w4n3.github.io/4_forks.jpg" style="display: block; margin-left: auto; margin-right: auto; width: 50%;"/>
 
 La synthèse des 5 forks :
 
@@ -335,6 +336,7 @@ C'est ce que permet le mode `AverageTime`.
 
 Benjamin et Bertrand sortent alors la carte :coffee:.  
 À leur retour, ils créeront un benchark de leur code de production.  
+
 À suivre : [partie 2](article-jmh-02.html)
 
 --------------------
