@@ -519,3 +519,4 @@ cd myapp
 #That's it, you have a Grails server and a binded Angular client alive ;)
 ```
 
+Full sources (with some enhancements, like fragment-collision fix)  are available on [github.com/t4w4n3/shorturl](https://github.com/t4w4n3/shorturl/)
