@@ -72,7 +72,7 @@ dkvls #Revient à faire docker volume ls
 dkvls all #Fait un ls dans chaque volume
 dkvls <volume_id> # Fait un ls dans le volume dont l'id commence par volume_id
 ```
-<video controls width="640">
+<!-- <video controls width="640">
     <source src="dkvls_cut.webm" type="video/webm">
-</video>
-<!-- ![](dkvls_cut.webm) -->
+</video> -->
+![](dkvls.gif)
