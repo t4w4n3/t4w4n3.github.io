@@ -439,7 +439,7 @@ git push heroku master
 Heroku has a pre-hooks on the pushes : it makes the deployment as parts of the push.
 
 * If the deployment success, the push successes
-* If the deployment fail, the push fails
+* If the deployment fails, the push fails
 
 This way, the master reflects production effortlessly.
 
