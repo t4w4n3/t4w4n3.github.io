@@ -508,7 +508,7 @@ If you felt the power of Grails here, just try it with this url-shortener or any
 
 You can try it on [t4w4n3-shorturl2.herokuapp.com](https://t4w4n3-shorturl2.herokuapp.com/), if you really want to lengthen some urls :wink:
 
-Heroku apps are shutdown when not used for 30 mins, so you certainly will have to wait for the container to start the app (15 seconds).
+Free Heroku apps are shutdown when not used for 30 mins, so you certainly will have to wait for the container to start the app (15 seconds).
 
 You are definitively not into server-pages, and you prefer JS frameworks (Vue, React, Angular) ? No problem, Grails has profiles for them :
 
