@@ -1,4 +1,5 @@
-# Évaluez vos skills de manière pragmatique
+My skills
+=========
 
 1. Utilisé en production :factory:
 2. Utilisé en projet personnel :house_with_garden:

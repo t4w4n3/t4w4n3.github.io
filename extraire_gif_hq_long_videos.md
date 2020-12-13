@@ -1,4 +1,4 @@
-# Extraire des gif HQ de longues vidéos sans logiciel d'édition
+# Extraire des gif de longues vidéos sans logiciel d'édition
 
 Vous écrivez votre prochain article/talk tech, et une métaphore vous vient en tête !  
 Ça tombe bien, il était temps de faire un trait d'humour pour garder l'attention.
@@ -29,7 +29,7 @@ Habituellement je l'utilise pour transformer des tracks audio en [Ogg Opus](http
 ### Raw command
 
 ```shell
-ffmpeg -ss 1:21 -t 4 -i Scalpel.mp4 -vf "fps=20,crop=1280:530:0:100,scale=500:-1,drawtext=enable='between(t,1,4)':text='Coupe-coupe \!': fontcolor=white: fontsize=24: box=1: boxcolor=black@0.5:boxborderw=5: x=(w-text_w)/2: y=h-text_h" -gifflags +transdiff -y output.gif
+ffmpeg -ss 1:21 -t 4 -i Scalpel.mp4 -vf "fps=20,crop=1280:530:0:100,scale=500:-1,drawtext=enable='between(t,1,4)':text='Coupe-coupe \!': fontcolor=white: fontsize=24: box=1: boxcolor=black@0.5:boxborderw=5: x=(w-text_w)/2: y=h-text_h" -gifflags -y output.gif
 ```
 
 #### Cibler la séquence
@@ -93,14 +93,33 @@ Je retire 100 pixels en haut et en bas :
 ##### Les coordonnées du text
 `"x=(w-text_w)/2: y=h-text_h"`
 
-#### La magie gif de ffmpeg
-`-gifflags +transdiff`
+### Encodage différentiel
 
-Dans les `gifFlags` il y a, entre autres, le mode loop.
+Il y a 2 manières de coder les images d'un gif :
+* Encoder entièrement chaque image
+* Encode uniquement le delta entra chaque image
+
+Le mode delta (cumulative layers) est activé par l'option `-gifflags`
 
 ### Résultat
 
 ![](cut-cut.gif)
 
 ## Source
-J'ai découvert cette feature de ffmpeg grâce à [cet article](http://blog.pkh.me/p/21-high-quality-gif-with-ffmpeg.html), qui explique, en plus, comment ffmpeg s'y prend pour avoir des gif HQ (changer la palette de couleur à chaque frame).
+J'ai découvert cette feature de ffmpeg grâce à [cet article](http://blog.pkh.me/p/21-high-quality-gif-with-ffmpeg.html).
+
+## Pour aller plus loin
+
+Pour gagner en qualité on peut changer la palette de couleurs utilisée pour générer le gif.  
+Cela se fait en 2 étapes :
+* On génère la palette (avec plein de parametres disponibles)
+* On transcode la vidéo en utilisant cette palette
+
+```shell
+#Étape 1
+ffmpeg -ss 1:21 -t 4 -i Scalpel.mp4 -vf "crop=1280:530:0:100,scale=500:-1:flags=lanczos,palettegen" -y palette.png
+
+#Étape 2
+ffmpeg -ss 1:21 -t 4 -i Scalpel.mp4 -i palette.png -lavfi "fps=20,crop=1280:530:0:100,scale=500:-1:flags=lanczos,drawtext=enable='between(t,1,4)':text='Coupe-coupe \!': fontcolor=white: fontsize=24: box=1: boxcolor=black@0.5:boxborderw=5: x=(w-text_w)/2: y=h-text_h,paletteuse" -y output.gif
+```
+ffmpeg -ss 1:21 -t 4 -i Scalpel.mp4 -vf "fps=20,crop=1280:530:0:100,scale=500:-1,drawtext=enable='between(t,1,4)':text='Coupe-coupe \!': fontcolor=white: fontsize=24: box=1: boxcolor=black@0.5:boxborderw=5: x=(w-text_w)/2: y=h-text_h" -gifflags -y output.gif
