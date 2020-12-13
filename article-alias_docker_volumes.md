@@ -1,4 +1,4 @@
-Explorer ses volumes docker unbinded en 1 function
+Explorer ses volumes docker unbound en 1 function
 ======================================
 
 L'instruction `VOLUME` du Dockerfile permet de monter un dossier du conteneur dans son hôte.  
