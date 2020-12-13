@@ -1,6 +1,6 @@
 # Heroku + Grails : from idea to prod in 1 article
 
-I recently (re-)discovered Heroku by watching [this video](https://www.youtube.com/watch?v=gq5yubc1u18) from the channel [Coding Garden](https://coding.garden/).
+I recently (re-)discovered Heroku by watching [this video](https://www.youtube.com/watch?v=gq5yubc1u18) from the Youtube channel [Coding Garden](https://coding.garden/).
 
 In this recorded live coding, he try (and success) to build an url-shortener website from scratch, and deploy it to production thanks to Heroku PAAS and its CLI, in 1 hour.
 
