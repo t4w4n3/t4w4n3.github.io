@@ -3,7 +3,10 @@ Orienter ses choix techniques en Java avec le microbenchmarking
 
 ## Partie 2
 
-Voir la [partie 1](article-jmh-01.html)
+Voir la [partie 1](article-jmh-01.html).  
+
+À leur retour du café, Benjamin passe [navigateur](https://en.wikipedia.org/wiki/Pair_programming) et Bertrand passe [conducteur](https://en.wikipedia.org/wiki/Pair_programming).
+Avant leur pause, ils avaient expérimenté les annotations de JMH dans un HelloWorld, et ils étaient prêt à passer au code de prod.
 
 ### Benchmark du code de prod
 
@@ -35,17 +38,20 @@ public class MyBenchmark {
 
 ### Le Jeu de données
 
+#### L'annotation `@State`
 L'étape d'instanciation du JDD ne doit pas être comptabilisée dans le bench.  
 On le génère donc dans une classe (statique ou pas) annotée de `@State`.  
 Le scope se limite aux méthodes de benchmark, ou aux threads (forks).  
 Cela signifie qu'entre le benchmark de la méthode `makeAllYellowDucksQuackWithStreamBenchMark` et celui de la méthode `filterYellowDucksWithForLoopBenchmark`, l'état (`State`) sera ré-instancié marlgré sa nature static.
 
+#### Idempotence
 > :warning: **Attention aux JDD randomisés !**
 
-Ici la méthode `createDucksWithRandomColors()` n'est donc pas vraiment random.  
+Pour des résultats fiables, il est impératif d'utiliser le même JDD à chaque itération.
+Ici la méthode `createDucksWithRandomColors()` n'est en fait pas du tout random.  
 Elle est [idempotente](https://fr.wikipedia.org/wiki/Idempotence). Elle créé toujours le même JDD (depuis un fichier CSV).  
-Ce csv contient un JDD randomisé.  
-Ce n'est pas le sujet ici, mais je vous donne une implémentation grossière (et efficace) :
+Par contre ce csv contient bien un JDD randomisé.  
+Ce n'est pas le sujet ici, mais je vous donne une implémentation grossière (et efficace) pour charger le csv en `List<Duck>` :
 ```java
 public List<Duck> createDucksWithRandomColors(int number) {
     List<Duck> collect = IntStream.range(0, number).mapToObj(i -> new Duck()).collect(toList());
@@ -186,13 +192,13 @@ Avant de re-factorer, on se re-pose alors les questions :
 ### Benchmarks as test
 En changeant le scope de la dépendance Maven JMH en `test`, on peut envisager d'asserter les résultats dans des TU.
 
-Et donc, à suivre : "Benchmark As Unit-Test, asserting methods performances" ;)
+Et donc, à suivre : [Benchmark As Unit-Test, asserting methods performances](en-construction.html) ;)
 
 ### Java 12
 
 JMH s'est imposé comme un standard du microbenchmarking en Java et a alors été intégré nativement dans Java 12, dans la [JEP 230](https://openjdk.java.net/jeps/230).
 
-Et donc, à suivre : "MicroBenchmarks natif avec Java 12" ;)
+Et donc, à suivre : [MicroBenchmarks natif avec Java 12](en-construction.html) ;)
 
 
 --------------------

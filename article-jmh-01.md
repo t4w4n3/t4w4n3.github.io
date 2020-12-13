@@ -335,7 +335,7 @@ Je trouve que l'unité seconde/opération est souvent plus parlante.
 C'est ce que permet le mode `AverageTime`.
 
 Benjamin et Bertrand sortent le carte :coffee:.  
-À leur retour, ils créeront un benchark de leur code de production.
+À leur retour, ils créeront un benchark de leur code de production.  
 À suivre : [partie 2](article-jmh-02.html)
 
 --------------------
