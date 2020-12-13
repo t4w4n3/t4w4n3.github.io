@@ -1,8 +1,9 @@
 Tester ses controller Spring mvc (sans spring-boot) (mais avec Spock)
 =====================================================================
 
-La [doc Spring.io](https://spring.io/guides/gs/testing-web/) est bien gentille, mais elle suppose d'avoir (ou de pouvoir avoir) des dépendances spring-boot.  
-Or les contraintes d'un projet de donnent pas toujours cette possibilité.
+La [doc Spring.io](https://spring.io/guides/gs/testing-web/) est bien gentille, mais elle suppose d'avoir (ou de pouvoir avoir) des dépendances spring-boot avec Gradle.  
+Or les contraintes d'un projet de donnent pas toujours la possibilité d'ajouter les dépendances spring-boot-starter.  
+Ou alors notre projet est un bon vieux Spring/Maven.
 
 ## Minimal versions pour mockMvc
 
