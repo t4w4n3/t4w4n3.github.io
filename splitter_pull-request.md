@@ -142,4 +142,4 @@ Les reviews déjà faites ne seront heueusement pas affectées.
 ## 9. Et on continu ce cycle jusqu'à ce que toutes les sous-PR soient mergées.
 
 
-<a name="legacy">1</a>Pouet
+<a name="legacy">1</a>. Pouet
