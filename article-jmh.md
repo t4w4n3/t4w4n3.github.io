@@ -332,7 +332,7 @@ MyBenchmark.helloWorldBenchmark  avgt    3  2,513 ± 0,188  ns/op
 ```
 
 Je trouve que l'unité seconde/opération est souvent plus parlante.  
-C'est ce que permet le mode `AverageTime`.</br>
+C'est ce que permet le mode `AverageTime`.
 
 ### Benchmark du code de prod
 
