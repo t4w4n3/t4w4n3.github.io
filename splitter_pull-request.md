@@ -54,7 +54,7 @@ Pour faciliter les cherry-pick à venir, Bob créé un merge **local** de sa big
 git checkout develop
 git merge feature/big-branch
 ```
-(Il n'y a pas de conflit dans le merge, car Bob n'enverrait jamais en review une PR avec des conflits ;). Il les a résolut avant)
+(Il n'y a pas de conflit dans le merge, car Bob n'enverrait jamais en review une PR avec des conflits :wink:. Il les a résolut avant)
 
 ### 2. Tirer une nouvelle branche depuis l'origine de la branche à splitter
 
