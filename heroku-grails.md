@@ -35,17 +35,17 @@ Then we are redirected to the target url.
 My stack
 ---
 
-I'm a Java backend guy, who can alos do some stuff on frontend.
+I'm a Java backend guy, who can also do some stuff on frontend.
 
 And I hate wasting time on basic configuration when I just want something that works.
 
 (Note that I don't say I hate configuration).
 
-So when I heard about "Convention over Configuration", I quitted JavaEE7/Weblogic/XML-everywhere, to embrace the Spring World.
+So when I heard about "Convention over Configuration", I quited JavaEE7/Weblogic/XML-everywhere, to embrace the Spring World.
 
 But raw Springboot was not enough for me. I work on projects with micro time-to-market, and Java is too verbose to achieve complexe data structure with simple code.
 
-Also, I don't seek for best perfomance code, but for best understability code.
+Also, I don't seek for best perfomance code, but for best understandability code.
 
 And then, I adopted Groovy (It could have been Kotlin as well maybe).
 
