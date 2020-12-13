@@ -17,7 +17,7 @@ We will build a similar url shortener, where we can choose the url fragment.
 The MVP is :
 
 ```
-Given a form with 
+Given a form with
     * an optional field for the fragment
     * a mandatory field for the url to shorten
 
@@ -62,7 +62,7 @@ Requirements
 * An Heroku account
 * The [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
 * Grails 4.1.0.M2 (any other version should do it)
-* (optional) Intellij 
+* (optional) Intellij
 
 If you have sdkman :
 
@@ -86,9 +86,9 @@ Let's see what we have; by launching the dev mode :
 ./grailsw run-app
 ```
 
-![](/home/t4w4n3/Images/run-app.png)
+![](run-app.png)
 
-![](/home/t4w4n3/Images/welcomeToGrails.png)
+![](welcomeToGrails.png)
 
 Step 2 : Creating the main entity
 
@@ -154,11 +154,11 @@ Stooooop ! Don't reload the app ! Grails has already done it ;)
 
 Just open the browser :
 
-![](/home/t4w4n3/Images/available_controller.png)
+![](available_controller.png)
 
-![](/home/t4w4n3/Images/shorturl_list.png)
+![](shorturl_list.png)
 
-![](/home/t4w4n3/Images/create_shorturl.png)
+![](create_shorturl.png)
 
 Step 4 : UrlMapping
 ---
@@ -202,7 +202,7 @@ static constraints = {
 }
 ```
 
-![](/home/t4w4n3/Images/fragment_optional.png)
+![](fragment_optional.png)
 
 Much better ^^
 
@@ -256,7 +256,7 @@ If a ShortUrl exists in the database with a matching id or fragment, it redirect
 
 Yes, ids and fragments can have collisions. Fixing that is not part of the mvp.
 
-Now, the 
+Now, the
 
 -----------------
 
