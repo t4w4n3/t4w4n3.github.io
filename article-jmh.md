@@ -502,7 +502,7 @@ Cependant il faut toujours avoir en tête la volumétrie de production, afin de 
 Car il y a d'autres objectifs pour le code, entre autres :
 * La lisibilité
 * L'évolutivité
-* Le modularité
+* La modularité
 
 Si le gain de temps est de quelques nanosecondes pour très peu d'itérations, on préferera conserver une implémentation plus simple, et/ou plus conpréhensible.  
 En utilisant régulièrement JMH, on découvre que les for-loop sont très souvent plus rapides que leur équivalent fonctionnel, mais elles sont aussi très souvent plus complexes[^4] et/ou plus compliquées.  
