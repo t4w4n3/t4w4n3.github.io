@@ -488,7 +488,7 @@ Voyons pour des tailles d'élevages différentes :
 |      10000     |     740131    |         74,01         |
 
 Même pour seulement 5 canards, le temps d'inititalisation du stream et les temps de fork/merge du thread-pool sont négligeables.  
-/!\ Ca n'aurait pas été le cas pour un temps de quaking plus court !
+> :warning: **Ca n'aurait pas été le cas pour un temps de quaking plus court !**
 
 ## Conclusion
 
