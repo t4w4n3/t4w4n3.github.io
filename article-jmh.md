@@ -70,7 +70,7 @@ Tout comme la couverture unitaire rend une application plus stable dans sa globa
 
 >JMH is a Java harness for building, running, and analysing nano/micro/milli/macro benchmarks written in Java and other languages targetting the JVM.
 
-#### Requirements
+### Requirements
 
 **Attention à bien utiliser un JDK avec une JVM HotSpot[^2]**  
 Les résultats produits avec une autre JVM peuvent ne pas être fiables :
@@ -82,12 +82,12 @@ Extrait d'un benchmark avec une JVM OpenJ9[^3] :
 WARNING: Not a HotSpot compiler command compatible VM ("Eclipse OpenJ9 VM-1.8.0_242"), compilerHints are disabled.
 ```
 
-#### Ajout des dépendances
+### Ajout des dépendances
 
 Pour des résultats plus fiables, [openjdk](https://openjdk.java.net/projects/code-tools/jmh/#Basic%20Considerations) recommande de créer les benchmarks dans un projet dédié :
 >[...] setup a standalone project that depends on the jar files of your application
 
-##### Maven
+#### Maven
 
 Ils créent donc un nouveau projet de benchmark avec l'archetype maven :
 ```bash
@@ -181,7 +181,7 @@ Ils ajoutent la dépendance vers leur projet :
 </dependency>
 ```
 
-#### Gradle
+### Gradle
 
 Il est également possible d'utiliser JMH dans un projet Gradle.  
 https://github.com/melix/jmh-gradle-plugin
@@ -199,7 +199,7 @@ public class MyBenchmark {
 }
 ```
 
-#### First run !
+### First run !
 
 Command line :
 ```
@@ -215,7 +215,7 @@ C'est parti !
 
 ![alt text](run_benchmark.png)
 
-#### Analysons le rapport avec eux
+### Analysons le rapport avec eux
 ```
 # Warmup: 5 iterations, 10 s each
 # Measurement: 5 iterations, 10 s each
@@ -313,7 +313,7 @@ public class MyBenchmark {
 ```
 Pour plus de précisions sur les params des annotations, je vous invite à visiter leurs interfaces dans les [sources](https://hg.openjdk.java.net/code-tools/jmh/file/24b3c89b5332/jmh-core/src/main/java/org/openjdk/jmh/annotations) de JMH.
 
-#### Voyons l'incidence des annotations dans le rapport
+### Voyons l'incidence des annotations dans le rapport
 
 ```
 # Fork: 1 of 1
@@ -362,7 +362,7 @@ public class MyBenchmark {
 }
 ```
 
-#### Le Jeu de données
+### Le Jeu de données
 
 L'étape d'instanciation du JDD ne doit pas être comptabilisée dans le bench.  
 On le génère donc dans une classe (statique ou pas) annotée de `@State`.  
@@ -490,11 +490,11 @@ Voyons pour des tailles d'élevages différentes :
 Même pour seulement 5 canards, le temps d'inititalisation du stream et les temps de fork/merge du thread-pool sont négligeables.  
 /!\ Ca n'aurait pas été le cas pour un temps de quaking plus court !
 
-### Conclusion
+## Conclusion
 
 Grace aux microbenchmarks et JMH, ils savent qu'ils ont résolu leur problème de contention, avant même de renvoyer les correctifs au bencheur.
 
-### Disclaimer on results
+## Disclaimer on results
 
 Les microbenchmarks révèlent effectivement que des implémentations sont plus efficaces que d'autres.
 Cependant il faut toujours avoir en tête la volumétrie de production, afin de pouvoir répondre à la question :
