@@ -2,19 +2,18 @@ Articles tech
 =========
 
 ## Java
-### Microbenchmarking avec Jmh
+### Orienter ses choix techniques en Java avec le microbenchmarking
 * [Partie 1](https://t4w4n3.github.io/article-jmh-01.html)
 * [Partie 2](https://t4w4n3.github.io/article-jmh-02.html)
-
+### Spring
+* [Tester ses controller Spring mvc (sans spring-boot) (mais avec Spock)](article-test-controller-spring)
 ## Git
-* [Professionnal Pull-Requests](splitter_pull-request)
-* [Github reviews PR](github_pr_reviews_style)
-
+* [Personne n'a pris le temps de reviewer ma (gigantesque) PR](splitter_pull-request)
+* [Reviewer de gros fichers dans les Pull-Request Github](github_pr_reviews_style)
 ## Docker
 * [Explorer ses volumes docker unbound en 1 function](article-alias_docker_volumes)
-
 ## ffmpeg
-* [mp4 to gif](https://t4w4n3.github.io/extraire_gif_hq_long_videos.html)
+* [Extraire des gif HQ de longues vidéos sans logiciel d'édition (mp4 to gif)](https://t4w4n3.github.io/extraire_gif_hq_long_videos.html)
 
 ---------------
 Antoine Salesse  

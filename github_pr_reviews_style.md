@@ -12,7 +12,10 @@ De plus gros fichiers sont moins facile à reviewer.
 
 ![](responsable_max_width.png)
 
-## max-width: none;
+## La solution
+```css
+max-width: none;
+```
 
 ![](max_width_none.png)
 
