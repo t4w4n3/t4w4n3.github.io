@@ -22,6 +22,7 @@ Et enfin ils ont développé les tests unitaires et le code de production en TDD
 
 ### Ducks everywhere
 Voici comment ils ont décidé de faire quacker tous les canards jaunes dans le `DuckService` :
+
 ```Java
 public void makeAllYellowDucksQuack() {
     filterAllYellowDucksThen().forEach(makeItQuack);
