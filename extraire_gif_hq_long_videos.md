@@ -57,6 +57,9 @@ ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s
 Je retire 100 pixels en haut et en bas :
 `-vf "crop=1280:520:0:100"`
 
+#### Prévisualiuser les params de Découpage
+`ffplay -i Scalpel.mp4 -vf "crop=1280:520:0:100"`
+
 ### Redimensionner la vidéo à 500 pixels de long
 
 `-vf "scale=500:-1"`
