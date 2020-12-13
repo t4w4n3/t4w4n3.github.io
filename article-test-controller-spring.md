@@ -52,7 +52,7 @@ Il faut tout de même se conformer aux versions suivantes :
 ```
 
 
-Pour que les tests Spock soient exécutés par la phase `test` de Maven, il faut inclure leur filename pattern :
+Pour que les tests Spock soient exécutés par la phase `test` de Maven, il faut y inclure leur filename pattern :
 ```xml
 <plugin>
     <artifactId>maven-surefire-plugin</artifactId>
