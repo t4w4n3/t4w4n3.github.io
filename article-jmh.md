@@ -526,7 +526,7 @@ JMH s'est imposé comme un standard du microbenchmarking en Java et a alors ét�
 Et donc, à suivre : "MicroBenchmarks natif avec Java 12" ;)
 
 
-
+--------------------
 
 [^1]: Plateforme d'Intégration Continue  
 [^2]: HotSpot is the VM from the OpenJDK community. It is the most widely used VM today and is used in Oracle’s JDK. It is suitable for all workloads.  
