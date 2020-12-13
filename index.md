@@ -1,12 +1,12 @@
-Articles tech
-=========
-
+# Articles tech
 ## Java
 ### Orienter ses choix techniques en Java avec le microbenchmarking
 * [Partie 1](https://t4w4n3.github.io/article-jmh-01.html)
 * [Partie 2](https://t4w4n3.github.io/article-jmh-02.html)
 ### Spring
-* [Tester ses controller Spring mvc (sans spring-boot) (mais avec Spock)](article-test-controller-spring)
+* [Tester un controller Spring mvc avec Spock](article-test-controller-spring)
+### Grails
+* [Heroku + Grails : from idea to prod in 1 article](heroku-grails)
 ## Git
 * [Personne n'a pris le temps de reviewer ma (gigantesque) PR](splitter_pull-request)
 * [Reviewer de gros fichers dans les Pull-Request Github](github_pr_reviews_style)
