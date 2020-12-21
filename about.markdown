@@ -15,11 +15,9 @@ J'aime les langages et frameworks de haut niveau : Springboot, **Grails**, **Gro
 
 L'écosystème de la JVM c'est mon truc ! Bien que plus ça va, moins j'aime coder du Java pur. Java avec entres autres son typage static fort, est équipé pour protéger le développeur contre lui-même. Le prix à payer pour une telle protection est la haute verbosité.
 
-Je me tourne donc souvent vers Groovy, qui lève des barrières de Java afin de donner accès aux opérateurs avancés, (null-safe-op, spread-op, leftShift, ...)
+Je me tourne donc souvent vers Groovy, qui lève des barrières de Java afin de donner accès aux opérateurs avancés, (elvis, elvs assignement, safe nav, safe index, spread, range, ...)
 
-
-
-à Groovy, un peu à cause de son typage static fort (qui a ses avantages), mais surtout à cause de son manque d'opérateurs avancés (null-safe-op, spread-op, ...). Ça demande du courage d'utiliser Groovy pour le code de prod, et on trouvera des détracteurs à la pelle. Pour ma part, je build une stack de test suffisante pour me le permettre.
+ Ça demande du courage d'utiliser Groovy pour le code de prod, et on trouvera des détracteurs à la pelle. Pour ma part, je build une stack de test suffisante pour me le permettre.
 
 De plus, Java avec entres autres son typage static fort, est équipé pour protéger le développeur contre lui-même. Le prix â payer pour une telle protection est la verbosité.
 
