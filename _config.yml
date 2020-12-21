@@ -22,12 +22,17 @@ title: t4w4n3 - Blog
 email: contact@antoine-salesse.fr
 description: >- # this means to ignore newlines until "baseurl:"
   
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  Bienvenue sur mon blog tech, je suis Antoine Salesse,
+  dev back-end avec pratiques devops et compétences front-end.
+  Je bosse avec passion pour Younup et ses clients.
+  Vous trouverez ici des articles autour de la JVM,
+  et des outils de dev que je maitrise depuis longtemps,
+  ou que je découvre et tiens absolument à faire gagner en popularité.
+  Certains sont publiés sur le blog de Younup.
 baseurl: "/fr" # the subpath of your site, e.g. /blog
 url: "https://t4w4n3.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  t4w4n3
+linkedin_username: antoine-salesse
 
 # Build settings
 theme: minima
