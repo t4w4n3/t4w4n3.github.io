@@ -22,11 +22,10 @@ title: t4w4n3 - Blog
 email: contact@antoine-salesse.fr
 description: >- # this means to ignore newlines until "baseurl:"
   
-  Bienvenue sur mon blog tech, je suis Antoine Salesse,
-  dev back-end avec pratiques devops et compétences front-end.
+  Bienvenue sur mon blog tech, je suis Antoine Salesse, ingénieur software de spécialité back-end et testing, aussi à l'aise sur en front-end + ops + product-ownership.
   Je bosse avec passion pour Younup et ses clients.
   Vous trouverez ici des articles autour de la JVM,
-  et des outils de dev que je maitrise depuis longtemps,
+  et des outils de dev que je maitrise,
   ou que je découvre et tiens absolument à faire gagner en popularité.
   Certains sont publiés sur le blog de Younup.
 baseurl: "/fr" # the subpath of your site, e.g. /blog
