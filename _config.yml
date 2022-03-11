@@ -18,17 +18,15 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: t4w4n3 - Blog
+title: Antoine Salesse - t4w4n3 - Tech Blog
 email: contact@antoine-salesse.fr
 description: >- # this means to ignore newlines until "baseurl:"
   
-  Bienvenue sur mon blog tech, je suis Antoine Salesse, ingénieur software de spécialité back-end et testing, aussi à l'aise sur en front-end + ops + product-ownership.
+  Bienvenue sur mon blog tech, je suis Antoine Salesse, software engineer backend Java.
   Je bosse avec passion pour Younup et ses clients.
-  Vous trouverez ici des articles autour de la JVM,
-  et des outils de dev que je maitrise,
-  ou que je découvre et tiens absolument à faire gagner en popularité.
-  Certains sont publiés sur le blog de Younup.
-baseurl: "/fr" # the subpath of your site, e.g. /blog
+  Vous trouverez ici des articles autour de la JVM, des reflexions sur le software,
+  et mes expérimentations techniques.
+baseurl: "/" # the subpath of your site, e.g. /blog
 url: "https://t4w4n3.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  t4w4n3
 linkedin_username: antoine-salesse
