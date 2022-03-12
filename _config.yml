@@ -26,8 +26,8 @@ description: >- # this means to ignore newlines until "baseurl:"
   Je bosse avec passion pour Younup et ses clients.
   Vous trouverez ici des articles autour de la JVM, des reflexions sur le software,
   et mes expérimentations techniques.
-baseurl: "/" # the subpath of your site, e.g. /blog
-url: "https://t4w4n3.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "/blog"
+url: "https://t4w4n3.github.io"
 github_username:  t4w4n3
 linkedin_username: antoine-salesse
 
