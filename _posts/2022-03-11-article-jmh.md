@@ -19,11 +19,11 @@ Et encore, les performances de notre implémentation sont noyées dans la grande
 
 Le vrai feedback arrive donc bien plus tard, lorsqu'on commence à se dire "elle est un peu lente l'appli, non ?".
 
-1ère solution pour avoir un feedback atomique et anticipé : être en mesure de construire à la demande un environnement iso-prod, avec volumétrie de prod (anonymisée)[https://www.commitstrip.com/fr/2021/12/07/we-all-do-it-right].
+1ère solution pour avoir un feedback atomique et anticipé : être en mesure de construire à la demande un environnement iso-prod, avec volumétrie de prod [anonymisée](https://www.commitstrip.com/fr/2021/12/07/we-all-do-it-right).
 
 2ᵉ solution : Faire des microbenchmarks de nos implémentations et décider tout de suite laquelle garder, avec de solides arguments reproductibles.
 
-C'est ce que nous allons voir dans cet article, avec l'outil (JMH)[https://github.com/openjdk/jmh].
+C'est ce que nous allons voir dans cet article, avec l'outil [JMH](https://github.com/openjdk/jmh).
 
 > JMH is a Java harness for building, running, and analysing nano/micro/milli/macro benchmarks written in Java and other languages targeting the JVM.
 
@@ -92,7 +92,7 @@ public class ExtractLabelsWithStream implements ExtractLabels {
 }
 ```
 
-Dommage, pas de (spread-operator)[https://groovy-lang.org/operators.html#_spread_operator] en Java ...
+Dommage, pas de [spread-operator](https://groovy-lang.org/operators.html#_spread_operator) en Java ...
 
 ### Dans le vif du sujet : JMH
 
@@ -151,7 +151,7 @@ Puis on y ajoute la dépendance vers le projet à tester :
 
 J'y ai aussi modifié la version cible de compilation en 17, pour matcher avec mon projet.
 
-Voici les sources : (https://github.com/t4w4n3/demo-jmh/tree/main/gradle)[https://github.com/t4w4n3/demo-jmh/tree/main/maven]
+Voici les sources : [https://github.com/t4w4n3/demo-jmh/tree/main/gradle](https://github.com/t4w4n3/demo-jmh/tree/main/maven)
 
 Petit détail sur le pom.xml jmh : le plugin Maven `shade` permet de packager tout le projet **et ses dépendances** dans un uber-jar.
 > An uber-jar is an "over-jar", one level up from a simple JAR, defined as one that contains both your package and all its dependencies in one single JAR file.
@@ -173,7 +173,7 @@ Il est également possible d'utiliser JMH dans un projet Gradle.
 
 J'ai essayé avec succès ce plugin avec un Gradle 7.4.1, c'est vraiment plug-n-play.
 
-Voici les sources : (https://github.com/t4w4n3/demo-jmh/tree/main/gradle)[https://github.com/t4w4n3/demo-jmh/tree/main/gradle]
+Voici les sources : [https://github.com/t4w4n3/demo-jmh/tree/main/gradle](https://github.com/t4w4n3/demo-jmh/tree/main/gradle)
 
 ### Hello World
 

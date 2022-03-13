@@ -526,7 +526,7 @@ Then, we add the template to use on the `<f:table>` element :
 And we create the template. It should be in `grails-app/views/templates/_fields/_shortUrlList.gsp`
 
 The default content can be found in the `grails-fields-plugin`. So I looked in the github
-repo : (https://github.com/grails-fields-plugin/grails-fields/blob/master/grails-app/views/templates/_fields/_table.gsp)[https://github.com/grails-fields-plugin/grails-fields/blob/master/grails-app/views/templates/_fields/_table.gsp]
+repo : [https://github.com/grails-fields-plugin/grails-fields/blob/master/grails-app/views/templates/_fields/_table.gsp](https://github.com/grails-fields-plugin/grails-fields/blob/master/grails-app/views/templates/_fields/_table.gsp)
 
 And I copied it into my template.
 
