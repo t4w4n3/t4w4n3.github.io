@@ -14,9 +14,9 @@ J'ai eu à apporter des changements sur un controller Spring MVC non couvert uni
 Il me fallait donc ajouter la conf adéquate pour l'autowiring du MVC dans la class de Spec.
 
 Pour cela, la [doc Spring.io](https://spring.io/guides/gs/testing-web/) est bien gentille, mais elle suppose d'avoir (ou de pouvoir avoir) des dépendances spring-boot avec Gradle.  
-Or les contraintes d'un projet de donnent pas toujours la possibilité d'ajouter les dépendances spring-boot-starter, ou alors notre projet est un bon vieux Spring/Maven.
+Or les contraintes d'un projet ne donnent pas toujours la possibilité d'ajouter les dépendances spring-boot-starter, ou alors notre projet est un bon vieux Spring/Maven.
 
-Je détail donc dans cet article comment intégrer le framework de test Spock dans un projet Spring MVC sans Springboot, à l'aide de :
+Je détaille donc dans cet article comment intégrer le framework de test Spock dans un projet Spring MVC sans Springboot, à l'aide de :
 
 * spock-core
 * MockMVC
