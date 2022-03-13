@@ -26,7 +26,6 @@ description: >- # this means to ignore newlines until "baseurl:"
   Je bosse avec passion pour Younup et ses clients.
   Vous trouverez ici des articles autour de la JVM, des reflexions sur le software,
   et mes expérimentations techniques.
-baseurl: "/blog"
 url: "https://t4w4n3.github.io"
 github_username:  t4w4n3
 linkedin_username: antoine-salesse

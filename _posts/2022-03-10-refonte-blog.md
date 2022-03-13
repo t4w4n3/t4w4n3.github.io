@@ -10,7 +10,7 @@ Mon précédent blog consistait en un site jekyll avec une page static contenant
 C'était dommage, car le thème de base de Jekyll, Minima, est orienté blogging et contient tout ce qu'il faut pour un design par posts.
 
 Je n'en demande pas plus à un outil de blogging, et je rejoins [https://vladmihalcea.com](Vlad Mihalcea) sur son post :
-![](/blog/assets/images/Blogging_Vlad.jpg)
+![](/assets/images/Blogging_Vlad.jpg)
 
 Temps d'installation/config : 5 minutes
 Temps de rédaction : un peu plus

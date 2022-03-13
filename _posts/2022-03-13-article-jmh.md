@@ -205,9 +205,9 @@ Ou bien avec Gradle :
 
 Et avec IntelliJ (et Eclipse), on peut lancer le jar en `Run Configuration`, avec la step de packaging en `Before launch` :
 
-![](/blog/assets/images/run_configuration_with_before_launch.png)
+![](/assets/images/run_configuration_with_before_launch.png)
 
-![](/blog/assets/images/run_benchmark.png)
+![](/assets/images/run_benchmark.png)
 
 Le benchmark démarre, et nous donne quelques informations :
  * Les paramètres par défaut

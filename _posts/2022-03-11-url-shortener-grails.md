@@ -102,7 +102,7 @@ Grails dev mode supports hotreload, so let's keep our app running.
 
 ### Front-end caption :
 
-> ![](/blog/assets/images/welcome-to-grails.png)
+> ![](/assets/images/welcome-to-grails.png)
 
 ## Step 2 : Creating the main entity
 
@@ -112,7 +112,7 @@ You know what an url is.
 
 A segment is a chunk of an url, between slashes.
 
-> https://t4wan3.github.io/blog/grails/url-shortener-grails
+> https://t4wan3.github.io/grails/url-shortener-grails
 
 In this url, "blog", "grails" and "url-shortener-grails" are segments.
 
@@ -186,13 +186,13 @@ Let's open the browser to see the hotreloaded content :
 
 ### Available controllers :
 
-> ![](/blog/assets/images/available_controller.png)
+> ![](/assets/images/available_controller.png)
 
 We can see here our newly created controller. Let's open it.
 
 ### Short-urls list page
 
-> ![](/blog/assets/images/shorturl_list.png)
+> ![](/assets/images/shorturl_list.png)
 
 When the browser called the controller endpoint with a GET request, there were this header :
 
@@ -204,7 +204,7 @@ Let's see what the "new ShortUrl" button does :
 
 ### Short-url create page
 
-> ![](/blog/assets/images/create_shorturl.png)
+> ![](/assets/images/create_shorturl.png)
 
 It opens a page with a form that allows to create new `ShortUrls`.
 
@@ -212,7 +212,7 @@ It's pretty close to what we want as a our home page !
 
 When we create a `ShortUrl`, we are redirected to new object's `show` page :
 
-![](/blog/assets/images/shorturl-show-page.png)
+![](/assets/images/shorturl-show-page.png)
 
 ### Let's try the link
 
@@ -220,7 +220,7 @@ If I append the fragment to to base-path, I got http://localhost:8080/k2m47.
 
 But it redirects to the 404 page :
 
-![](/blog/assets/images/page-not-found-404.png)
+![](/assets/images/page-not-found-404.png)
 
 ## Step 4 : Configure the redirect
 
@@ -329,7 +329,7 @@ static constraints = {
 }
 ```
 
-![](/blog/assets/images/segment_optional.png)
+![](/assets/images/segment_optional.png)
 
 Much better !
 
@@ -400,7 +400,7 @@ Now, a random word is generated until it is unique (Grails will check in the dat
 
 ## Step 8 : Change redirection on create submit
 
-> ![](/blog/assets/images/show_page.png)
+> ![](/assets/images/show_page.png)
 
 When we create a shorturl, by submitting the form, the 'save' action is run, and we are conventionally redirected to the show page of the created ShortUrl Entity.
 
@@ -494,13 +494,13 @@ rm grails-app/views/shortUrl/edit.gsp
 ```
 
 Great ! Now we can see the created shorturl in the same page :
-> ![](/blog/assets/images/conditional_div.png)
+> ![](/assets/images/conditional_div.png)
 
 ## Step 9 : Add a better index page (paginated list of shorturls)
 
 By default, the list of all shorturls created looks like this :
 
-![](/blog/assets/images/default_shorturl_list_view.png)
+![](/assets/images/default_shorturl_list_view.png)
 
 We don't care about the segment and its show page.
 
@@ -556,7 +556,7 @@ Then, I overwrite the column names and content :
 
 Here is the result :
 
-![](/blog/assets/images/customized_shorturl_list_view.png)
+![](/assets/images/customized_shorturl_list_view.png)
 
 ## Step 10 - A final touch
 
@@ -572,7 +572,7 @@ The new Logo :
 <a class="navbar-brand" href="/#"><asset:image src="axe.svg" alt="Tawane's url shortener Logo"/></a>
 ```
 
-With some resizing in `grails-app/blog/assets/stylesheets/grails.css`
+With some resizing in `grails-app/assets/stylesheets/grails.css`
 
 ```css
 a.navbar-brand img {
