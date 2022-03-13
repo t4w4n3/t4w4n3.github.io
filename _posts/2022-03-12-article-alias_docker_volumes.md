@@ -95,4 +95,4 @@ dkvls <volume_id> # Fait un ls dans le volume dont l'id commence par volume_id
 <!-- <video controls width="640">
     <source src="dkvls_cut.webm" type="video/webm">
 </video> -->
-![](/assets/videos/dkvls.webm)
+![](/blog/assets/videos/dkvls.webm)

@@ -7,7 +7,7 @@ categories: java spring mvc spock
 
 # Tester un controller MVC Spring avec Spock
 
-Je suis intervenu sur un projet Spring-core avec Spring-MVC sans test unitaire ni d'intégration.  
+Je suis intervenu sur u/n projet Spring-core avec Spring-MVC sans test unitaire ni d'intégration.  
 Pour y apporter des modifications, il m'a alors fallu lui ajouter une stack de test.  
 Le framework de test choisi par l'équipe était [Spock](http://spockframework.org/) et non Junit.
 
