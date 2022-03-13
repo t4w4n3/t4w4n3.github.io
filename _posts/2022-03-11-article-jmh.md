@@ -19,8 +19,7 @@ Et encore, les performances de notre implémentation sont noyées dans la grande
 
 Le vrai feedback arrive donc bien plus tard, lorsqu'on commence à se dire "elle est un peu lente l'appli, non ?".
 
-1ère solution pour avoir un feedback atomique et anticipé : être en mesure de construire à la demande un environnement iso-prod, avec volumétrie de prod (
-anonymisée)[https://www.commitstrip.com/fr/2021/12/07/we-all-do-it-right].
+1ère solution pour avoir un feedback atomique et anticipé : être en mesure de construire à la demande un environnement iso-prod, avec volumétrie de prod (anonymisée)[https://www.commitstrip.com/fr/2021/12/07/we-all-do-it-right].
 
 2ᵉ solution : Faire des microbenchmarks de nos implémentations et décider tout de suite laquelle garder, avec de solides arguments reproductibles.
 
