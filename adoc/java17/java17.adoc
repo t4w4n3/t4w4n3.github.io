@@ -1,0 +1,501 @@
+= Java 17, le record & pattern matching c’est pour maintenant ?
+Antoine Salesse - a.salesse@younup.fr
+:toc: preamble
+:caution-caption: ⚠
+:tabsize: 2
+:source-highlighter: rouge
+:docinfo: private
+
+Promis juré, cet article n’est pas une liste des "nouvelles fonctionnalités de Java" (https://docs.oracle.com/javase/specs/jls/se17/html/index.html[JLS]footnote:[JLS : Java Language Specification] /
+https://stackoverflow.com/a/51286665[JSR]footnote:[JSR : Java Specification Request] / https://stackoverflow.com/a/51286665[JEP]footnote:[JEP : JDK Enhancement Proposal]).
+
+Depuis sa sortie en septembre 2021, les articles sur Java *17* pleuvent.
+
+Ok, ça y est, on a bien compris que cette version est une https://stackoverflow.com/a/51286665[LTS]footnote:[LTS : Long Term Support].
+
+Mais c’est aussi bien plus que cela. +
+C’est une milestone de l’objectif ambitieux nommé +
+*"Record and Array Pattern Matching"*.
+
+Cet objectif est un ensemble de fonctionnalités synergiques :
+
+* Les `instanceof` avec "Type Patterns" (dispo en 16)
+* Les Switch on Patterns (Java 17 preview, et probablement dispo en 19)
+* La déconstruction de `record` (Peut-être Java 19 preview)
+* La déconstruction d’array (Java 19+ ?)
+* Les imbrications de patterns (pas de visibilité de dispo)
+
+C’est donc de ces features dont on parle ici :
+
+* À quoi elles servent ?
+* Comment et dans quels contextes les utiliser ?
+* Qu’apportent-elles à notre code ?
+
+Et avec bien sûr des exemples de code !
+
+== Révolutionner Java, oui, mais pourquoi ?
+
+Quand on souhaite améliorer un produit, on commence par se demander où les efforts seraient les plus bénéfiques. +
+Si on veut améliorer Java, on doit alors se demander "Que fait-on le plus souvent en Java, qui mériterait un upgrade ?"
+
+Aujourd’hui le design de nos backend d’applications de gestions pousse (🌱) autour d’une problématique : +
+*Faire varier des comportements en fonction de cas d’usage*
+
+Dans ce genre d’applications, quelle que soit l’architecture choisie ou le style dev, on se retrouve à un moment ou un autre à :
+
+1.{nbsp}Modéliser notre domaine métier ::
+Cela peut être fait dans un package spécifique avec des POJO, ou avec des `Entity` JPA. +
+La seconde option est la plus répandue, mais ce n’est pas ma préférée.
+Je trouve que c’est une erreur de concevoir le business d’une application autour d’une base de données. +
+2.{nbsp}Écrire des https://en.wikipedia.org/wiki/Data_transfer_object[DTO] ::
+Dans l’idéal, un dto est immutable (Il n’y a aucune raison de changer la représentation d’une donnée transmise à un moment T). +
+Le `record` est la structure de données la plus appropriée. +
+Sinon, avant Java 14, on a les `@Value` de Lombok. +
+On peut aussi se contenter de POJO mutables.
+
+Dans nos applications modulaires, on peut avoir envie de partager ces structures de données entre des modules :
+
+[plantuml,Modèle du domain Invoice,png]
+----
+@startuml
+allow_mixing
+
+node "Domain model" {
+	class Invoice
+}
+
+node "Module letter" {
+	usecase usecasePartialLettering
+	usecasePartialLettering - Invoice
+}
+
+node "Module recovery" {
+	usecase usecaseFirstReminder
+	usecaseFirstReminder - Invoice
+}
+
+@enduml
+----
+
+Et bien pour faire varier les comportements des actions affectant ces classes, la POO nous incite à ajouter des méthodes sur nos classes de domaine. +
+//En effet, c’est un Objet, il a un état, et il peut porter des méthodes consommant ou modifiant cet état.
+
+Par exemple, pour la domain-class `Invoice`, le module `Letter` pourrait vouloir ajouter une méthode `calculateRemainingAmountToPay()`. +
+Le module `Send` pourrait vouloir une méthode `getRecipients()`.
+
+[plantuml,Modèle de domaine avec Invoice et cas d’utilisation,png]
+----
+@startuml
+allow_mixing
+
+node "Domain model" {
+
+
+	class Invoice implements CalculableAmount, Sendable {
+	Integer calculateRemainingAmountToPay()
+	List<Person> getRecipients()
+  }
+
+  interface CalculableAmount
+  interface Sendable
+}
+
+node "Module letter" {
+  usecase usecaseLetterPartiel
+  usecaseLetterPartiel - Invoice
+}
+
+node "Module send" {
+  usecase usecaseFirstReminder
+  usecaseFirstReminder - Invoice
+}
+
+@enduml
+----
+
+[source,java]
+----
+class Invoice implements CalculableAmount, Sendable {
+	private String label;
+	private CodeInvoice code;
+	private Client client;
+	private Receipt receipt;
+	private Devise amount;
+
+	@Override
+	public Integer calculateRemainingAmountToPay(){
+		...
+	}
+
+	@Override
+	public List<Person> getRecipients(){
+		...
+	}
+
+	...
+}
+----
+
+Au bout d’un moment, notre domain-class `Invoice` a beaucoup de méthodes issues de différents modules. +
+Le module `Letter` utilise `Invoice` et se retrouve à pouvoir appeler les méthodes du module `Send` ; ce qui viole au moins :
+
+* Le https://fr.wikipedia.org/wiki/Principe_de_s%C3%A9gr%C3%A9gation_des_interfaces[principe de ségrégation des interfaces]
+* Le https://fr.wikipedia.org/wiki/Principe_de_responsabilit%C3%A9_unique[principe de responsabilité unique] (Car la classe Document a maintenant 2 raisons de changer : le contexte `Letter` et le contexte `Send`)
+
+Effet bonus : Quand on change `Invoice` dans le cadre du contexte `Letter`, on doit recompiler/relivrer aussi le contexte `Send`.
+
+=== Solution : séparer la logique métier des structures sur lesquelles elle agit
+
+Pour y parvenir, on utilisait jusque-là au moins ces 3 patterns :
+
+* Le https://en.wikipedia.org/wiki/Visitor_pattern#Sources_3[visitor pattern]footnote:["Today, to express ad-hoc polymorphic calculations like this we would use the cumbersome visitor pattern". source : https://openjdk.java.net/jeps/405]
+* Le https://en.wikipedia.org/wiki/Delegation_pattern[delegate pattern]
+* Le pattern service-everywhere avec des méthodes à 8 arguments (un anti-pattern d’après moi), qui nait de la programmation procédurale dans un monde d'https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans[inversion de contrôle.]
+
+Mais à présent avec Java 17, une quatrième solution élégante s’offre à nous : Le Pattern Matching.
+
+== Mais qu’est-ce que le pattern matching ?
+
+Je pense qu’on ne peut pas couper à la définition de Wikipédia :
+
+[quote,https://en.wikipedia.org/wiki/Pattern_matching]
+--
+In computer science, pattern matching is the act of checking a given sequence of tokens for the presence of the constituents of some pattern.
+--
+
+On a tendance à penser alors aux expressions régulières, mais non, il ne s’agit pas de cela.
+
+Là, les patterns à matcher sont des structures de données :
+
+* Des classes
+* Des interfaces
+* Des array
+* Et bien sûr des records !
+
+Je trouve que le cas du matching sur `instanceof` avec Type-Pattern est le plus facile à comprendre. +
+Avant Java 17, on avait ça :
+
+[source,java]
+----
+if (invoice instanceof PaidInvoice) {
+	letterService.letter(((PaidInvoice) invoice));
+	return;
+}
+if (invoice instanceof DueInvoice) {
+	recoveryService.remind(((DueInvoice) invoice));
+}
+----
+
+Et à présent :
+
+[source,java]
+----
+if (invoice instanceof PaidInvoice paidInvoice) {
+	letterService.letter(paidInvoice);
+	return;
+}
+if (invoice instanceof DueInvoice dueInvoice) {
+	recoveryService.remind(dueInvoice);
+}
+----
+
+Ici le pattern à matcher est l’appartenance aux classes `PaidInvoice` et `DueInvoice`.
+On teste si l’instance a un des types, et un cast implicite est fait vers une "binding variable" (`paidInvoice` ou `dueInvoice`).
+
+== Comment le Pattern Matching remplace-t-il le visitor pattern ?
+
+J’ai promis des exemples de code, les voici.
+
+Voici l’implémentation du visitor pattern avec le modèle de `Invoice` :
+
+[source,java]
+----
+
+interface InvoiceVisitable {
+	default void accept(InvoiceVisitor invoiceVisitor) {
+		invoiceVisitor.visit(this);
+	}
+}
+
+abstract class Invoice implements InvoiceVisitable {
+}
+
+class PaidInvoice extends Invoice {
+}
+
+class DueInvoice extends Invoice {
+	private Integer reminderNumber = 0;
+
+	public void incrementReminderNumber(){
+		reminderNumber++;
+	}
+
+	public boolean hasAlreadyBeenReminded() {
+		return reminderNumber >= 1;
+	}
+}
+
+interface InvoiceVisitor {
+	void visit(PaidInvoice paidInvoice);
+
+	void visit(DueInvoice dueInvoice);
+}
+
+interface LetterService {
+	void letter(PaidInvoice paidInvoice);
+}
+
+interface RecoveryService {
+	void remind(DueInvoice dueInvoice);
+}
+
+record MainInvoiceVisitor(LetterService letterService, RecoveryService recoveryService) implements InvoiceVisitor {
+
+	@Override
+	public void visit(PaidInvoice paidInvoice) {
+		letterService.letter(paidInvoice);
+	}
+
+	@Override
+	public void visit(DueInvoice dueInvoice) {
+		recoveryService.remind(dueInvoice);
+	}
+}
+
+record InvoiceService(MainInvoiceVisitor mainInvoiceVisitor) implements InvoiceProcessing {
+
+	public void handleInvoice(Invoice invoice) {
+		invoice.accept(mainInvoiceVisitor);
+	}
+}
+
+----
+
+On observe que le rapport code utile / https://en.wikipedia.org/wiki/Boilerplate_code[boilerplate] n’est pas excellent.
+
+Et maintenant :
+
+[source,java]
+----
+record InvoiceService(LetterService letterService, RecoveryService recoveryService) implements InvoiceProcessing {
+
+	public void handleInvoice(Invoice invoice) {
+		if (invoice instanceof PaidInvoice paidInvoice) {
+			letterService.letter(paidInvoice);
+			return;
+		}
+		if (invoice instanceof DueInvoice dueInvoice) {
+			recoveryService.remind(dueInvoice);
+		}
+	}
+}
+----
+
+Le `InvoiceService` se suffit à lui-même, et la lisibilité me semble très acceptable.
+
+Mais avez-vous remarqué quelque chose dans ce dernier bout de code ?
+
+Le cas où `invoice` est d’un autre type n’est pas géré ! +
+Et non, pas de `throw new NotImplementedException()` cette fois-ci. +
+
+C’est là que la fonctionnalité Java 15 de types scellés intervient. +
+Modifions un peu notre modèle :
+
+[source,java]
+----
+abstract sealed class Invoice permits PaidInvoice, DueInvoice {
+}
+
+final class PaidInvoice extends Invoice {
+}
+
+final class DueInvoice extends Invoice {
+	private Integer reminderNumber = 0;
+
+	public void incrementerNombreReminder(){
+		reminderNumber++;
+	}
+
+	public boolean hasAlreadyBeenReminded() {
+		return reminderNumber >= 1;
+	}
+}
+----
+
+Traduction en français : ::
+Il n’existe que 2 types de `Invoice` possibles : `PaidInvoice` et `DueInvoice`. +
+Ces dernières ne peuvent être étendues. +
+Point.
+
+Cela donne donc :
+
+[source,java]
+----
+record InvoiceService(LetterService letterService, RecoveryService recoveryService) implements InvoiceProcessing {
+
+	public void handleInvoice(Invoice invoice) {
+		switch (invoice) {
+			case PaidInvoice paidInvoice -> letterService.letter(paidInvoice);
+			// case DueInvoice dueInvoice -> recoveryService.remind(dueInvoice);
+		}
+	}
+}
+----
+
+J’ai commenté le cas de la `DueInvoice` afin d’observer ce que nous disent le compilateur et l’IDE :
+
+image::java_the_switch_statement_does_not_cover_all_possible_input_values.png[alt="java: the switch statement does not cover all possible input values IntelliJ"]
+
+image::java_compile_error_java_17_the_switch_statement_does_not_cover_all_possible_input_values.png[alt="java compile error java 17 the switch statement does not cover all possible input values"]
+
+On doit alors déclarer le `Consumer<? extends Invoice>` de tous les cas restants, ou bien les grouper dans un `default` :
+
+[source%linenums,java,highlight=6..7]
+----
+record InvoiceService(LetterService letterService, RecoveryService recoveryService) implements InvoiceProcessing {
+
+	public void handleInvoice(Invoice invoice) {
+		switch (invoice) {
+			case PaidInvoice paidInvoice -> letterService.letter(paidInvoice);
+			// case DueInvoice dueInvoice -> recoveryService.remind(dueInvoice);
+			default -> LOGGER.info("Cool y a rien à faire pour le cas là !");
+		}
+	}
+}
+----
+
+Avec cette syntaxe, le langage nous apporte une validation métier de plus à la compile time (soit plus tôt qu’à la runtime. Tout ce qui réduit la boucle de feedback est bénéfique). +
+C’est les TDDistes qui sont contents.
+
+Et si on allait encore plus loin ? +
+Allez, ajoutons une feature preview de Java 17 : un "Guarded Pattern"
+
+[source%linenums,java,highlight=9..9]
+----
+record InvoiceService(
+		LetterService letterService,
+		RecoveryService recoveryService)
+		implements InvoiceProcessing {
+
+	public void handleInvoice(Invoice invoice) {
+		switch (invoice) {
+			case PaidInvoice paidInvoice -> letterService.letter(paidInvoice);
+			case DueInvoice dueInvoice && dueInvoice.hasAlreadyBeenReminded() -> recoveryService.startRecovery(dueInvoice);
+			case DueInvoice dueInvoice -> recoveryService.remind(dueInvoice);
+		}
+	}
+}
+----
+
+Un "Guarded Pattern" permet d’ajouter à notre pattern des conditions sur les valeurs de l’objet matché en plus de son type.
+
+Alors c’est très bien tout ça, mais l’objectif à terme du pattern matching va encore plus loin en ce qui concerne les records. +
+
+Reprenons notre exemple de `Invoice`, mais considérons qu’elle vient d’arriver d’un `Controlleur` sour forme de DTO (et donc de record) :
+
+[source,java]
+----
+record Invoice(String code, String label, Integer amount, ZonedDateTime creationDate, ...){}
+----
+
+Je ne lui donne que quelques champs, mais considérons en plus qu’il y a en une vingtaine, une centaine, beaucoup...
+
+Quand je veux mapper cette invoice vers un usecase, alors ce dernier n’a très certainement besoin que de seulement quelques-uns de ces champs.
+Le code suivant serait donc une erreur de design :
+
+[source%linenums,java,highlight=8..8]
+----
+@RestController
+class InvoiceControlleur {
+
+	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	public Long create(@RequestBody Invoice invoice) {
+		Preconditions.checkNotNull(invoice);
+		notifyNewInvoiceUseCase.handle(invoice);
+		return invoiceService.handle(invoice)
+	}
+}
+----
+
+Après Java 18 (Java 19 avec un peu de chance 🍀), on va pouvoir déconstruire des structures de données.
+
+// todo : introduire un exemple qui justifie de décrire la déconstruction
+
+== Qu’est-ce que la "déconstruction"
+
+Ce concept a un objectif similaire au I de SOLID : la ségrégation.
+
+Si je reçois un objet avec 43 champs alors que j’en ai besoin que de 2, la "_deconstruction on pattern_" va m’aider.
+
+Regardons ça avec du code.
+
+J’ai mon énorme dto Invoice :
+
+[source,java]
+----
+record Invoice(
+	String code,
+	String libellé,
+	Integer amount,
+	ZonedDateTime dateCréation,
+	... // imaginez ici 39 autres champs
+){}
+----
+
+Mais la règle métier que je veux appliquer ne porte que sur le `code` et le `amount`.
+Je peux alors étendre le concept de `instanceof` précédent, en lui ajoutant une déconstruction du Record "Invoice" :
+
+[source,java]
+----
+if (object instanceof Invoice(String code, Integer amount)) {
+	myUseCase.handle(code, amount);
+}
+----
+
+Ici, `type` et `price` sont des "binding variables" générées implicitement si l’`object` match le pattern `Product`.
+
+=== Et ça sert à quoi ?
+
+1. Découplage
+2. Expressivité
+
+Je ne compte pas expliquer ici en quoi ces 2 principes logiciels sont bénéfiques.
+
+Comparez plutôt avec la méthode habituelle :
+
+[source,java]
+----
+if (object instanceof Invoice) {
+    Invoice invoice = ((Invoice) object);
+    String type = invoice.getType();
+    String price = invoice.getPrice();
+    myUseCase.handle(type, price);
+}
+----
+
+== La déconstruction d'array
+
+== L'imbrication de pattern
+
+== Qu'apporte à notre code ces nouvelles fonctionnalités ?
+
+* Plus de validation à la compile-time, et donc une boucle de feedback plus rapide.
+* Développer plus intuitivement (le compilateur nous dis ce qu’on a oublié)
+* Faire émerger de meilleurs designs
+
+=== Dans quels langages on en trouve déjà
+
+* https://docs.scala-lang.org/tour/pattern-matching.html[Scala]
+* https://doc.rust-lang.org/rust-by-example/flow_control/match.html[Rust]
+
+== Eh oh, et Java 18 alors ?
+
+À l'écriture de ces lignes, Java 18 est en phase de release candidate. +
+Cela signifie que la listes de ces features est fixée. +
+En ce qui concerne le pattern matching, on y retrouve la JEP 420 : Pattern Matching for switch (Second Preview) +
+Cette seconde preview apporte des corrections de syntaxe et de compilation mineures, qui n'affecte pas les explications précédentes.
+
+== Conclusion
+
+Plus que comment utiliser les fonctionnalités gravitant autour du pattern matching, je me suis concentré ici sur le quand et le pourquoi.

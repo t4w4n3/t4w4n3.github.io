@@ -1,36 +1,35 @@
 ---
 layout: post
 title:  "Tester un controller Spring avec Spock"
-date:   2022-03-12 13:51:40 +0100
+date:   2022-03-13 13:51:40 +0100
 categories: java spring mvc spock
 ---
 
-# Tester un controller Spring avec Spock
+# Tester un controller MVC Spring avec Spock
 
-Tous les projets Spring ne sont pas des projets Springboot. Et dans un contexte de production, ajouter les dépendances springboot pour juste disposer des apports  dev-tools risque de faire bien plus que cela, comme par exemple : Forcer des montées de versions de dépendances communes.
+Je suis intervenu sur un projet Spring-core avec Spring-MVC sans test unitaire ni d'intégration.  
+Pour y apporter des modifications, il m'a alors fallu lui ajouter une stack de test.  
+Le framework de test choisi par l'équipe était [Spock](http://spockframework.org/) et non Junit.
 
-J'ai eu à apporter des changements sur un controller Spring MVC non couvert unitairement, tandis que le framework de test de l'équipe était [Spock](http://spockframework.org/).
+Or, l'utilisation de spock pour les tests d'intégration Spring-MVC m'avait posé quelques difficultés, dont j'explique dans cet article comment les surmonter.
 
-Il me fallait donc ajouter la conf adéquate pour l'autowiring du MVC dans la class de Spec.
+## Spring-Mvc / Spock : les difficultés
 
-Pour cela, la [doc Spring.io](https://spring.io/guides/gs/testing-web/) est bien gentille, mais elle suppose d'avoir (ou de pouvoir avoir) des dépendances spring-boot avec Gradle.  
-Or les contraintes d'un projet ne donnent pas toujours la possibilité d'ajouter les dépendances spring-boot-starter, ou alors notre projet est un bon vieux Spring/Maven.
+Dans un projet Springboot / JUnit, ajouter la dépendance springboot-starter-test suffit à disposer de la conf nécessaire pour écrire des tests d'intégration MockMvc.
 
-Je détaille donc dans cet article comment intégrer le framework de test Spock dans un projet Spring MVC sans Springboot, à l'aide de :
+Là, on n'a ni SpringBoot ni Junit.
 
-* spock-core
-* MockMVC
-* spock-spring
+Il va donc falloir démarrer un context Spring Mvc dans un test d'intégration Spock.
 
-## MockMvc requirements
+On va alors avoir besoin de :
 
-* Spring : 3.2.x **+**
+* Spock-core (le cœur du framework Spock)
+* Groovy 2.4 (nécessaire à Spock)
+* Le plugin Gmavenplus afin de compiler les classes de test Spock écrites en Groovy 
+* Spock-spring, qui va tirer spring-test, qui lui-même va tirer MockMvc (pour initialiser un context Spring mvc depuis un test Spock)
 
-## Spock-spring requirements
-
-* Junit  : 4.9
-* spock-core : 1.3-groovy-2.4
-* Groovy : 2.4
+J'avais dû upgrader la version de Spring en 3.2 afin de pouvoir utiliser MockMvc.
+Ainsi que Junit en 4.9 pour spock-spring.
 
 ## Configuration du projet Maven
 
@@ -66,8 +65,6 @@ Puis on ajoute les autres dépendances (toujours dans le scope de test) :
 </dependency>
 ```
 
-MockMvc appartient à spring-test, qui est tirée par spock-spring.
-
 Pour que les tests Spock soient exécutés par la phase `test` de Maven, il faut y inclure leur filename pattern :
 
 ```xml
@@ -86,6 +83,7 @@ Pour que les tests Spock soient exécutés par la phase `test` de Maven, il faut
 Surefire recherche ces patterns dans le répertoire `target` et non dans le répertoire `src`.
 Il faut donc que la phase `compile` n'oublie pas nos fichiers Spock du genre `HelloWorldControllerSpec.groovy`.  
 Pour cela, on a le plugin gmavenplus :
+
 ```xml
 <plugin>
 <groupId>org.codehaus.gmavenplus</groupId>
@@ -113,6 +111,8 @@ Pour cela, on a le plugin gmavenplus :
 
 ## Un simple controller helloWorld
 
+Je n'ai plus le code en question sous la main, alors voici un exemple de controller Spring-mvc parfait pour la démo :
+
 ```java
 package fr.younup.helloworldapp.controller;
 
@@ -123,7 +123,7 @@ import org.springframework.ui.ModelMap;
 @Controller
 public class HelloWorldController {
 
-    @RequestMapping(value = {"/helloworld/html/"})
+    @RequestMapping(value = {"/helloworld/"})
     public final String showHelloWorld(
         @ModelAttribute(value = "helloWorldModel") final HelloWorldModel helloWorldModel,
         final ModelMap model,
@@ -136,6 +136,7 @@ public class HelloWorldController {
 ```
 
 ## Implémentation de la classe de test d'un controller MVC
+
 ```groovy
 package fr.younup.helloworldapp.controller
 
@@ -172,7 +173,7 @@ class HelloWorldControllerSpec extends Specification {
 
     void "La page helloWorld est rendered avec un model conforme aux paramètres de la requete"() {
         when:
-        MvcResult mvcResult = mockMvc.perform(get("/helloworld/html/")
+        MvcResult mvcResult = mockMvc.perform(get("/helloworld/")
                 .header('Accept-Language', 'FR')
                 .contentType(MediaType.ALL)
                 .param('prenom', 'Bob')
@@ -191,3 +192,10 @@ class HelloWorldControllerSpec extends Specification {
 
 ## Conclusion
 
+Malgré l'absence du très pratique springboot-starter-test, spock-spring permet de monter un contexte Spring-mvc dans un test Spock afin de tester un controller intégration.
+
+Il faut toutefois bien configurer la cross-compilation Java/Groovy au niveau du scope de test, afin que les tests écrits soient effectivement compilés et exécutés par le lifecycle Maven.
+
+Les versions legacy de ce projet associées au côté modern de Spock me font penser que cet article ne servira pas souvent, mais qui sait ...
+
+Si avez besoin de tester un controller Spring avec Spock dans un cadre Springboot, ça devrait aider aussi.
