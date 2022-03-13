@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Orienter et argumenter ses choix techniques Java avec le microbenchmarking"
-date:   2022-03-13 21:13:40 +0100
+date:   2022-03-11 21:13:40 +0100
 categories: java jmh
 ---
 

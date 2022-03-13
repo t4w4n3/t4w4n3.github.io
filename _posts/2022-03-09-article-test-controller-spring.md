@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Tester un controller Spring avec Spock"
-date:   2022-03-13 13:51:40 +0100
+date:   2022-03-09 12:00:00 +0100
 categories: java spring mvc spock
 ---
 

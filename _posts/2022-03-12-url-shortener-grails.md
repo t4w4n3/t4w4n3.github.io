@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "An url-shortener built with Grails"
-date:   2022-03-11 11:50:40 +0100
+date:   2022-03-12 11:50:40 +0100
 categories: java grails
 ---
 
