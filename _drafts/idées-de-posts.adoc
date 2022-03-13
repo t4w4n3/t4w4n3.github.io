@@ -1,0 +1,3 @@
+= Idées de posts
+
+* Faire un post asciidoc dans un blog Github-pages/Jekyll
