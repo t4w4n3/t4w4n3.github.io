@@ -621,4 +621,5 @@ If you felt the power of Grails here, just try it with this url-shortener or any
 
 Full sources are available on [github.com/t4w4n3/shorturl](https://github.com/t4w4n3/shorturl/)
 
-You can try it at [https://intense-lake-67642.herokuapp.com/](https://intense-lake-67642.herokuapp.com/)
+You can try it at [https://intense-lake-67642.herokuapp.com/](https://intense-lake-67642.herokuapp.com/)  
+The server shutdowns if nobody used it for 30 minutes, so it will take about 20 seconds to start again if you open it.
