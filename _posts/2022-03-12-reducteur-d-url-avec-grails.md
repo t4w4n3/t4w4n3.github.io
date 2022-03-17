@@ -83,7 +83,7 @@ grails create-app shorturl
 cd shorturl
 ```
 
-Allons voir ce que nous avons déjà; en lançant le mode dev avec le wrapper Grails :
+Allons voir ce que nous avons déjà, en lançant le mode dev avec le wrapper Grails :
 
 ```sh
 ./grailsw run-app
@@ -147,7 +147,7 @@ Et bien on peut y ajouter des conditions de validation pour chacun des champs :
 	* Doit être en ascii
 * L’url :
 	* Doit être une url valide
-	* Ne doit pas être blank (vide)
+	* Ne dois pas être blank (vide)
 
 ```groovy
 static constraints = {
@@ -176,7 +176,7 @@ Le scaffolding peut commencer depuis un contrôleur. On peut soit :
 * Exécuter la commande de scaffolding, ce qui va alors générer les fichiers dans les sources
 * Déclarer l’instruction de scaffolding dans un contrôleur, ce qui va alors référencer les fichiers dans le build
 
-Essayons la 2ème solution :
+Essayons la 2ᵉ solution :
 
 ```sh
 ./grailsw create-controller ShortUrl
@@ -203,19 +203,19 @@ On peut voir ici notre tout nouveau contrôleur. Ouvrons-le.
 > ![](/assets/images/shorturl_list.png)
 
 
-Quand le navigateur a appelé le endpoint du contrôleur avec une requête GET, il y avait ce header :
+Quand le navigateur a appelé l’endpoint du contrôleur avec une requête GET, il y avait ce header :
 
 `Accept: application/html`
 
-Le contrôleur l’interprète afin de répondre avec une page html listant tous les `ShorUrls` stockées.
+Le contrôleur l’interprète afin de répondre avec une page html listant tous les `ShorUrl` stockées.
 
 Regardons ce que fait le bouton "new ShortUrl" : 
 
-### La page de création des Short-url
+### La page de création des `ShortUrl`
 
 > ![](/assets/images/create_shorturl.png)
 
-Cela ouvre une page avec un formullaire qui permet de créer de nouvelles `ShortUrls`.
+Cela ouvre une page avec un formulaire qui permet de créer de nouvelles `ShortUrl`.
 
 C’est proche de ce qu’on aimerait avoir comme page d’accueil ! 
 
@@ -235,7 +235,7 @@ Mais ce lien redirige vers la page 404 :
 
 Fondamentalement, on veut que `http://localhost:8080/k2m47` redirige vers la longue url associée stockée.  
 
-Et donc on créé la redirection interne depuis ce pattern d'url vers une nouvelle action nommée `redirect` dans le `ShortUrlController` :
+Et donc on créé la redirection interne depuis ce pattern d’url vers une nouvelle action nommée `redirect` dans le `ShortUrlController` :
 
 ```groovy
 class UrlMappings {
@@ -435,7 +435,7 @@ def create(String id) {
 }
 ```
 
-Maintenant, on surcharge la page de création on générant les 4 vues (index, show, edit, create) :
+Maintenant, on surcharge la page de création en générant les 4 vues (index, show, edit, create) :
 
 ```sh
 ./grailsw generate-views ShortUrl
@@ -513,7 +513,7 @@ On s’y moque du segment et de sa page de visualisation (`show`).
 
 Ce qu’on devrait plutôt montrer sur cette page d’index, c’est une table de longues urls par urls raccourcies.
 
-Une solution simple est d’ajouter un template à la page d’index scaffoldée. Dans ce temlate, on indique au système GSP comment faire le rendu de la table.
+Une solution simple est d’ajouter un template à la page d’index scaffoldée. Dans ce template, on indique au système GSP comment faire le rendu de la table.
 
 Générons à nouveau les vues scaffoldées de `ShortUrl` :
 
@@ -610,7 +610,7 @@ Maintenant, prenons un moment pour jeter un coup d’œil sur tout le code écri
 
 ## Conclusion
 
-On vient de développer une fonctionnalité complète from scratch, avec très peu de lignes de code, grace à Grails.
+On vient de développer une fonctionnalité complète from scratch, avec très peu de lignes de code, grâce à Grails.
 
 On est resté concentré sur notre MVP, mais on a malgré tout plein de bonus sympas offerts par Grails :
 
@@ -623,7 +623,7 @@ On est resté concentré sur notre MVP, mais on a malgré tout plein de bonus sy
 * Notre app est responsive, grace au fichier mobile.css
 * Notre formulaire est **SÉCURISÉ** ! Grails échappe chaque saisie utilisateur
 * Les fichiers d’asset (images/css/js) sont minifié et leurs noms sont hashés grace au plugin `asset-pipeline`
-* L’internationalisation est prête : Juste en valorisant les labels dans messages_ru.properties, les russes peuvent utiliser le site
+* L’internationalisation est prête : Juste en valorisant les labels dans messages_ru.properties, les Russes peuvent utiliser le site
 
 Si vous avez ressenti le pouvoir de Grails, essayez le avec cette app ou n’importe quelle autre idée, je vous promets que vous allez adorer ce framework.
 
