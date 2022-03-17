@@ -171,10 +171,10 @@ Et donc il peut la scaffolder pour nous.
 
 Grails implémente [Micronaut for Spring](https://micronaut-projects.github.io/micronaut-spring), et donc nous travaillons là sur un [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller).
 
-Le scaffolding peut commencer depuis un `Controller`. On peut soit :
+Le scaffolding peut commencer depuis un contrôleur. On peut soit :
 
 * Exécuter la commande de scaffolding, ce qui va alors générer les fichiers dans les sources
-* Déclarer l'instruction de scaffolding dans un `Controller`, ce qui va alors référencer les fichiers dans le build
+* Déclarer l'instruction de scaffolding dans un contrôleur, ce qui va alors référencer les fichiers dans le build
 
 Essayons la 2ème solution :
 
@@ -192,50 +192,50 @@ class ShortUrlController {
 
 Ouvrons le navigateur afin de voir le contenu hot-reloadé :
 
-### Les controlleurs disponibles :
+### Les contrôleurs disponibles :
 
 > ![](/assets/images/available_controller.png)
 
-On peut voir ici notre tout nouveau controller. Ouvrons le.
+On peut voir ici notre tout nouveau contrôleur. Ouvrons-le.
 
 ### La page listant les urls raccourcies
 
 > ![](/assets/images/shorturl_list.png)
 
 
-Quand le navigateur a appelé le endpoint du controlleur avec une requête GET, il y avait ce header :
+Quand le navigateur a appelé le endpoint du contrôleur avec une requête GET, il y avait ce header :
 
 `Accept: application/html`
 
-Le controlleur l'interprète afin de répondre avec une page html listant tous les `ShorUrls` stockées.
+Le contrôleur l'interprète afin de répondre avec une page html listant tous les `ShorUrls` stockées.
 
-Let's see what the "new ShortUrl" button does :
+Regardons ce que fait le bouton "new ShortUrl" : 
 
-### Short-url create page
+### La page de création des Short-url
 
 > ![](/assets/images/create_shorturl.png)
 
-It opens a page with a form that allows to create new `ShortUrls`.
+Cela ouvre une page avec un formullaire qui permet de créer de nouvelles `ShortUrls`.
 
-It's pretty close to what we want as a our home page !
+C'est proche de ce qu'on aimerait avoir comme page d'accueil ! 
 
-When we create a `ShortUrl`, we are redirected to new object's `show` page :
+Quand on créé une `ShortUrl`, on est redirigé vers la page `show` de l'objet créé. 
 
 ![](/assets/images/shorturl-show-page.png)
 
-### Let's try the link
+### Essayons le lien
 
-If I append the fragment to to base-path, I got http://localhost:8080/k2m47.
+Si je préfixe le base-path avec le fragment, j'obtiens `http://localhost:8080/k2m47`. 
 
-But it redirects to the 404 page :
+Mais ce lien redirige vers la page 404 : 
 
 ![](/assets/images/page-not-found-404.png)
 
-## Étape 4 : Configure the redirect
+## Étape 4 : Configurer la redirection
 
-Basically, we want that http://localhost:8080/k2m47 redirects to the associated long url stored.
+Fondamentalement, on veut que `http://localhost:8080/k2m47` redirige vers la longue url associée stockée.  
 
-So I created the internal redirection from this url-pattern to a new action names `redirect` in the ShortUrlController :
+Et donc on créé la redirection interne depuis ce pattern d'url vers une nouvelle action nommée `redirect` dans le `ShortUrlController` :
 
 ```groovy
 class UrlMappings {
@@ -265,15 +265,15 @@ class ShortUrlController {
 }
 ```
 
-Let's open the short-url again : http://localhost:8080/k2m47
+Ouvrons à nouveau l'url raccourcie : http://localhost:8080/k2m47
 
-Magic, the shortened url appears !
+Magique, l'url raccourcie apparait !
 
-## Étape 5 : Change the home page
+## Étape 5 : Changer la page d'accueil
 
-Now the redirection works, we want to change the home page.
+À présent que la redirection fonctionne, on voudrait changer la page d'accueil.
 
-We can achieve this with `UrlMappings.groovy` (which already exists) :
+On peut y parvenir avec le fichier `UrlMappings.groovy` (qui existe déjà) :
 
 ```groovy
 class UrlMappings {
@@ -292,13 +292,20 @@ class UrlMappings {
 }
 ```
 
-When a user reach '/', he will be redirected to the 'create' action of the controller named 'ShortUrlController'.
+Quand un utilisateur accède à '/', il va être redirigé vers l'action create' du contrôleur nommé 'ShortUrlController'. 
 
-> Which action you said ? There is no method in the ShortUrlController.
+> De quelle action parles-tu ? Il n'y a aucune méthode dans ShortUrlController.
 
-Yes, there are. The actions 'create', 'save', 'get', 'update' are injected at compile-time in the controller, thanks to the scaffolding ;)
+Si, il y en a. Les actions 'create', 'save', 'get', 'update' sont injectées à la compile-time dans le contrôleur, grace au scaffolding.
 
-## Étape 6 : Forbid unwanted actions
+## Étape 6 : Interdire les actions inutiles
+
+Dans notre cas d'utilisation, on ne veut que les actions 'show', 'index', 'save'. Et surtout pas 'update'.
+
+On utilise aussi la `closure` `constraints` afin de :
+
+* Autoriser seulement le contrôleur `ShortUrlController`
+* Autoriser seulement les actions show, index, save
 
 ```groovy
 class UrlMappings {
@@ -317,19 +324,13 @@ class UrlMappings {
 }
 ```
 
-We also use the `constraints` closure to :
+Si la contrainte de validation échoue, alors l'utilisateur est redirigé (par convention) vers la page 404. 
 
-* Allow only the `ShortUrlController`
+## Étape 7 : Rendre le segment facultatif 
 
-* Allow only the actions show, index, save
+Grails construit le formulaire à partir des attributs et des contraintes de l'entité.
 
-If the constraints validation failed, the user is redirected (by convention) to the 404 page.
-
-## Étape 7 : Make the segment optional
-
-Grails built the form based on the entity attributes type and constraints.
-
-Let's make the segment nullable :
+Rendons le segment `nullable` :
 
 ```groovy
 static constraints = {
@@ -340,11 +341,11 @@ static constraints = {
 
 ![](/assets/images/segment_optional.png)
 
-Much better !
+Bien mieux !
 
-But, we now have to randomly generate one if not set.
+Mais on doit maintenant en générer un aléatoirement si non renseigné.
 
-Let's init it (if not user-provided) in the beforeValidate of ShortUrl :
+Initialisons-le dans la méthode `beforeValidate` de `ShortUrl` (si non fournit par l'utilisateur) :
 
 ```groovy
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric
@@ -360,13 +361,13 @@ class ShortUrl {
 }
 ```
 
-`beforeValidate` triggers everytime we try to add/update an entity to the database.
+`beforeValidate` se déclenche dès qu'on tente d'ajouter/modifier une entité en base de données.
 
-We can re-use the min size constraint as default size.
+On peut réutiliser la contrainte `min size` en tant que taille par défaut.
 
 ------
 
-### Quick note about randomness
+### Note rapide sur l'aléatoire
 
 1. Here, the segment doesn't have to be secure. We just want 5 chars words.
 2. `RandomStringUtils.randomAlphanumeric` uses `java.util.Random`, which is thread safe, but also **thread-blocking** ! It's a bottleneck for multi-threaded contexts. We just don't care for our hacky

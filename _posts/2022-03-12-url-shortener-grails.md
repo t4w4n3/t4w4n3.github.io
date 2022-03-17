@@ -216,7 +216,7 @@ When we create a `ShortUrl`, we are redirected to new object's `show` page :
 
 ### Let's try the link
 
-If I append the fragment to to base-path, I got http://localhost:8080/k2m47.
+If I append the fragment to the base-path, I got http://localhost:8080/k2m47.
 
 But it redirects to the 404 page :
 
