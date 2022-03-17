@@ -5,7 +5,7 @@ date:   2022-03-12 11:50:40 +0100
 categories: java grails
 ---
 
-# Grails 5 demo avec un simple réducteur d'url
+# Démo de Grails 5 avec un simple réducteur d'url
 
 J'ai récemment regardé [cette vidéo](https://www.youtube.com/watch?v=gq5yubc1u18) de la chaîne Youtube [Coding Garden](https://coding.garden/).
 
@@ -21,7 +21,7 @@ Puis, je me suis demandé :
 
 Essayons !
 
-## Qu'est ce qu'un réducteur d'url ?
+## Qu'est-ce qu'un réducteur d'url ?
 
 Très simple.
 
@@ -363,60 +363,54 @@ class ShortUrl {
 
 `beforeValidate` se déclenche dès qu'on tente d'ajouter/modifier une entité en base de données.
 
-On peut réutiliser la contrainte `min size` en tant que taille par défaut.
+On réutilise la contrainte `min size` en tant que taille par défaut.
 
 ------
 
 ### Note rapide sur l'aléatoire
 
-1. Here, the segment doesn't have to be secure. We just want 5 chars words.
-2. `RandomStringUtils.randomAlphanumeric` uses `java.util.Random`, which is thread safe, but also **thread-blocking** ! It's a bottleneck for multi-threaded contexts. We just don't care for our hacky
-   app. The right way would be :
+1. Ici, le segment n'a pas à être sécurisé. On veut juste des mots de 5 caractères
+2. `RandomStringUtils.randomAlphanumeric` utilise `java.util.Random`, qui est thread-safe, mais aussi **thread-blocking** ! C'est un goulot d'étranglement pour les contextes multi-threadés. On s'en moque pour notre app de démo. La bonne solution aurait été une génération pseudo-random (/dev/urandom) :
+3. Sur un mot de 5 caractères alphanumériques, des collisions peuvent survenir. On peut alors ajouter un peu de code de validation :
 
-   ```groovy
-   RandomStringUtils.random(segmentMinSize, 0, 0, true, true, null, ThreadLocalRandom.current())
-   ```
+```groovy
+class ShortUrl {
 
-3. On a 5 alphanumeric word, collisions can occur. So we can add a little validation code :
+[...]
 
-  ```groovy
-  class ShortUrl {
-  
-    [...]
-  
-    protected String getRandomAlphaNumeric() {
-          def segmentMinSize = constrainedProperties.segment.size.from as int
-          RandomStringUtils.randomAlphanumeric(segmentMinSize)
-      }
-  
-      def beforeValidate() {
-          if (!segment) {
-              do {
-                  segment = randomAlphaNumeric
-              } while (hasDuplicatedSegment())
-          }
-      }
-  
-      boolean hasDuplicatedSegment() {
-          !validate() &&
-                  errors.fieldErrors?.find { it.field == 'segment' }?.code == 'unique'
-      }
+protected String getRandomAlphaNumeric() {
+	  def segmentMinSize = constrainedProperties.segment.size.from as int
+	  RandomStringUtils.randomAlphanumeric(segmentMinSize)
   }
-  ```
+
+  def beforeValidate() {
+	  if (!segment) {
+		  do {
+			  segment = randomAlphaNumeric
+		  } while (hasDuplicatedSegment())
+	  }
+  }
+
+  boolean hasDuplicatedSegment() {
+	  !validate() &&
+			  errors.fieldErrors?.find { it.field == 'segment' }?.code == 'unique'
+  }
+}
+```
 
 -----
 
-Now, a random word is generated until it is unique (Grails will check in the database during the `validate()`.
+À présent, un mot aléatoire est généré jusqu'à ce qu'il soit unique (Grails va vérifier dans la base de données pendant le `validate()`).
 
-## Étape 8 : Change redirection on create submit
+## Étape 8 : Changer la redirection sur un `submit` de `create`
 
 > ![](/assets/images/show_page.png)
 
-When we create a shorturl, by submitting the form, the 'save' action is run, and we are conventionally redirected to the show page of the created ShortUrl Entity.
+Quand on veut une `ShortUrl`, en soumettant le formulaire, l'action de `save` est exécuté, et on est redirigé par convention sur la page `show` montrant l'entité `ShortUrl` créée.
 
-The show page has no value in our MVP, so we prefer to be redirected to a new create page, with the new segment into a conditional div.
+La page `show` n'a pas de valeur dans notre MVP, et donc on préfère être redirigé sur une nouvelle page de création qui contient aussi la nouvelle `ShortUrl` dans une `div` conditionnelle.
 
-Let's override the scaffolded `show` implementation :
+Pour ça, surchargeons l'implémentation scaffoldée `show` :
 
 ```groovy
 def show(Long id) {
@@ -424,16 +418,16 @@ def show(Long id) {
 }
 ```
 
-We give the id of the created entity in parameter in order to be able to retrieve and display it on the create page.
+On lui donne en paramètre l'id de l'entité tout juste créée dans le but d'être capable de récupérer cette entité et de l'afficher sur le page de création. 
 
-## Étape 8 : The conditional div on the create page
+## Étape 9 : La div conditionnelle sur la page de création
 
-When we land on the create page, there are two use cases :
+Quand on arrive sur la page de création, il y a deux cas d'utilisation possibles :
 
-1. We just opened the page
-2. We just submitted a new shortUrl on a previous create page
+1. On vient juste d'ouvrir la page
+2. On vient juste de soumettre une nouvelle `ShortUrl` depuis une précédente page de création
 
-On the second case, we have a non-null `params.id`, so we fetch the associated entity from the database and we add it into the model, in order to make the entity available in the create view.
+Pour le second cas, on a un `params.id` non-null, et on s'en sert alors pour récupérer en base de données l'entité associée, et on l'ajoute au model de la vue.
 
 ```groovy
 def create(String id) {
@@ -441,13 +435,13 @@ def create(String id) {
 }
 ```
 
-Now we override the create page by generating the 4 views (index, show, edit, create) :
+Maintenant, on surcharge la page de création on générant les 4 vues (index, show, edit, create) :
 
 ```sh
 ./grailsw generate-views ShortUrl
 ```
 
-At the end of the create.gsp body, we add the conditional div :
+À la fin du body du fichier `create.gsp`, on ajoute la div conditionnelle qui sert à afficher la potentielle `ShortUrl` toute juste créée :
 
 ```html
 [...]
@@ -459,7 +453,7 @@ At the end of the create.gsp body, we add the conditional div :
 </html>
 ```
 
-We can add some code from the show.gsp to it :
+Le code d'affichage d'une `ShortUrl` se trouve dans le fichier `show.gsp`. Copions-le ici :
 
 ```html
 [...]
@@ -476,7 +470,7 @@ We can add some code from the show.gsp to it :
 </html>
 ```
 
-Then we generate the link and simply display it :
+Ensuite on génère le lien de redirection avec `createLink` et on l'affiche :
 
 ```html
 [...]
@@ -495,7 +489,7 @@ Then we generate the link and simply display it :
 </html>
 ```
 
-And we delete the un-overriden/un-used views :
+Et enfin, on supprime les vues non surchargées et inutilisées :
 
 ```sh
 rm grails-app/views/shortUrl/show.gsp
@@ -503,44 +497,44 @@ rm grails-app/views/shortUrl/index.gsp
 rm grails-app/views/shortUrl/edit.gsp
 ```
 
-Great ! Now we can see the created shorturl in the same page :
+Super ! Maintenant on peut voir la `ShortUrl` créée sur la même page :
+
 > ![](/assets/images/conditional_div.png)
 
-## Étape 9 : Add a better index page (paginated list of shorturls)
+## Étape 10 : Ajouter une meilleure page d'index
 
-By default, the list of all shorturls created looks like this :
+Dans Grails, la page d'index correspond à la liste (paginée) des éléments.
+
+Pqr défaut, la liste de tous les `ShortUrl` créées ressemble à ça :
 
 ![](/assets/images/default_shorturl_list_view.png)
 
-We don't care about the segment and its show page.
+On s'y moque du segment et de sa page de visualisation (`show`).
 
-What we should show on this index page is a table of long url by short url.
+Ce qu'on devrait plutôt montrer sur cette page d'index, c'est une table de longues urls par urls raccourcies.
 
-A simple solution is to add a template to the scaffolded index page. In this template we tell the GSP system how to render the table.
+Une solution simple est d'ajouter un template à la page d'index scaffoldée. Dans ce temlate, on indique au système GSP comment faire le rendu de la table.
 
-Let's generate the `shorturl` scaffolded views again :
+Générons à nouveau les vues scaffoldées de `ShortUrl` :
 
 ```shell
 ./grailsw generate-views ShortUrl
 rm grails-app/views/shortUrl/index.gsp
 ```
 
-Then, we add the template to use on the `<f:table>` element :
+Ensuite, on ajoute le template à utiliser sur l'élément `<f:table>` :
 
 ```html
 [...]
-		<f:table collection="${shortUrlList}" template="shortUrlList" />
+<f:table collection="${shortUrlList}" template="shortUrlList" />
 [...]
 ```
 
-And we create the template. It should be in `grails-app/views/templates/_fields/_shortUrlList.gsp`
+Puis on créé le template. Il doit se trouver dans `grails-app/views/templates/_fields/_shortUrlList.gsp`
 
-The default content can be found in the `grails-fields-plugin`. So I looked in the github
-repo : [https://github.com/grails-fields-plugin/grails-fields/blob/master/grails-app/views/templates/_fields/_table.gsp](https://github.com/grails-fields-plugin/grails-fields/blob/master/grails-app/views/templates/_fields/_table.gsp)
+Le contenu par défaut peut être trouvé dans le `grails-fields-plugin`. J'ai été le chercher dans son dépôt Github : [https://github.com/grails-fields-plugin/grails-fields/blob/master/grails-app/views/templates/_fields/_table.gsp](https://github.com/grails-fields-plugin/grails-fields/blob/master/grails-app/views/templates/_fields/_table.gsp)
 
-And I copied it into my template.
-
-Then, I overwrite the column names and content :
+Et je l'ai copié dans mon template afin d'en modifier les noms de colonnes et leur contenu :
 
 ```html
 <table>
@@ -564,25 +558,25 @@ Then, I overwrite the column names and content :
 </table>
 ```
 
-Here is the result :
+Voici le résultat :
 
 ![](/assets/images/customized_shorturl_list_view.png)
 
-## Étape 10 - A final touch
+## Étape 11 - La touche finale
 
-Our tool still looks like a "get started" Grails site.
+Notre outil ressemble toujours à un site Grails "get started".
 
-So let's change the logo (with a free one) and change the footer text.
+Alors changeons le logo (avec un qui soit libre) et le text de footer.
 
-We can do this on all pages just by editing the `layouts/main.gsp` (remember, we are in a templating framework).
+On peut faire cela sur toutes les pages en éditant le fichier `layouts/main.gsp` (rappel : nous sommes dans un framework de templating).
 
-The new Logo :
+Pour le nouveau logo :
 
 ```html
 <a class="navbar-brand" href="/#"><asset:image src="axe.svg" alt="Tawane's url shortener Logo"/></a>
 ```
 
-With some resizing in `grails-app/assets/stylesheets/grails.css`
+Avec un peu de redimensionnement dans `grails-app/assets/stylesheets/grails.css` :
 
 ```css
 a.navbar-brand img {
@@ -590,7 +584,7 @@ a.navbar-brand img {
 }
 ```
 
-The new footer :
+Le nouveau footer :
 
 ```html
 <div class="footer row" role="contentinfo">
@@ -608,28 +602,32 @@ The new footer :
 </div>
 ```
 
-Now, take a moment to look back to all the code we wrote. It's not that much compared to the product we have, right ?
+![](/assets/images/touche_finale.png)
+
+![](/assets/images/pagination.png)
+
+Maintenant, prenons un moment pour jeter un coup d'œil sur tout le code écrit. Ce n'est pas tant que ça comparé au produit obtenu, n'est-ce pas ?
 
 ## Conclusion
 
-We just developed a full feature from scratch, with very few lines of code, thanks to Grails,
+On vient de développer une fonctionnalité complète from scratch, avec très peu de lignes de code, grace à Grails.
 
-We stayed focus on our MVP, but we have plenty of nice bonuses from Grails :
+On est resté concentré sur notre MVP, mais on a malgré tout plein de bonus sympas offerts par Grails :
 
-* **Pagination of the shorturls list !**
-* Full specific form validation with errors display
-* Errors redirection to 404/500 pages
-* We wrote ZERO css and still have a decent front
-* Css files already exist, and css classes are ready to be edited
-* The test stack (unit / integration / functional) is ready
-* Our app is responsive, thanks to mobile.css
-* Our form is **SECURE** ! Grails escape every user prompt
-* Assets (images/css/js) files are minified and name-hashed thanks to the asset-pipeline plugin
-* Internationalization is ready : just set the labels in messages_ru.properties and russians can use it
+* **La liste des `ShortUrl` est paginée !**
+* La validation du formulaire html est complète, avec affichage des erreurs
+* Redirection vers les pages 404/500 en cas d'erreur
+* On a écrit presque zéro css tout en ayant un front décent
+* Les fichiers CSS existent déjà et les classes des templates sont prêtes à être éditées
+* La stack de tests (unit / integration / functional) est prête
+* Notre app est responsive, grace au fichier mobile.css
+* Notre formulaire est **SÉCURISÉ** ! Grails échappe chaque saisie utilisateur
+* Les fichiers d'asset (images/css/js) sont minifié et leurs noms sont hashés grace au plugin `asset-pipeline`
+* L'internationalisation est prête : Juste en valorisant les labels dans messages_ru.properties, les russes peuvent utiliser le site
 
-If you felt the power of Grails here, just try it with this url-shortener or any simple app, I promise you will love this framework.
+Si vous avez ressenti le pouvoir de Grails, essayez le avec cette app ou n'importe quelle autre idée, je vous promets que vous allez adorer ce framework.
 
-Full sources are available on [github.com/t4w4n3/shorturl](https://github.com/t4w4n3/shorturl/)
+Les sources complètes sont disponibles sur [github.com/t4w4n3/shorturl](https://github.com/t4w4n3/shorturl/)
 
-You can try it at [https://intense-lake-67642.herokuapp.com/](https://intense-lake-67642.herokuapp.com/)  
-The server shutdowns if nobody used it for 30 minutes, so it will take about 20 seconds to start again if you open it.
+Vous pouvez essayer l'app sur [https://intense-lake-67642.herokuapp.com/](https://intense-lake-67642.herokuapp.com/)  
+Soyez patient, le serveur d'Heroku se coupe automatiquement au bout de 30 minutes d'inactivité. Son redémarrage prend environ 20 secondes si vous l'ouvrez.
