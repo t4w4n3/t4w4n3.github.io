@@ -732,6 +732,7 @@ C’est une milestone de l’objectif ambitieux nommé<br>
 <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
+<li><a href="#_dans_quels_langages_on_trouve_déjà_du_pattern_matching">Dans quels langages on trouve déjà du pattern matching</a></li>
 <li><a href="#_révolutionner_java_oui_mais_pourquoi">Révolutionner Java, oui, mais pourquoi ?</a>
 <ul class="sectlevel2">
 <li><a href="#_solution_séparer_la_logique_métier_des_structures_sur_lesquelles_elle_agit">Solution : séparer la logique métier des structures sur lesquelles elle agit</a></li>
@@ -739,21 +740,32 @@ C’est une milestone de l’objectif ambitieux nommé<br>
 </li>
 <li><a href="#_mais_quest_ce_que_le_pattern_matching">Mais qu’est-ce que le pattern matching ?</a></li>
 <li><a href="#_comment_le_pattern_matching_remplace_t_il_le_visitor_pattern">Comment le Pattern Matching remplace-t-il le visitor pattern ?</a></li>
-<li><a href="#_quest_ce_que_la_déconstruction">Qu’est-ce que la "déconstruction"</a>
+<li><a href="#_les_types_scellés">Les types scellés</a></li>
+<li><a href="#_les_guarded_pattern">Les Guarded Pattern</a></li>
+<li><a href="#_quest_ce_que_la_déconstruction">Qu’est-ce que la "déconstruction" ?</a>
 <ul class="sectlevel2">
 <li><a href="#_et_ça_sert_à_quoi">Et ça sert à quoi ?</a></li>
 </ul>
 </li>
 <li><a href="#_la_déconstruction_darray">La déconstruction d’array</a></li>
-<li><a href="#_les_autres_fonctionnalités_à_venir">Les autres fonctionnalités à venir</a></li>
-<li><a href="#_quapporte_à_notre_code_ces_nouvelles_fonctionnalités">Qu’apporte à notre code ces nouvelles fonctionnalités ?</a>
-<ul class="sectlevel2">
-<li><a href="#_dans_quels_langages_on_en_trouve_déjà">Dans quels langages on en trouve déjà</a></li>
-</ul>
-</li>
 <li><a href="#_et_java_1819_alors">Et Java 18/19 alors ?</a></li>
 <li><a href="#_conclusion">Conclusion</a></li>
 </ul>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dans_quels_langages_on_trouve_déjà_du_pattern_matching">Dans quels langages on trouve déjà du pattern matching</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://docs.scala-lang.org/tour/pattern-matching.html">Scala</a></p>
+</li>
+<li>
+<p><a href="https://doc.rust-lang.org/rust-by-example/flow_control/match.html">Rust</a></p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1044,8 +1056,15 @@ On teste si l’instance a un des types, et un cast implicite est fait vers une 
 </div>
 <div class="paragraph">
 <p>Le cas où <code>invoice</code> est d’un autre type n’est pas géré !<br>
-Il existe une solution alternative (et meilleure je trouve) à lever une <code>NotImplementedException</code>.<br>
-C’est là que la fonctionnalité Java 15 de types scellés intervient.<br>
+Il existe une solution alternative (et meilleure je trouve) à lever une <code>NotImplementedException</code>.<br></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_les_types_scellés">Les types scellés</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>C’est là que la fonctionnalité Java 15 de types scellés intervient.<br>
 Modifions un peu notre modèle :</p>
 </div>
 <div class="listingblock">
@@ -1141,8 +1160,15 @@ Point.</p>
 C’est les TDDistes qui sont contents.</p>
 </div>
 <div class="paragraph">
-<p>Et si on allait encore plus loin ?<br>
-Allez, ajoutons une feature preview de Java 17 : un "Guarded Pattern"</p>
+<p>Et si on allait encore plus loin ?<br></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_les_guarded_pattern">Les Guarded Pattern</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Allez, ajoutons une feature preview de Java 17 : un "Guarded Pattern"</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1229,7 +1255,7 @@ Le code suivant serait donc une erreur de design :</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_quest_ce_que_la_déconstruction">Qu’est-ce que la "déconstruction"</h2>
+<h2 id="_quest_ce_que_la_déconstruction">Qu’est-ce que la "déconstruction" ?</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Ce concept a un objectif similaire au I de SOLID : la ségrégation.</p>
@@ -1270,6 +1296,9 @@ Je peux alors étendre le concept de <code>instanceof</code> précédent, en lui
 </div>
 <div class="sect2">
 <h3 id="_et_ça_sert_à_quoi">Et ça sert à quoi ?</h3>
+<div class="paragraph">
+<p>Cela apporte 2 bénéfices :</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1281,10 +1310,7 @@ Je peux alors étendre le concept de <code>instanceof</code> précédent, en lui
 </ol>
 </div>
 <div class="paragraph">
-<p>Je ne compte pas expliquer ici en quoi ces 2 principes logiciels sont bénéfiques.</p>
-</div>
-<div class="paragraph">
-<p>Comparez plutôt avec la méthode habituelle :</p>
+<p>Comparez plutôt le précédent code avec la méthode habituelle :</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1346,52 +1372,6 @@ Je peux alors étendre le concept de <code>instanceof</code> précédent, en lui
 </div>
 </div>
 <div class="sect1">
-<h2 id="_les_autres_fonctionnalités_à_venir">Les autres fonctionnalités à venir</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>L’imbrication de pattern</p>
-</li>
-<li>
-<p>Déconstruction par méthode</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_quapporte_à_notre_code_ces_nouvelles_fonctionnalités">Qu’apporte à notre code ces nouvelles fonctionnalités ?</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Plus de validation à la compile-time, et donc une boucle de feedback plus rapide.</p>
-</li>
-<li>
-<p>Développer plus intuitivement (le compilateur nous dis ce qu’on a oublié)</p>
-</li>
-<li>
-<p>Faire émerger de meilleurs designs</p>
-</li>
-</ul>
-</div>
-<div class="sect2">
-<h3 id="_dans_quels_langages_on_en_trouve_déjà">Dans quels langages on en trouve déjà</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://docs.scala-lang.org/tour/pattern-matching.html">Scala</a></p>
-</li>
-<li>
-<p><a href="https://doc.rust-lang.org/rust-by-example/flow_control/match.html">Rust</a></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="_et_java_1819_alors">Et Java 18/19 alors ?</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -1407,6 +1387,22 @@ J’espère y trouver la déconstruction de record/array/méthode en preview.</p
 <div class="sect1">
 <h2 id="_conclusion">Conclusion</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Qu’apporte à notre code ces nouvelles fonctionnalités ?</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Plus de validation à la compile-time, et donc une boucle de feedback plus rapide.</p>
+</li>
+<li>
+<p>Développer plus intuitivement (le compilateur nous dis ce qu’on a oublié)</p>
+</li>
+<li>
+<p>Faire émerger de meilleurs designs</p>
+</li>
+</ul>
+</div>
 <div class="paragraph">
 <p>J’ai passé en revue les fonctionnalités phares du "record and array pattern matching", en appuyant sur "dans quels contextes les utiliser ?", "pourquoi les utiliser ?".<br>
 Les principales sont déjà dans Java 17, d’autres sont dans sa preview, et les restantes ne tarderont pas.<br>
@@ -1435,7 +1431,7 @@ Cette révolution du langage est probablement au niveau de la révolution des St
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-03-17 15:23:40 +0100
+Last updated 2022-03-17 17:47:59 +0100
 </div>
 </div>
 </body>

@@ -33,6 +33,11 @@ C’est donc de ces features dont on parle ici :
 
 Et avec bien sûr des exemples de code !
 
+== Dans quels langages on trouve déjà du pattern matching
+
+* https://docs.scala-lang.org/tour/pattern-matching.html[Scala]
+* https://doc.rust-lang.org/rust-by-example/flow_control/match.html[Rust]
+
 == Révolutionner Java, oui, mais pourquoi ?
 
 Quand on souhaite améliorer un produit, on commence par se demander où les efforts seraient les plus bénéfiques. +
@@ -297,6 +302,9 @@ Mais avez-vous remarqué quelque chose dans ce dernier bout de code ?
 
 Le cas où `invoice` est d’un autre type n’est pas géré ! +
 Il existe une solution alternative (et meilleure je trouve) à lever une `NotImplementedException`. +
+
+== Les types scellés
+
 C’est là que la fonctionnalité Java 15 de types scellés intervient. +
 Modifions un peu notre modèle :
 
@@ -367,6 +375,9 @@ Avec cette syntaxe, le langage nous apporte une validation métier de plus à la
 C’est les TDDistes qui sont contents.
 
 Et si on allait encore plus loin ? +
+
+== Les Guarded Pattern
+
 Allez, ajoutons une feature preview de Java 17 : un "Guarded Pattern"
 
 [source%linenums,java,highlight=9..9]
@@ -419,9 +430,7 @@ class InvoiceControlleur {
 
 Après Java 18 (En preview de Java 19 avec un peu de chance 🍀), on va pouvoir déconstruire des structures de données.
 
-// todo : introduire un exemple qui justifie de décrire la déconstruction
-
-== Qu’est-ce que la "déconstruction"
+== Qu’est-ce que la "déconstruction" ?
 
 Ce concept a un objectif similaire au I de SOLID : la ségrégation.
 
@@ -456,12 +465,12 @@ Ici, `type` et `price` sont des "binding variables" générées implicitement si
 
 === Et ça sert à quoi ?
 
+Cela apporte 2 bénéfices :
+
 1. Découplage
 2. Expressivité
 
-Je ne compte pas expliquer ici en quoi ces 2 principes logiciels sont bénéfiques.
-
-Comparez plutôt avec la méthode habituelle :
+Comparez plutôt le précédent code avec la méthode habituelle :
 
 [source,java]
 ----
@@ -499,22 +508,6 @@ if (fields instanceof Object[] { Integer Price, String code }) {
 }
 ----
 
-== Les autres fonctionnalités à venir
-
-* L’imbrication de pattern
-* Déconstruction par méthode
-
-== Qu’apporte à notre code ces nouvelles fonctionnalités ?
-
-* Plus de validation à la compile-time, et donc une boucle de feedback plus rapide.
-* Développer plus intuitivement (le compilateur nous dis ce qu’on a oublié)
-* Faire émerger de meilleurs designs
-
-=== Dans quels langages on en trouve déjà
-
-* https://docs.scala-lang.org/tour/pattern-matching.html[Scala]
-* https://doc.rust-lang.org/rust-by-example/flow_control/match.html[Rust]
-
 == Et Java 18/19 alors ?
 
 À l’écriture de ces lignes, Java 18 est en phase de release candidate. +
@@ -525,6 +518,12 @@ Java 19 est en early-access avec une seule JEP. +
 J’espère y trouver la déconstruction de record/array/méthode en preview.
 
 == Conclusion
+
+Qu’apporte à notre code ces nouvelles fonctionnalités ?
+
+* Plus de validation à la compile-time, et donc une boucle de feedback plus rapide.
+* Développer plus intuitivement (le compilateur nous dis ce qu’on a oublié)
+* Faire émerger de meilleurs designs
 
 J’ai passé en revue les fonctionnalités phares du "record and array pattern matching", en appuyant sur "dans quels contextes les utiliser ?", "pourquoi les utiliser ?". +
 Les principales sont déjà dans Java 17, d’autres sont dans sa preview, et les restantes ne tarderont pas. +
