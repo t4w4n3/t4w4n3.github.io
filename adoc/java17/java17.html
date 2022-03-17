@@ -745,13 +745,13 @@ C’est une milestone de l’objectif ambitieux nommé<br>
 </ul>
 </li>
 <li><a href="#_la_déconstruction_darray">La déconstruction d&#8217;array</a></li>
-<li><a href="#_limbrication_de_pattern">L&#8217;imbrication de pattern</a></li>
+<li><a href="#_les_autres_fonctionnalités_à_venir">Les autres fonctionnalités à venir</a></li>
 <li><a href="#_quapporte_à_notre_code_ces_nouvelles_fonctionnalités">Qu&#8217;apporte à notre code ces nouvelles fonctionnalités ?</a>
 <ul class="sectlevel2">
 <li><a href="#_dans_quels_langages_on_en_trouve_déjà">Dans quels langages on en trouve déjà</a></li>
 </ul>
 </li>
-<li><a href="#_eh_oh_et_java_18_alors">Eh oh, et Java 18 alors ?</a></li>
+<li><a href="#_et_java_1819_alors">Et Java 18/19 alors ?</a></li>
 <li><a href="#_conclusion">Conclusion</a></li>
 </ul>
 </div>
@@ -1226,7 +1226,7 @@ Le code suivant serait donc une erreur de design :</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Après Java 18 (Java 19 avec un peu de chance 🍀), on va pouvoir déconstruire des structures de données.</p>
+<p>Après Java 18 (En preview de Java 19 avec un peu de chance 🍀), on va pouvoir déconstruire des structures de données.</p>
 </div>
 </div>
 </div>
@@ -1304,13 +1304,47 @@ Je peux alors étendre le concept de <code>instanceof</code> précédent, en lui
 <div class="sect1">
 <h2 id="_la_déconstruction_darray">La déconstruction d&#8217;array</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>De la même manière que pour les <code>record</code>, on va bientôt pouvoir déconstruire des array afin de :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Matcher sur sa structure (exemple : <code>myArray.size() == 3</code>)</p>
+</li>
+<li>
+<p>Binder ses éléments vers des variables</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Voyez plutôt :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="k">if</span> <span class="o">(</span><span class="n">document</span> <span class="k">instanceof</span> <span class="nc">Invoice</span><span class="o">[]</span> <span class="o">{</span> <span class="nc">PayedInvoice</span> <span class="n">payedInvoice</span><span class="o">,</span> <span class="nc">DueInvoice</span> <span class="n">dueInvoice</span><span class="o">})</span> <span class="o">{</span>
+  <span class="n">receiptService</span><span class="o">.</span><span class="na">handle</span><span class="o">(</span><span class="n">payedInvoice</span><span class="o">);</span>
+  <span class="n">recoveryService</span><span class="o">.</span><span class="na">handle</span><span class="o">(</span><span class="n">dueInvoice</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">document</span> <span class="k">instanceof</span> <span class="nc">Contract</span><span class="o">[]</span> <span class="o">{</span> <span class="nc">Contract</span> <span class="n">contract</span> <span class="o">})</span> <span class="o">{</span>
+    <span class="n">signatureService</span><span class="o">.</span><span class="na">handle</span><span class="o">(</span><span class="n">contract</span><span class="o">);</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_limbrication_de_pattern">L&#8217;imbrication de pattern</h2>
+<h2 id="_les_autres_fonctionnalités_à_venir">Les autres fonctionnalités à venir</h2>
 <div class="sectionbody">
-
+<div class="ulist">
+<ul>
+<li>
+<p>L&#8217;imbrication de pattern</p>
+</li>
+<li>
+<p>Déconstruction par méthode</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1345,13 +1379,15 @@ Je peux alors étendre le concept de <code>instanceof</code> précédent, en lui
 </div>
 </div>
 <div class="sect1">
-<h2 id="_eh_oh_et_java_18_alors">Eh oh, et Java 18 alors ?</h2>
+<h2 id="_et_java_1819_alors">Et Java 18/19 alors ?</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>À l&#8217;écriture de ces lignes, Java 18 est en phase de release candidate.<br>
 Cela signifie que la listes de ces features est fixée.<br>
 En ce qui concerne le pattern matching, on y retrouve la JEP 420 : Pattern Matching for switch (Second Preview)<br>
-Cette seconde preview apporte des corrections de syntaxe et de compilation mineures, qui n&#8217;affecte pas les explications précédentes.</p>
+Cette seconde preview apporte des corrections de syntaxe et de compilation mineures, qui n&#8217;affecte pas les explications précédentes.
+Java 19 est en early-access avec une seule JEP.<br>
+J&#8217;espère y trouver la déconstruction de record/array/méthode en preview.</p>
 </div>
 </div>
 </div>
@@ -1359,7 +1395,9 @@ Cette seconde preview apporte des corrections de syntaxe et de compilation mineu
 <h2 id="_conclusion">Conclusion</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Plus que comment utiliser les fonctionnalités gravitant autour du pattern matching, je me suis concentré ici sur le quand et le pourquoi.</p>
+<p>J&#8217;ai passé en revue les fonctionnalités phares du "record and array pattern matching", en appuyant sur "dans quels contextes les utiliser ?", "pourquoi les utiliser ?".<br>
+Les principales sont déjà dans Java 17, d&#8217;autres sont dans sa preview, et les restantes ne tarderont pas.<br>
+Cette révolution du langage est probablement au niveau de la révolution des Stream et de l&#8217;API Function de Java 8.</p>
 </div>
 </div>
 </div>
@@ -1384,7 +1422,7 @@ Cette seconde preview apporte des corrections de syntaxe et de compilation mineu
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-03-08 21:03:12 +0100
+Last updated 2022-03-17 14:09:29 +0100
 </div>
 </div>
 </body>

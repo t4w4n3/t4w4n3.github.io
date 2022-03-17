@@ -418,7 +418,7 @@ class InvoiceControlleur {
 }
 ----
 
-Après Java 18 (Java 19 avec un peu de chance 🍀), on va pouvoir déconstruire des structures de données.
+Après Java 18 (En preview de Java 19 avec un peu de chance 🍀), on va pouvoir déconstruire des structures de données.
 
 // todo : introduire un exemple qui justifie de décrire la déconstruction
 
@@ -476,7 +476,27 @@ if (object instanceof Invoice) {
 
 == La déconstruction d'array
 
-== L'imbrication de pattern
+De la même manière que pour les `record`, on va bientôt pouvoir déconstruire des array afin de :
+
+* Matcher sur sa structure (exemple : `myArray.size() == 3`)
+* Binder ses éléments vers des variables
+
+Voyez plutôt :
+
+[source,java]
+----
+if (document instanceof Invoice[] { PayedInvoice payedInvoice, DueInvoice dueInvoice}) {
+	receiptService.handle(payedInvoice);
+	recoveryService.handle(dueInvoice);
+} else if (document instanceof Contract[] { Contract contract }) {
+    signatureService.handle(contract);
+}
+----
+
+== Les autres fonctionnalités à venir
+
+* L'imbrication de pattern
+* Déconstruction par méthode
 
 == Qu'apporte à notre code ces nouvelles fonctionnalités ?
 
@@ -489,13 +509,17 @@ if (object instanceof Invoice) {
 * https://docs.scala-lang.org/tour/pattern-matching.html[Scala]
 * https://doc.rust-lang.org/rust-by-example/flow_control/match.html[Rust]
 
-== Eh oh, et Java 18 alors ?
+== Et Java 18/19 alors ?
 
 À l'écriture de ces lignes, Java 18 est en phase de release candidate. +
 Cela signifie que la listes de ces features est fixée. +
 En ce qui concerne le pattern matching, on y retrouve la JEP 420 : Pattern Matching for switch (Second Preview) +
 Cette seconde preview apporte des corrections de syntaxe et de compilation mineures, qui n'affecte pas les explications précédentes.
+Java 19 est en early-access avec une seule JEP. +
+J'espère y trouver la déconstruction de record/array/méthode en preview.
 
 == Conclusion
 
-Plus que comment utiliser les fonctionnalités gravitant autour du pattern matching, je me suis concentré ici sur le quand et le pourquoi.
+J'ai passé en revue les fonctionnalités phares du "record and array pattern matching", en appuyant sur "dans quels contextes les utiliser ?", "pourquoi les utiliser ?". +
+Les principales sont déjà dans Java 17, d'autres sont dans sa preview, et les restantes ne tarderont pas. +
+Cette révolution du langage est probablement au niveau de la révolution des Stream et de l'API Function de Java 8.
