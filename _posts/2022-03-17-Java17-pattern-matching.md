@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Java 17, le record & array pattern matching c’est pour maintenant ?"
-date:   2022-03-10 08:46:40 +0100
+date:   2022-03-17 14:11:40 +0100
 categories: java
 ---
 
