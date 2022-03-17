@@ -1044,10 +1044,8 @@ On teste si l’instance a un des types, et un cast implicite est fait vers une 
 </div>
 <div class="paragraph">
 <p>Le cas où <code>invoice</code> est d’un autre type n’est pas géré !<br>
-Et non, pas de <code>throw new NotImplementedException()</code> cette fois-ci.<br></p>
-</div>
-<div class="paragraph">
-<p>C’est là que la fonctionnalité Java 15 de types scellés intervient.<br>
+Il existe une solution alternative (et meilleure je trouve) à lever une <code>NotImplementedException</code>.<br>
+C’est là que la fonctionnalité Java 15 de types scellés intervient.<br>
 Modifions un peu notre modèle :</p>
 </div>
 <div class="listingblock">
@@ -1318,15 +1316,30 @@ Je peux alors étendre le concept de <code>instanceof</code> précédent, en lui
 </ul>
 </div>
 <div class="paragraph">
-<p>Voyez plutôt :</p>
+<p>Voyons ce binding avec l’exemple d’un <code>array</code> d’<code>Object</code>.</p>
+</div>
+<div class="paragraph">
+<p>Mettons que, par convention :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Le premier élément "1345" est par convention le montant</p>
+</li>
+<li>
+<p>Le deuxième élément "FAC" est le code du document</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Alors voilà comment on pourrait appeler <code>invoiceService.handle</code>, qui n’a besoin que de ces 2 champs, mais pas des suivants :</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="java"><span class="k">if</span> <span class="o">(</span><span class="n">document</span> <span class="k">instanceof</span> <span class="nc">Invoice</span><span class="o">[]</span> <span class="o">{</span> <span class="nc">PayedInvoice</span> <span class="n">payedInvoice</span><span class="o">,</span> <span class="nc">DueInvoice</span> <span class="n">dueInvoice</span><span class="o">})</span> <span class="o">{</span>
-  <span class="n">receiptService</span><span class="o">.</span><span class="na">handle</span><span class="o">(</span><span class="n">payedInvoice</span><span class="o">);</span>
-  <span class="n">recoveryService</span><span class="o">.</span><span class="na">handle</span><span class="o">(</span><span class="n">dueInvoice</span><span class="o">);</span>
-<span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">document</span> <span class="k">instanceof</span> <span class="nc">Contract</span><span class="o">[]</span> <span class="o">{</span> <span class="nc">Contract</span> <span class="n">contract</span> <span class="o">})</span> <span class="o">{</span>
-    <span class="n">signatureService</span><span class="o">.</span><span class="na">handle</span><span class="o">(</span><span class="n">contract</span><span class="o">);</span>
+<pre class="rouge highlight"><code data-lang="java"><span class="nc">Object</span><span class="o">[]</span> <span class="n">fields</span> <span class="o">=</span> <span class="o">{</span> <span class="mi">1345</span><span class="o">,</span> <span class="s">"FAC"</span><span class="o">,</span> <span class="s">"9834765"</span><span class="o">,</span> <span class="s">"user9475"</span><span class="o">,</span> <span class="s">"e45737645"</span>  <span class="o">}</span>
+
+<span class="k">if</span> <span class="o">(</span><span class="n">fields</span> <span class="k">instanceof</span> <span class="nc">Object</span><span class="o">[]</span> <span class="o">{</span> <span class="nc">Integer</span> <span class="nc">Price</span><span class="o">,</span> <span class="nc">String</span> <span class="n">code</span> <span class="o">})</span> <span class="o">{</span>
+  <span class="n">invoiceService</span><span class="o">.</span><span class="na">handle</span><span class="o">(</span><span class="n">price</span><span class="o">,</span> <span class="n">code</span><span class="o">);</span>
 <span class="o">}</span></code></pre>
 </div>
 </div>
@@ -1422,7 +1435,7 @@ Cette révolution du langage est probablement au niveau de la révolution des St
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-03-17 14:47:09 +0100
+Last updated 2022-03-17 15:23:40 +0100
 </div>
 </div>
 </body>

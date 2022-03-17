@@ -296,8 +296,7 @@ Le `InvoiceService` se suffit à lui-même, et la lisibilité me semble très ac
 Mais avez-vous remarqué quelque chose dans ce dernier bout de code ?
 
 Le cas où `invoice` est d’un autre type n’est pas géré ! +
-Et non, pas de `throw new NotImplementedException()` cette fois-ci. +
-
+Il existe une solution alternative (et meilleure je trouve) à lever une `NotImplementedException`. +
 C’est là que la fonctionnalité Java 15 de types scellés intervient. +
 Modifions un peu notre modèle :
 
@@ -481,15 +480,22 @@ De la même manière que pour les `record`, on va bientôt pouvoir déconstruire
 * Matcher sur sa structure (exemple : `myArray.size() == 3`)
 * Binder ses éléments vers des variables
 
-Voyez plutôt :
+Voyons ce binding avec l’exemple d’un `array` d’`Object`.
+
+Mettons que, par convention :
+
+* Le premier élément "1345" est par convention le montant
+* Le deuxième élément "FAC" est le code du document
+
+Alors voilà comment on pourrait appeler `invoiceService.handle`, qui n’a besoin que de ces 2 champs, mais pas des suivants :
 
 [source,java]
 ----
-if (document instanceof Invoice[] { PayedInvoice payedInvoice, DueInvoice dueInvoice}) {
-	receiptService.handle(payedInvoice);
-	recoveryService.handle(dueInvoice);
-} else if (document instanceof Contract[] { Contract contract }) {
-    signatureService.handle(contract);
+
+Object[] fields = { 1345, "FAC", "9834765", "user9475", "e45737645"  }
+
+if (fields instanceof Object[] { Integer Price, String code }) {
+	invoiceService.handle(price, code);
 }
 ----
 
