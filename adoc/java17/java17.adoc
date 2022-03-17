@@ -44,11 +44,11 @@ Aujourd’hui le design de nos backend d’applications de gestions pousse (🌱
 Dans ce genre d’applications, quelle que soit l’architecture choisie ou le style dev, on se retrouve à un moment ou un autre à :
 
 1.{nbsp}Modéliser notre domaine métier ::
-Cela peut être fait dans un package spécifique avec des POJO, ou avec des `Entity` JPA. +
+Cela peut être fait dans un package spécifique avec des https://en.wikipedia.org/wiki/Plain_old_Java_object[POJO], ou avec des `Entity` https://en.wikipedia.org/wiki/Jakarta_Persistence[JPA]. +
 La seconde option est la plus répandue, mais ce n’est pas ma préférée.
 Je trouve que c’est une erreur de concevoir le business d’une application autour d’une base de données. +
 2.{nbsp}Écrire des https://en.wikipedia.org/wiki/Data_transfer_object[DTO] ::
-Dans l’idéal, un dto est immutable (Il n’y a aucune raison de changer la représentation d’une donnée transmise à un moment T). +
+Dans l’idéal, un DTO est immutable (Il n’y a aucune raison de changer la représentation d’une donnée transmise à un moment T). +
 Le `record` est la structure de données la plus appropriée. +
 Sinon, avant Java 14, on a les `@Value` de Lombok. +
 On peut aussi se contenter de POJO mutables.
@@ -77,7 +77,7 @@ node "Module recovery" {
 @enduml
 ----
 
-Et bien pour faire varier les comportements des actions affectant ces classes, la POO nous incite à ajouter des méthodes sur nos classes de domaine. +
+Et bien pour faire varier les comportements des actions affectant ces classes, la https://en.wikipedia.org/wiki/Object-oriented_programming[Programation-Orientée-Objets] nous incite à ajouter des méthodes sur nos classes de domaine. +
 //En effet, c’est un Objet, il a un état, et il peut porter des méthodes consommant ou modifiant cet état.
 
 Par exemple, pour la domain-class `Invoice`, le module `Letter` pourrait vouloir ajouter une méthode `calculateRemainingAmountToPay()`. +
@@ -150,7 +150,7 @@ Pour y parvenir, on utilisait jusque-là au moins ces 3 patterns :
 
 * Le https://en.wikipedia.org/wiki/Visitor_pattern#Sources_3[visitor pattern]footnote:["Today, to express ad-hoc polymorphic calculations like this we would use the cumbersome visitor pattern". source : https://openjdk.java.net/jeps/405]
 * Le https://en.wikipedia.org/wiki/Delegation_pattern[delegate pattern]
-* Le pattern service-everywhere avec des méthodes à 8 arguments (un anti-pattern d’après moi), qui nait de la programmation procédurale dans un monde d'https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans[inversion de contrôle.]
+* Le pattern service-everywhere avec des méthodes à 8 arguments (un anti-pattern d’après moi), qui nait de la programmation procédurale dans un monde d’https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans[inversion de contrôle.]
 
 Mais à présent avec Java 17, une quatrième solution élégante s’offre à nous : Le Pattern Matching.
 
@@ -474,7 +474,7 @@ if (object instanceof Invoice) {
 }
 ----
 
-== La déconstruction d'array
+== La déconstruction d’array
 
 De la même manière que pour les `record`, on va bientôt pouvoir déconstruire des array afin de :
 
@@ -495,10 +495,10 @@ if (document instanceof Invoice[] { PayedInvoice payedInvoice, DueInvoice dueInv
 
 == Les autres fonctionnalités à venir
 
-* L'imbrication de pattern
+* L’imbrication de pattern
 * Déconstruction par méthode
 
-== Qu'apporte à notre code ces nouvelles fonctionnalités ?
+== Qu’apporte à notre code ces nouvelles fonctionnalités ?
 
 * Plus de validation à la compile-time, et donc une boucle de feedback plus rapide.
 * Développer plus intuitivement (le compilateur nous dis ce qu’on a oublié)
@@ -511,15 +511,15 @@ if (document instanceof Invoice[] { PayedInvoice payedInvoice, DueInvoice dueInv
 
 == Et Java 18/19 alors ?
 
-À l'écriture de ces lignes, Java 18 est en phase de release candidate. +
+À l’écriture de ces lignes, Java 18 est en phase de release candidate. +
 Cela signifie que la listes de ces features est fixée. +
 En ce qui concerne le pattern matching, on y retrouve la JEP 420 : Pattern Matching for switch (Second Preview) +
-Cette seconde preview apporte des corrections de syntaxe et de compilation mineures, qui n'affecte pas les explications précédentes.
+Cette seconde preview apporte des corrections de syntaxe et de compilation mineures, qui n’affecte pas les explications précédentes.
 Java 19 est en early-access avec une seule JEP. +
-J'espère y trouver la déconstruction de record/array/méthode en preview.
+J’espère y trouver la déconstruction de record/array/méthode en preview.
 
 == Conclusion
 
-J'ai passé en revue les fonctionnalités phares du "record and array pattern matching", en appuyant sur "dans quels contextes les utiliser ?", "pourquoi les utiliser ?". +
-Les principales sont déjà dans Java 17, d'autres sont dans sa preview, et les restantes ne tarderont pas. +
-Cette révolution du langage est probablement au niveau de la révolution des Stream et de l'API Function de Java 8.
+J’ai passé en revue les fonctionnalités phares du "record and array pattern matching", en appuyant sur "dans quels contextes les utiliser ?", "pourquoi les utiliser ?". +
+Les principales sont déjà dans Java 17, d’autres sont dans sa preview, et les restantes ne tarderont pas. +
+Cette révolution du langage est probablement au niveau de la révolution des Stream et de l’API Function de Java 8.

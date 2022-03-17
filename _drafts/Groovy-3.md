@@ -1,6 +1,12 @@
------
+---
+layout: post
+title:  "Groovy 3"
+date:   2022-03-10 08:46:40 +0100
+categories: java groovy
+---
 
-À qui je m'adresse : 
+<!---
+À qui je m'adresse :
 * Les développeurs Java qui ne connaissent pas du tout Groovy
 * Les développeurs Java qui connaissent un peu Groovy (ex : Jenkins), mais n'ont jamais essayé/envisagé de l'utiliser en prod
 * Les développeurs d'autres langages qui ont besoin d'un langage de script
@@ -11,8 +17,7 @@ C'est quoi l'objectif de l'article :
 3. Convaincre qu'on peut ajouter Groovy dans un projet existant facilement et sans risque (interopérabilité/compatibilité avec Java)
 4. Convaincre que le langage est intuitif et facile à apprendre
 5. Donner envie de proposer Groovy à sa team demain matin
-
------
+--->
 
 # Groovy (3), le langage JVM orienté productivité
 
@@ -87,7 +92,7 @@ Java :
 var users = new ArrayList<>() {{
 	add(user1);
 	add(user2);
-	}};
+}};
 ```
 
 Je suis sympa, c’est du Java 11, ce qui nous économise le type. Sinon ça aurait été pire.
