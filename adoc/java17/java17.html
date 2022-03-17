@@ -744,9 +744,9 @@ C’est une milestone de l’objectif ambitieux nommé<br>
 <li><a href="#_et_ça_sert_à_quoi">Et ça sert à quoi ?</a></li>
 </ul>
 </li>
-<li><a href="#_la_déconstruction_darray">La déconstruction d&#8217;array</a></li>
+<li><a href="#_la_déconstruction_darray">La déconstruction d’array</a></li>
 <li><a href="#_les_autres_fonctionnalités_à_venir">Les autres fonctionnalités à venir</a></li>
-<li><a href="#_quapporte_à_notre_code_ces_nouvelles_fonctionnalités">Qu&#8217;apporte à notre code ces nouvelles fonctionnalités ?</a>
+<li><a href="#_quapporte_à_notre_code_ces_nouvelles_fonctionnalités">Qu’apporte à notre code ces nouvelles fonctionnalités ?</a>
 <ul class="sectlevel2">
 <li><a href="#_dans_quels_langages_on_en_trouve_déjà">Dans quels langages on en trouve déjà</a></li>
 </ul>
@@ -774,13 +774,13 @@ Si on veut améliorer Java, on doit alors se demander "Que fait-on le plus souve
 <dl>
 <dt class="hdlist1">1.&#160;Modéliser notre domaine métier </dt>
 <dd>
-<p>Cela peut être fait dans un package spécifique avec des POJO, ou avec des <code>Entity</code> JPA.<br>
+<p>Cela peut être fait dans un package spécifique avec des <a href="https://en.wikipedia.org/wiki/Plain_old_Java_object">POJO</a>, ou avec des <code>Entity</code> <a href="https://en.wikipedia.org/wiki/Jakarta_Persistence">JPA</a>.<br>
 La seconde option est la plus répandue, mais ce n’est pas ma préférée.
 Je trouve que c’est une erreur de concevoir le business d’une application autour d’une base de données.<br></p>
 </dd>
 <dt class="hdlist1">2.&#160;Écrire des <a href="https://en.wikipedia.org/wiki/Data_transfer_object">DTO</a> </dt>
 <dd>
-<p>Dans l’idéal, un dto est immutable (Il n’y a aucune raison de changer la représentation d’une donnée transmise à un moment T).<br>
+<p>Dans l’idéal, un DTO est immutable (Il n’y a aucune raison de changer la représentation d’une donnée transmise à un moment T).<br>
 Le <code>record</code> est la structure de données la plus appropriée.<br>
 Sinon, avant Java 14, on a les <code>@Value</code> de Lombok.<br>
 On peut aussi se contenter de POJO mutables.</p>
@@ -796,7 +796,7 @@ On peut aussi se contenter de POJO mutables.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Et bien pour faire varier les comportements des actions affectant ces classes, la POO nous incite à ajouter des méthodes sur nos classes de domaine.<br></p>
+<p>Et bien pour faire varier les comportements des actions affectant ces classes, la <a href="https://en.wikipedia.org/wiki/Object-oriented_programming">Programation-Orientée-Objets</a> nous incite à ajouter des méthodes sur nos classes de domaine.<br></p>
 </div>
 <div class="paragraph">
 <p>Par exemple, pour la domain-class <code>Invoice</code>, le module <code>Letter</code> pourrait vouloir ajouter une méthode <code>calculateRemainingAmountToPay()</code>.<br>
@@ -861,7 +861,7 @@ Le module <code>Letter</code> utilise <code>Invoice</code> et se retrouve à pou
 <p>Le <a href="https://en.wikipedia.org/wiki/Delegation_pattern">delegate pattern</a></p>
 </li>
 <li>
-<p>Le pattern service-everywhere avec des méthodes à 8 arguments (un anti-pattern d’après moi), qui nait de la programmation procédurale dans un monde d&#8217;<a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans">inversion de contrôle.</a></p>
+<p>Le pattern service-everywhere avec des méthodes à 8 arguments (un anti-pattern d’après moi), qui nait de la programmation procédurale dans un monde d’https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans[inversion de contrôle.]</p>
 </li>
 </ul>
 </div>
@@ -1302,7 +1302,7 @@ Je peux alors étendre le concept de <code>instanceof</code> précédent, en lui
 </div>
 </div>
 <div class="sect1">
-<h2 id="_la_déconstruction_darray">La déconstruction d&#8217;array</h2>
+<h2 id="_la_déconstruction_darray">La déconstruction d’array</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>De la même manière que pour les <code>record</code>, on va bientôt pouvoir déconstruire des array afin de :</p>
@@ -1338,7 +1338,7 @@ Je peux alors étendre le concept de <code>instanceof</code> précédent, en lui
 <div class="ulist">
 <ul>
 <li>
-<p>L&#8217;imbrication de pattern</p>
+<p>L’imbrication de pattern</p>
 </li>
 <li>
 <p>Déconstruction par méthode</p>
@@ -1348,7 +1348,7 @@ Je peux alors étendre le concept de <code>instanceof</code> précédent, en lui
 </div>
 </div>
 <div class="sect1">
-<h2 id="_quapporte_à_notre_code_ces_nouvelles_fonctionnalités">Qu&#8217;apporte à notre code ces nouvelles fonctionnalités ?</h2>
+<h2 id="_quapporte_à_notre_code_ces_nouvelles_fonctionnalités">Qu’apporte à notre code ces nouvelles fonctionnalités ?</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -1382,12 +1382,12 @@ Je peux alors étendre le concept de <code>instanceof</code> précédent, en lui
 <h2 id="_et_java_1819_alors">Et Java 18/19 alors ?</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>À l&#8217;écriture de ces lignes, Java 18 est en phase de release candidate.<br>
+<p>À l’écriture de ces lignes, Java 18 est en phase de release candidate.<br>
 Cela signifie que la listes de ces features est fixée.<br>
 En ce qui concerne le pattern matching, on y retrouve la JEP 420 : Pattern Matching for switch (Second Preview)<br>
-Cette seconde preview apporte des corrections de syntaxe et de compilation mineures, qui n&#8217;affecte pas les explications précédentes.
+Cette seconde preview apporte des corrections de syntaxe et de compilation mineures, qui n’affecte pas les explications précédentes.
 Java 19 est en early-access avec une seule JEP.<br>
-J&#8217;espère y trouver la déconstruction de record/array/méthode en preview.</p>
+J’espère y trouver la déconstruction de record/array/méthode en preview.</p>
 </div>
 </div>
 </div>
@@ -1395,9 +1395,9 @@ J&#8217;espère y trouver la déconstruction de record/array/méthode en preview
 <h2 id="_conclusion">Conclusion</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>J&#8217;ai passé en revue les fonctionnalités phares du "record and array pattern matching", en appuyant sur "dans quels contextes les utiliser ?", "pourquoi les utiliser ?".<br>
-Les principales sont déjà dans Java 17, d&#8217;autres sont dans sa preview, et les restantes ne tarderont pas.<br>
-Cette révolution du langage est probablement au niveau de la révolution des Stream et de l&#8217;API Function de Java 8.</p>
+<p>J’ai passé en revue les fonctionnalités phares du "record and array pattern matching", en appuyant sur "dans quels contextes les utiliser ?", "pourquoi les utiliser ?".<br>
+Les principales sont déjà dans Java 17, d’autres sont dans sa preview, et les restantes ne tarderont pas.<br>
+Cette révolution du langage est probablement au niveau de la révolution des Stream et de l’API Function de Java 8.</p>
 </div>
 </div>
 </div>
@@ -1422,7 +1422,7 @@ Cette révolution du langage est probablement au niveau de la révolution des St
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-03-17 14:09:29 +0100
+Last updated 2022-03-17 14:47:09 +0100
 </div>
 </div>
 </body>

@@ -1,9 +1,0 @@
-= [ video ] Plantuml, the best friend of asciidoc : diagram-as-code
-
-FR : [ video ] Plantuml, le meilleur ami d'asciidoc : diagram-as-code
-
-Hello c'est Antoine de Younup !
-
-Je suis ingénieur dev backend et j'adhère fortement à la pratique devops everything-as-code.
-
-Et donc aujourd'hui
