@@ -1,4 +1,4 @@
-= Java 17, le record & pattern matching c’est pour maintenant ?
+= Le record & array pattern matching avec Java 17
 Antoine Salesse - a.salesse@younup.fr
 :toc: preamble
 :caution-caption: ⚠
