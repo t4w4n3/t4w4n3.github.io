@@ -3,13 +3,13 @@ Antoine Salesse - t4w4n3 - <a.salesse@younup.fr>
 :toc:
 :toclevels: 3
 
-Dans les projets logiciel itératifs, incrémentals et adaptatifs, et dans un monde où on veut réagir rapidement au changement, on veut coder VITE, ne pas réinventer la roue (et encore moins la roue carrée).
+Dans les projets logiciels itératifs, incrémentaux et adaptatifs, et dans un monde où on veut réagir rapidement au changement, on veut coder VITE, ne pas réinventer la roue (et encore moins la roue carrée).
 
 Une lib existe pour faire ce qu’on a besoin ?
 Elle est stable, maintenue, ses edge case sont testés ?
 Ok on l’embarque plutôt que de recoder la feature.
 
-Dans le monde Java, on a bien des framework et des lib à foison remplis d’utils, de helpers, et d’annotations :
+Dans le monde Java, on a bien des frameworks et des lib à foison remplies d’utils, de helpers, et d’annotations :
 
 * Springboot
 * Lombok
@@ -50,7 +50,7 @@ Les conventions plutôt que la configuration.
 Admettons-le, configurer c’est lourd.
 C’est surtout dans le design et l'écriture du code métier qu’on souhaite dépenser notre précieux temps.
 
-C’est probablement pour cette raison que les framework Springboot et Micronaut sont si appréciés ; ils appliquent ce concept.
+C’est probablement pour cette raison que les frameworks Springboot et Micronaut sont si appréciés ; ils appliquent ce concept.
 
 Ma sélection des features Groovy qui soutiennent ce principe :
 
@@ -73,7 +73,7 @@ var users = new ArrayList<>() {{
 }};
 ----
 
-Je suis sympa, c’est du java 11, ce qui nous économise le type.
+Je suis sympa, c’est du Java 11, ce qui nous économise le type.
 Mais on peut aller se gratter pour la trailing-comma (virgule finale), c’est les reviewers qui sont contents ;)
 
 Groovy :
@@ -143,7 +143,7 @@ var userByGroup = [
 ----
 
 Aucun caractère n’est superflu.
-Même les parenthèses de clés sont bien de la charge utile, car elles indiquent que la clé est une instance d’objet et non la string `"groupeX"`.
+Même les parenthèses de clés sont bien de la charge utile, car elles indiquent que la clé est une instance d’objet et non la `String` `"groupeX"`.
 
 ==== Default getters and setters
 
@@ -285,7 +285,7 @@ println users*.name
 
 Ici, on récupère et affiche tous les userNames.
 
-En Java ça aurait été légèrement plus verbeux :
+En Java, ça aurait été légèrement plus verbeux :
 
 [source,java,linenums]
 ----
@@ -393,9 +393,9 @@ assert ('g' <=> 'a') == 1
 
 === Des high order functions natives sur les structures de données
 
-L’activité probablement la plus récurente dans un backend, est de manipuler des structures de données.
+L’activité probablement la plus récurrente dans un backend, est de manipuler des structures de données.
 
-Les api Function et Stream ont révolutionné cette pratique. Mais l’intelligibilité est encore limité par la verbosité de Java.
+Les api Function et Stream ont révolutionné cette pratique. Mais l’intelligibilité est encore limitée par la verbosité de Java.
 
 Voyez plutôt :
 
@@ -434,11 +434,11 @@ entiers.permutations() == [[1, 2, 3], [3, 2, 1], [2, 1, 3], [3, 1, 2], [1, 3, 2]
 (1..10).collate(3) == [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
 ----
 
-Et je ne m’arrête pas car je suis à court, mais parce que vous avez saisi l’idée : toute opération de transformation existe nativement dans Groovy, et lex mixer entre elles donne des possibilités infinies tout en conservant une lisibilité accrue.
+Et je ne m’arrête pas, car je suis à court, mais parce que vous avez saisi l’idée : toute opération de transformation existe nativement dans Groovy, et lex mixer entre elles donne des possibilités infinies tout en conservant une lisibilité accrue.
 
 == Intégrer Groovy dans un projet Java existant
 
-Il faut configurer la "joint compilation", pour compiler le java ET le groovy.
+Il faut configurer la "joint compilation", pour compiler le Java ET le Groovy.
 L’idéal est d’utiliser *gmavenplus*:
 
 [source,xml,linenums]

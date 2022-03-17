@@ -1,4 +1,7 @@
 = Idées de posts
 
 * Faire un post asciidoc dans un blog Github-pages/Jekyll
+* Article sur Manjaro
+* Spring Cloud openFeign : générer controller et client https depuis spec json
+* Les paradigmes de prog
 * My FunctionUtils for streaming short-lived tuples in Java
