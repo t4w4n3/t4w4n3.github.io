@@ -370,8 +370,7 @@ On réutilise la contrainte `min size` en tant que taille par défaut.
 ### Note rapide sur l’aléatoire
 
 1. Ici, le segment n’a pas à être sécurisé. On veut juste des mots de 5 caractères
-2. `RandomStringUtils.randomAlphanumeric` utilise `java.util.Random`, qui est thread-safe, mais aussi **thread-blocking** ! C’est un goulot d’étranglement pour les contextes multi-threadés. On s’en moque pour notre app de démo. La bonne solution aurait été une génération pseudo-random (/dev/urandom) :
-3. Sur un mot de 5 caractères alphanumériques, des collisions peuvent survenir. On peut alors ajouter un peu de code de validation :
+2. Sur un mot de 5 caractères alphanumériques, des collisions peuvent survenir. On peut alors ajouter un peu de code de validation :
 
 ```groovy
 class ShortUrl {
