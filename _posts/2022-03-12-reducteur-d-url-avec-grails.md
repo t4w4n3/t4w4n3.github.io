@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Un réducteur d’url codé avec Grails"
+title:  "Un réducteur d’url codé avec Grails 5"
 date:   2022-03-12 11:50:40 +0100
 categories: java grails
 ---
@@ -112,7 +112,7 @@ Vous savez déjà ce qu’est une url.
 
 Un segment est un morceau d’URL, entre des slashes.
 
-> https://t4wan3.github.io/grails/url-shortener-grails
+> https://t4wan3.github.io/blog/grails/url-shortener-grails
 
 Dans cette url, « blog », « grails » et « url-shortener-grails » sont des segments.
 
@@ -158,7 +158,7 @@ static constraints = {
 
 ## Étape 3 : Scaffolder the ShortUrl entity
 
-La traduction literal de "scaffold" est "échafauder".  
+La traduction littérale de "scaffold" est "échafauder".  
 Dans notre contexte, cela signifie "générer automatiquement une hiérarchie de structures de données depuis une graine initiale".
 
 Maintenant que notre domaine est modélisé, nous pouvons supposer que notre application est assez simple pour utiliser un CRUD.
@@ -207,7 +207,7 @@ Quand le navigateur a appelé l’endpoint du contrôleur avec une requête GET,
 
 `Accept: application/html`
 
-Le contrôleur l’interprète afin de répondre avec une page html listant tous les `ShorUrl` stockées.
+Le contrôleur l’interprète afin de répondre avec une page html listant toutes les `ShorUrl` stockées.
 
 Regardons ce que fait le bouton "new ShortUrl" : 
 
@@ -345,7 +345,7 @@ Bien mieux !
 
 Mais on doit maintenant en générer un aléatoirement si non renseigné.
 
-Initialisons-le dans la méthode `beforeValidate` de `ShortUrl` (si non fournit par l’utilisateur) :
+Initialisons-le dans la méthode `beforeValidate` de `ShortUrl` (si non fourni par l’utilisateur) :
 
 ```groovy
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric
@@ -406,7 +406,7 @@ protected String getRandomAlphaNumeric() {
 
 > ![](/assets/images/show_page.png)
 
-Quand on veut une `ShortUrl`, en soumettant le formulaire, l’action de `save` est exécuté, et on est redirigé par convention sur la page `show` montrant l’entité `ShortUrl` créée.
+Quand on veut une `ShortUrl`, en soumettant le formulaire, l’action de `save` est exécutée, et on est redirigé par convention sur la page `show` montrant l’entité `ShortUrl` créée.
 
 La page `show` n’a pas de valeur dans notre MVP, et donc on préfère être redirigé sur une nouvelle page de création qui contient aussi la nouvelle `ShortUrl` dans une `div` conditionnelle.
 
@@ -505,11 +505,11 @@ Super ! Maintenant on peut voir la `ShortUrl` créée sur la même page :
 
 Dans Grails, la page d’index correspond à la liste (paginée) des éléments.
 
-Pqr défaut, la liste de tous les `ShortUrl` créées ressemble à ça :
+Par défaut, la liste de toutes les `ShortUrl` créées ressemble à ça :
 
 ![](/assets/images/default_shorturl_list_view.png)
 
-On s’y moque du segment et de sa page de visualisation (`show`).
+On se moque du segment et de sa page de visualisation (`show`).
 
 Ce qu’on devrait plutôt montrer sur cette page d’index, c’est une table de longues urls par urls raccourcies.
 
