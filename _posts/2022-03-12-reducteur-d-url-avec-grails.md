@@ -225,7 +225,7 @@ Quand on créé une `ShortUrl`, on est redirigé vers la page `show` de l’obje
 
 ### Essayons le lien
 
-Si je préfixe le base-path avec le fragment, j’obtiens `http://localhost:8080/k2m47`. 
+Si je préfixe le base-path avec le segment, j’obtiens `http://localhost:8080/k2m47`. 
 
 Mais ce lien redirige vers la page 404 : 
 
