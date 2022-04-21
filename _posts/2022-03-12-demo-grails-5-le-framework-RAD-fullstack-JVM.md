@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Un réducteur d’url codé avec Grails 5"
+title:  "Démo de Grails 5, le framework RAD fullstack de la JVM"
 date:   2022-03-12 11:50:40 +0100
 categories: java grails
 ---
