@@ -7,9 +7,26 @@ categories: java grails
 
 # La JVM fullstack avec Grails 5
 
-J’ai récemment regardé [cette vidéo](https://www.youtube.com/watch?v=gq5yubc1u18) de la chaîne YouTube [Coding Garden](https://coding.garden/).
+Après avoir passé quasiment 2 ans en mission avec Grails au travers de 2 produits d'assurance fullstack, j'ai acquis la certitude que les outils RAD sont toujours au gout du jour.
 
-Dans ce live coding enregistré, il tente (et réussit) à coder un site web réducteur d’url from scratch, et il le déploie en production grâce au PAAS Heroku et sa CLI, le tout en 1 heure.
+Ce framework exploite encore plus le principe de Spring Boot : "convention-over-configuration" (Des configurations par défaut plutôt que de la configuration manuelle).
+
+Il se positionne sur le marché des frameworks JVM comme étant fullstack, en intriquant le frontend et le backend au travers de Server-Side-Rendering, de templating html, et d'API Rest.
+
+De plus, il offre une [joint-compilation](https://www.baeldung.com/groovy-java-applications) native Java/Groovy, afin de tirer le meilleur des 2 langages :
+
+- Java : typage fort, excellentes performances
+- Groovy : typage dynamique, [Métaprogrammation](https://www.groovy-lang.org/metaprogramming.html), high-order functions, nombreux [opérateurs](https://groovy-lang.org/operators.html), programmation fonctionnelle
+
+Et enfin, Grails est hautement compatible avec l'écosystème Spring puisque basé dessus.
+
+Toutefois j'observe dans mon réseau professionnel que Grails est encore peu connu, d'où mon envie de montrer au travers de cet article tout ce qu'il est possible de faire avec, rapidement, facilement, et simplement.
+
+Pour ça, il me faut un sujet de démonstration.
+
+J’ai justement regardé récemment [ce live coding](https://www.youtube.com/watch?v=gq5yubc1u18) de la chaîne YouTube [Coding Garden](https://coding.garden/).
+
+Il y code un site web de réduction d’url from scratch en 1 heure avec NodeJs.
 
 Je me suis dit :
 
@@ -17,9 +34,9 @@ Je me suis dit :
 
 Puis, je me suis demandé :
 
-> Pourrais-je en coder un aussi vite avec ma propre stack ?
+> Pourrais-je en coder un aussi vite avec Grails ?
 
-Essayons !
+C'est parti !
 
 ## Qu’est-ce qu’un réducteur d’url ?
 
@@ -29,11 +46,9 @@ Vous avez une longue URL et pour x raisons, vous avez besoin qu’elle soit minu
 
 Vous allez donc sur un outil de raccourcissement d’url. Vous lui donnez votre longue url. Il vous donne en retour une petite url qui redirige vers la vôtre.
 
-## Ma propre stack
+## Quels outils composent Grails 5
 
-Je suis un développeur Java backend, qui sait aussi faire quelques trucs en frontend.
-
-Je vais utiliser Grails 5.1.3, qui inclut (avec quelques personnalisations perso) :
+La version de Grails utilisée ici est la 5.1.3, et inclut ces outils (avec quelques upgrades de version perso) :
 
 - Gradle 7.4.1
 - Java 15
@@ -43,12 +58,11 @@ Je vais utiliser Grails 5.1.3, qui inclut (avec quelques personnalisations perso
 - Springboot 2.6.4
 - Tomcat 9.0
 - Spring 5.3.16
+- Groovy Server Pages 5.1.0
 
 Java 15 est la plus haute version ayant une compatibilité totale avec Groovy 3. Pour Java 17/18, il faut attendre Groovy 4 et Grails 6.
 
-Le framework offre un support backend et frontend.
-
-Vous pouvez me trouver old-school, mais j’aime le templating HTML Java. Mais pas le genre Jsp / Jstl. Plutôt un très moderne : GSP (Groovy Server Pages). C’est le composant de view principal du Framework Grails.
+Vous pouvez me trouver old-school, mais j’aime le templating HTML Java. Vous avez été traumatisé par les JSP/Jstl ? Pas d'inquiétude, vous allez voir que les Groovy Server Pages sont fantastiquement simples et puissantes.
 
 ## Pré-requis
 
@@ -98,7 +112,7 @@ Le dev-mode de Grails supporte le hotreload, laissons donc l’app tourner.
 
 Notre front-end expose la page par défaut de Grails :
 
-![welcome page de grails](welcome-to-grails.png)
+![welcome page de grails](/assets/images/welcome-to-grails.png)
 
 ## Étape 2 : Créer l’entité principale
 
@@ -179,11 +193,11 @@ class ShortUrlController {
 
 Ouvrons le navigateur afin de voir le contenu hot-reloadé. Elle affiche la liste des contrôleurs disponibles :
 
-![page available controllers](available_controller.png)
+![page available controllers](/assets/images/available_controller.png)
 
 On peut voir ici notre tout nouveau contrôleur. Ouvrons-le pour voir la page listant les urls raccourcies :
 
-![page short url list](shorturl_list.png)
+![page short url list](/assets/images/shorturl_list.png)
 
 Quand le navigateur a appelé l’endpoint du contrôleur avec une requête GET, il y avait ce header :
 
@@ -193,17 +207,17 @@ Le contrôleur l’interprète afin de répondre avec une page HTML listant tout
 
 Regardons ce que fait le bouton `New ShortUrl`. Il ouvre une page avec un formulaire qui permet de créer de nouvelles `ShortUrl`. :
 
-![create short url](./create_shorturl.png)
+![create short url](/assets/images/./create_shorturl.png)
 
 C’est proche de ce qu’on aimerait avoir comme page d’accueil !
 
 Quand on crée une `ShortUrl`, on est redirigé vers la page `show` de l’objet créé.
 
-![show short url](shorturl-show-page.png)
+![show short url](/assets/images/shorturl-show-page.png)
 
 Essayons le lien. Si je préfixe le base-path avec le segment, j’obtiens `http://localhost:8080/k2m47`. Mais ce lien redirige vers la page 404 :
 
-![404 page not found](page-not-found-404.png)
+![404 page not found](/assets/images/page-not-found-404.png)
 
 ## Étape 4 : Configurer la redirection
 
@@ -311,7 +325,7 @@ static constraints = {
 }
 ```
 
-![segment optionel](segment_optional.png)
+![segment optionel](/assets/images/segment_optional.png)
 
 Bien mieux !
 
@@ -375,7 +389,7 @@ protected String getRandomAlphaNumeric() {
 
 ## Étape 8 : Changer la redirection sur un `submit` de `create`
 
-![page show url](show_page.png)
+![page show url](/assets/images/show_page.png)
 
 Quand on veut une `ShortUrl`, en soumettant le formulaire, l’action de `save` est exécutée, et on est redirigé par convention sur la page `show` montrant l’entité `ShortUrl` créée.
 
@@ -470,7 +484,7 @@ rm grails-app/views/shortUrl/edit.gsp
 
 Super ! Maintenant on peut voir la `ShortUrl` créée sur la même page :
 
-![page create short url et shortened url](conditional_div.png)
+![page create short url et shortened url](/assets/images/conditional_div.png)
 
 ## Étape 10 : Ajouter une meilleure page d’index
 
@@ -478,7 +492,7 @@ Dans Grails, la page d’index correspond à la liste (paginée) des éléments.
 
 Par défaut, la liste de toutes les `ShortUrl` créées ressemble à ça :
 
-![vue par defaut](default_shorturl_list_view.png)
+![vue par defaut](/assets/images/default_shorturl_list_view.png)
 
 On se moque du segment et de sa page de visualisation (`show`).
 
@@ -531,7 +545,7 @@ Et je l’ai copié dans mon template afin d’en modifier les noms de colonnes 
 
 Voici le résultat :
 
-![vue url customisee](customized_shorturl_list_view.png)
+![vue url customisee](/assets/images/customized_shorturl_list_view.png)
 
 ## Étape 11 - La touche finale
 
@@ -573,15 +587,15 @@ Le nouveau footer :
 
 On obtient finale :
 
-![page accueil finale](touche_finale.png)
+![page accueil finale](/assets/images/touche_finale.png)
 
-![short url list](pagination.png)
+![short url list](/assets/images/pagination.png)
 
 Maintenant, prenons un moment pour jeter un coup d’œil sur tout le code écrit. Ce n’est pas tant que ça comparé au produit obtenu, n’est-ce pas ?
 
 ## Conclusion
 
-On vient de développer une fonctionnalité complète from scratch, avec très peu de lignes de code, grâce à Grails.
+Grâce à Grails on vient de développer une fonctionnalité fullstack complète from scratch au sein de la même JVM, avec très peu de lignes de code. 
 
 On est resté concentré sur notre MVP, mais on a malgré tout plein de bonus sympas offerts par Grails :
 
