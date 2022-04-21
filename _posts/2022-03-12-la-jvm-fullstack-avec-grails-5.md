@@ -116,7 +116,7 @@ Notre front-end expose la page par défaut de Grails :
 
 ## Étape 2 : Créer l’entité principale
 
-Fondamentalement, ce que nous voulons, c’est stocker des ’url’ par ’segment’. Vous savez déjà ce qu’est une url. Un segment est un morceau d’URL, entre des slashs. Prenons par exemple `https://t4wan3.github.io/blog/grails/url-shortener-grails`.  Dans cette url, `blog`, `grails` et `url-shortener-grails` sont des segments.
+Fondamentalement, ce que nous voulons, c’est stocker des ’url’ par ’segment’. Vous savez déjà ce qu’est une url. Un segment est un morceau d’URL, entre des slashs. Prenons par exemple `https://t4wan3.github.io/blog/grails/url-shortener-grails`. Dans cette url, `blog`, `grails` et `url-shortener-grails` sont des segments.
 
 Grails fait la persistance en base de données grâce à des "classes de domaine" équivalentes à l’association d’`Entity` et de `JpaRepository` de Spring.
 
@@ -320,7 +320,7 @@ Rendons le segment `nullable` :
 
 ```groovy
 static constraints = {
-            segment unique: true, size: 5..10, matches: "[0-9a-zA-Z]*", nullable: true
+    segment unique: true, size: 5..10, matches: "[0-9a-zA-Z]*", nullable: true
     url url: true, blank: false
 }
 ```

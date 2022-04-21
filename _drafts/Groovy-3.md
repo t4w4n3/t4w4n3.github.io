@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Groovy 3"
+title:  "Groovy (3), le langage JVM orienté productivité"
 date:   2022-03-10 08:46:40 +0100
 categories: java groovy
 ---
@@ -19,8 +19,6 @@ C'est quoi l'objectif de l'article :
 5. Donner envie de proposer Groovy à sa team demain matin
 --->
 
-# Groovy (3), le langage JVM orienté productivité
-
 ## I. Intro
 
 "Développeur/euse Java" ça ne serait pas un peu réducteur en fait ?
@@ -31,33 +29,30 @@ Et non, c'est bien du bytecode. On peut le générer avec plusieurs langages :
 
 * Java (no kidding)
 * Groovy
-* Scala
 * Kotlin
+* Scala
 * Clojure
 * JRuby
 * Jython
 
 Le bytecode généré est inter-compatible quel que soit son langage d'origine.
 
-Cela signifie qu'une application peut avoir des classes en .java, .kt, .groovy. .scala, elles peuvent toutes s'utiliser entre elles.
+Cela signifie qu'une application Java peut avoir des classes dans un de ces langages, et elles peuvent toutes s'appeler entre elles.
 
-On retrouve souvent ces langages parallèles dans des outils liés au test, à la conf et à l'automatisation :
+On retrouve souvent ces langages parallèles dans des outils liés au test, à de la configuration et à l'automatisation :
 
-* Groovy dans Soap UI, Spock, Jenkins, Gradle, Geb
+* Groovy dans Spock, Jenkins, Gradle, Geb, Soap UI
 * Scala dans Gatling
 
-Et on peut parfaitement les utiliser dans du code de production, ce que j'ai fait pendant presque 2 ans par le biais du framework Grails (Groovy On Rails). Je n’avais jamais utilisé un transcodage pensé vers code aussi efficace.
+Et on peut parfaitement les utiliser dans du code de production, ce que j'ai fait pendant presque 2 ans par le biais du framework Grails (Groovy On Rails). Je n’avais jamais utilisé un transcodage esprit vers code aussi efficace.
 
-Cet article présente les features de Groovy (3.0.9) pour coder ses idées à toute vitesse.
-
-## Table of Contents
-
+Cet article présente les features de Groovy (3.0.10) pour coder ses idées à toute vitesse.
 
 ## II. Les facettes de Groovy
 
 Voici les caractéristiques et principes qui d’après moi, permettent à Groovy d’être si efficace :
 
-### 1.) Une courbe d’apprentissage plate
+### Facette 1 : Une courbe d’apprentissage plate
 
 La transition Java vers Groovy se fait très facilement comparé à Kotlin et Scala.
 
@@ -67,7 +62,7 @@ Une ligne Java compile aussi en Groovy !
 
 Et oui, on peut donc apprendre Groovy **itérativement** depuis du Java.
 
-### 2.) Les conventions plutôt que la configuration
+### Facette 2 : Des conventions plutôt que de la configuration
 
 Admettons-le, configurer c’est lourd. C’est surtout dans le design et l’écriture du code métier qu’on souhaite dépenser
 notre précieux temps.
@@ -75,14 +70,20 @@ notre précieux temps.
 C’est probablement pour cette raison que les frameworks Springboot et Micronaut sont si appréciés ; ils appliquent ce
 concept.
 
-Ma sélection des features Groovy qui soutiennent ce principe :
+**Voici ma sélection de 10 features Groovy qui soutiennent ce principe :**
 
-#### a.) List et map Literals
+#### Features 1 : Plus besoin de point virgule
+
+Attendez, je le répète.
+
+**Plus besoin de point virgule**
+
+C’est une étape décisive pour l’obtention d’un code avec une charge utile maximale.
+
+#### Features 2 : List et map Literals
 
 Si je devais citer une seule feature de Groovy, ce serait celle-ci. Déclarer et initialiser des `Collection` et des `Map`
 en java est très verbeux.
-
-##### 1. List literals
 
 Comparez vous-même pour une `ArrayList` (mutable) :
 
@@ -109,7 +110,7 @@ var user2 = [
 ]
 ```
 
-Par **convention**, `users` est une `ArrayList`. Mais on aurait pu avoir un autre type de `Collection` logiquement,
+Par **convention**, `users` est une `ArrayList`. Mais on aurait pu avoir un autre type de `Collection`,
 voire un `array` :
 
 ```groovy
@@ -134,9 +135,9 @@ var usersForever = [
 ].asImmutable()
 ```
 
-##### 2. Map literals
+Même chose pour les map literals, dont voici la comparaison de syntaxe Java vs Groovy :
 
-Java (à grand renfort d’imports statics) :
+En Java (et à grand renfort d’imports statics) :
 
 ```java
 import static java.util.Map.entry;
@@ -162,15 +163,7 @@ var userByGroup = [
 Aucun caractère n’est superflu. Même les parenthèses de clés sont bien de la charge utile, car elles indiquent que la
 clé est une instance d’objet et non la `String` `"groupeX"`.
 
-#### a.) Plus besoin de point virgule
-
-Attendez, je le répète.
-
-**Plus besoin de point virgule**
-
-C’est une étape décisive pour l’obtention d’un code avec une charge utile maximale.
-
-#### b.) Default getters and setters
+#### Features 3 : Default getters and setters
 
 Les getters et setters sont facultatifs et ajoutés implicitement sur tous les champs avec le scope par défaut (empty),
 comme avec les records et les data-classes/value-classes Lombok.
@@ -184,7 +177,7 @@ var foo = new Foo(id: 1)
 assert foo.getId() == 1
 ```
 
-#### c.) Les affectations sont des alias des setters
+#### Features 4 : Les affectations sont des alias des setters
 
 ```groovy
 foo.id = 2
@@ -193,9 +186,9 @@ foo.id = 2
 
 Regardez, si on surcharge le `setId` par défaut et qu’on y place un breakpoint, ce code y passe.
 
-![](surcharge-setId.png)
+![](/assets/images/surcharge-setId.png)
 
-#### d.) Les récupérations sont des alias des getters
+#### Features 5 : Les récupérations sont des alias des getters
 
 ```groovy
 foo.id = 2
@@ -204,7 +197,7 @@ foo.id = 2
 
 Il est aussi surchargeable.
 
-#### e.) Un constructeur par défaut avec des paramètres nommés
+#### Features 6 : Un constructeur par défaut avec des paramètres nommés
 
 ```groovy
 class User {
@@ -215,30 +208,30 @@ class User {
 var user = new User(id: 1, name: 'foo')
 ```
 
-#### f.) Des arguments de méthode par défaut
+#### Features 7 : Des arguments de méthode par défaut
 
 Les paramètres de méthodes peuvent être rendus facultatifs :
 
 ```groovy
-String foobarizeSomeStuff(String stuff1, int stuff2 = 0) {
-    println "$stuff1 + : $stuff2"
+String run(String param1, int param2 = 0) {
+    println "$param1 + : $param2"
 }
 
-foobarizeSomeStuff('Fizz', 8) == 'Fizz : 8'
-foobarizeSomeStuff('Fizz') == 'Fizz : 0'
+run('Fizz', 8) == 'Fizz : 8'
+run('Fizz') == 'Fizz : 0'
 ```
 
-On a économisé la méthode `foobarizeSomeStuff(String stuff1)`
+On a économisé la méthode `run(String param1)`
 
-#### g.) Le scope par default est `public`
+#### Features 8 : Le scope par default est `public`
 
 Plus besoin de spécifier le scope public
 
-![](public-facultatif.png)
+![](/assets/images/public-facultatif.png)
 
 L’IDE nous l’indique d’ailleurs en grisant les mot-clés facultatifs.
 
-#### h.) Default obvious imports
+#### Features 9 : Default obvious imports
 
 Plus besoin des imports évidents, ils sont faits implicitement :
 
@@ -251,12 +244,12 @@ Plus besoin des imports évidents, ils sont faits implicitement :
 - java.math.BigInteger
 - java.math.BigDecimal
 
-#### j.) Manipuler des `File` devient simple !
+#### Features 10 : Manipuler des `File` devient simple !
 
 Récupérer le contenu texte d’un fichier ? Trop facile. Écrire du texte dans un fichier ? Pareil.
 
 ```groovy
-var file = new File("asset/templates/one.tmpl")
+var file = new File("src/main/resources/one.tmpl")
 var textContent = file.text
 textContent += '''
 final line
@@ -264,13 +257,24 @@ final line
 file << textContent // Alias vers file.write(textContent)
 ```
 
-Je ne vous le fais pas en java, car vous avez déjà en tête le bazar d'`InputStream` et `OutputStream` habituel.
+En Java :
 
-### 3.) Des opérateurs de haut niveau d’abstraction
+```java
+var path = Paths.get("src/main/resources/one.tmpl");
+var textContent = Files.readAllLines(path).join("\n")
+byte[] strToBytes = "final line".getBytes();
+Files.write(path, strToBytes);
+```
 
-Groovy est inspiré de Python et Ruby pour ses opérateurs, dont voici mes petits préférés :
+On voit que le code Groovy se repose sur les opérateurs pour manipuler le contenu d'un fichier, contrairement à Java qui utilise l'API Files + quelques "glues" entre les traitements.   
 
-#### a.) Le Spread operator `*.`
+En parlant d'opérateurs...
+
+### Facette 3 : Des opérateurs de haut niveau d’abstraction
+
+Groovy est inspiré de Python et Ruby pour ses opérateurs, dont voici mes 7 petits préférés :
+
+#### 1.) Le Spread operator `*.`
 
 Il permet d’invoquer une action sur tous les éléments d’une `List` disposant de cette action.
 
@@ -292,13 +296,11 @@ En Java, ça aurait été légèrement plus verbeux :
 users.forEach(user -> user.sendMessage("unsubscribe"));
 ```
 
-#### b.) L’equal operator `==`
+#### 2.) L’equal operator `==`
 
-Hein, mais on a un equal-equal en java, que nous chantonnes-tu ?
+> Oui et alors, on a aussi un equal-equal en java, non ?
 
-Oui, mais celui de Groovy est en fait un alias de `.equals()` si et seulement si ce dernier existe dans la classe (avec
-une méthode
-`hashcode()`). Alors la comparaison de 2 instances identiques sera true en Groovy (false en java)
+Oui, mais dans le cas de Groovy, si un `.equals(Object obj)` est présent dans la classe, alors cet opérateur en sera un alias. La comparaison de 2 instances similaires sera true en Groovy (false en Java), ce qui est plus intuitif quant au mot.
 
 ```groovy
 import groovy.transform.EqualsAndHashCode
@@ -313,11 +315,11 @@ var two = new Foo(a: 1)
 assert one == two
 ```
 
-Je trouve ça plus intuitif.
+C'est effectivement plus intuitif.
 
-L’égalité de java est transféré sur l’opérateur `===` (on ne voudrait pas perdre de fonctionnalités quand même).
+L’égalité de java est transféré sur l’opérateur `===` (on ne voudrait pas perdre une fonctionnalité tout de même).
 
-#### c.) Elvis operator `?:`
+#### 3.) L'Elvis operator `?:`
 
 Il permet d’affecter une valeur par défaut si l’élément de gauche est `false` (`null`, zéro et vide sont `false` en Groovy).
 
@@ -331,7 +333,7 @@ displayName = user.name ?: 'Anonymous'
 
 `user` peut être `null` ? No problem, on en vient donc aux safe-operators
 
-#### d.). Safe-operators `?.` et `?[]`
+#### 4.) Les Safe-operators `?.` et `?[]`
 
 Le premier est le "safe navigation op" et le 2ᵉ est le "safe index op". Ils permettent tous deux d’éviter les
 'NullPointerException'.
@@ -343,7 +345,7 @@ var secondBook = user?.books ?[1] ?: Book.prototype
 
 Avec seuls trois opérateurs, on traite tous les cas de nullité possibles et le one-liner se comprend très bien.
 
-#### e.). Elvis-assignment-operator
+#### 5.) Elvis-assignment-operator `?=`
 
 Vous avez besoin d’éviter à tous pris la nullité d’une variable ? Initialisez-la seulement quand elle est effectivement
 `null` avec l’elvis-assignment-op :
@@ -355,23 +357,23 @@ userDto.name ?= 'John Smith'
 
 Avec tous les op de null-safety, le principe de convention-over-configuration prend tout son sens.
 
-#### f.). Range operator
+#### 6.) Range operator `..`
 
-On peut créer des ranges d’entiers ou de char et itérer dessus directement :
+On peut créer des plages d’entiers ou de char et itérer dessus directement :
 
 ```groovy
 ('a'..'g').each { println it } // prints a b c d e f g
 (1..5).each { println it } // prints 1 2 3 4 5
 ```
 
-On peut aussi se servir des range pour sublister une collection :
+On peut aussi se servir des `range` pour sublister une collection :
 
 ```groovy
 [1, 2, 3, 4, 5][3..-1] == [4, 5]
 [1, 2, 3, 4, 5][0..3] == [1, 2, 3, 4]
 ```
 
-#### g.). Spaceship operator
+#### 7.) Spaceship operator `<=>`
 
 C’est un alias de `.compareTo()`
 
@@ -381,7 +383,7 @@ assert ('a' <=> 'a') == 0
 assert ('g' <=> 'a') == 1
 ```
 
-### 4.) Des high order functions natives sur les structures de données
+### Facette 4 : Des high order functions natives sur les structures de données
 
 L’activité probablement la plus récurrente dans un backend, est de manipuler des structures de données.
 
@@ -430,7 +432,7 @@ lisibilité accrue.
 
 ## III. Intégrer Groovy dans un projet Java existant
 
-Il faut configurer la "joint-compilation", pour compiler le Java et le Groovy. L’idéal est d’utiliser **gmavenplus**:
+Il faut configurer la "joint-compilation", pour compiler le Java et le Groovy. L’idéal est d’utiliser **Gmavenplus** :
 
 ```xml
 
@@ -465,13 +467,15 @@ Il faut configurer la "joint-compilation", pour compiler le Java et le Groovy. L
 </plugin>
 ```
 
+Si votre prod n'est pas prête à acceuillir Groovy, peut-être que votre stack de test l'est. Il suffit alors de configurer la joint-compilation Gmavenplus en scope test uniquement avec `<scope>test<scope>`.
+
 ## IV. Démarrer un projet Groovy from scratch
 
 Plusieurs solutions s’offrent à nous :
 
 ### 1.) Grails (Groovy on Rails)
 
-C’est un framework du même créateur, et maintenu par le même société
+C’est un framework du même créateur et maintenu par le même société
 (Object Computing)
 
 ```shell
@@ -484,13 +488,13 @@ grails run-app
 
 Le spring initializr permet de générer un projet groovy (2.5.6 max en octobre 2021).
 
-![](spring-initializr-groovy.png)
+![](/assets/images/spring-initializr-groovy.png)
 
 ### 3.) Micronaut
 
 Idem avec le Micronaut sarter
 
-![](micronaut-starter-groovy.png)
+![](/assets/images/micronaut-starter-groovy.png)
 
 ### 4.) Gradle
 
@@ -501,16 +505,14 @@ Gradle 7.2
 gradle init
 ```
 
-![](gradle-init-groovy.png)
+![](/assets/images/gradle-init-groovy.png)
 
 Ce qui nous donne cette jolie app Gradle avec une entrypoint class `App` :
 
-![](gradle-app-structure.png)
+![](/assets/images/gradle-app-structure.png)
 
 ## V. Notre prod n’est pas prête pour Groovy, mais notre stack de test l’est, comment faire ?
 
-Ajouter la joint compilation gmavenplus en scope test uniquement.
+Ajouter la joint-compilation Gmavenplus en scope test uniquement.
 
-Mais tant qu’à faire du Groovy dans les tests, pourquoi pas utiliser
-directement [Spock-framework](https://spockframework.org/) et
-[Gebish-framework](https://gebish.org/) ? 😉
+Mais tant qu’à faire du Groovy dans les tests, pourquoi ne pas utiliser directement [Spock-framework](https://spockframework.org/) et [Gebish-framework](https://gebish.org/) ?
