@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Groovy (3), le langage JVM orienté productivité"
-date:   2022-03-10 08:46:40 +0100
+date:   2022-04-21 16:46:40 +0100
 categories: java groovy
 ---
 
@@ -25,7 +25,20 @@ C'est quoi l'objectif de l'article :
 
 Ce n'est pas du Java qui tourne sur nos serveurs, nos smartphones !
 
-Et non, c'est bien du bytecode. On peut le générer avec plusieurs langages :
+Et non, c'est bien du bytecode.
+
+```puml
+@startuml
+
+agent "a a"
+usecase "b b"
+
+'a a' --> 'b b'
+
+@enduml
+```
+
+On peut le générer avec plusieurs langages :
 
 * Java (no kidding)
 * Groovy

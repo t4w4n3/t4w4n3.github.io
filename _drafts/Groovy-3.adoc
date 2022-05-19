@@ -1,7 +1,19 @@
 = Groovy (3), le langage JVM orienté productivité
 Antoine Salesse - t4w4n3 - <a.salesse@younup.fr>
-:toc:
+:toc: preamble
 :toclevels: 3
+
+Java est un langage pré-compilé.
+
+[plantuml,javagroovy,png]
+----
+@startuml
+(Java) -> (Use case 2)
+@enduml
+----
+image::image-2022-03-18-14-11-19-701.png[]
+
+Dans le monde de la Java Virtual Machine,
 
 Dans les projets logiciels itératifs, incrémentaux et adaptatifs, et dans un monde où on veut réagir rapidement au changement, on veut coder VITE, ne pas réinventer la roue (et encore moins la roue carrée).
 
@@ -31,7 +43,7 @@ Cet article présente les features de Groovy (3.0.9) pour coder ses idées à to
 
 == Les facettes de Groovy
 
-Voila les caractéristiques et principes qui d’après moi, permettent à Groovy d'être si efficace :
+Voilà les caractéristiques et principes qui d’après moi, permettent à Groovy d'être si efficace :
 
 === Une courbe d’apprentissage plate
 
