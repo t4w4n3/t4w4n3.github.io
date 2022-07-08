@@ -10,9 +10,11 @@ Mes dev partent en prod depuis 2012, et j'ai fini par réaliser que c'est mon [I
 
 Le code me parait semblable à un organisme vivant; il est soumis à l'entropie, il se complexifie, il mutte, il évolue, il pourrit. En designant, codant, testant j'ai la sensation de maitriser l'entropie.
 
-J'aime les langages et frameworks de haut niveau : Java 18, Springboot, **Grails**, **Groovy**.
+Mon rôle d'ingénieur m'amène à utiliser des principes software transverses aux technos : Archi hexagonale, DDD, TDD, POO.
 
-Je me tourne souvent vers Groovy, qui donne accès aux opérateurs avancés, (elvis, elvis assignement, safe nav, safe index, spread, range, ...), et offre nativement des fonctions de manipulations de structures de données telles que `.collect()`, `findAll()`, `.collectEntries()`, `.combination()`, `.permutation()`, `.groupBy()`. C'est dont tout naturellement que Kotlin et Scala me font de l'œil.
+J'aime les langages et frameworks de haut niveau : Kotlin, Java 18, Springboot, Grails, Groovy.
+
+Je me tourne souvent vers Kotlin, Groovy, qui donne accès aux opérateurs avancés, (elvis, elvis assignement, safe nav, safe index, spread, range, ...), et offre nativement des fonctions de manipulations de structures de données telles que `.collect()`, `findAll()`, `.collectEntries()`, `.combination()`, `.permutation()`, `.groupBy()`. C'est dont tout naturellement que Kotlin et Scala me font de l'œil.
 
 En effet, la compléxité du monde du software grandit à toute allure, et je n'ai pas envie de résoudre les problèmes qui sont pliés depuis longtemps. L'enchevetrement de niveaux d'abstraction est aujourd'hui si dense, qu'il est déraisonnable d'étudier toute la strate avant de commencer à en utiliser le sommet. Vouloir apprendre tout ce que nos prédécesseurs savaient n'est qu'un attavisme de la période pre-disque-dur. Maintenant que nous pouvons y stocker les enseignements de toutes les générations, plus besoin de tout retenir. Le paradigme Just-In-Time est maintenant bien plus adapté quand il s'agit d'aller chercher l'information.
 
