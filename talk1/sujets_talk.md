@@ -1,6 +1,6 @@
 # Les applications modulaires permettent de scaler en RH + perf
 
-## Pitch 
+## Pitch
 
 ### De quoi ça parle ?
 
@@ -31,3 +31,114 @@ Pour ça, je veux leur donner ma définition de :
 ## Plan
 
 1. 
+
+
+
+
+
+## brainstorm area
+
+De quoi je veux parler ?
+
+D'applications modulaire.
+
+Qu'est-ce qu'un module.
+
+C'est une extension facultative à un système autonome.
+
+L'ajout d'un module au système ajoute un ou plusieurs fonctionnalités à ce système.
+
+L'ajout d'un module est facile et simple.
+
+Le système accède aux fonctionnalités d'un module par ses interfaces.
+
+Le système utilise les fonctionnalités de ses modules et en est donc dépendant.
+
+On ne peut alors plus supprimer le module sans affecter les fonctionnalités du système.
+
+Toute dépendance cyclic entre le système et un module indique que le module devrait plutôt faire partie du système.
+
+Toute dépendance cyclic entre 2 modules indique que ce devrait plutôt être un seul module.
+
+Et donc, c'est toujours le système qui utilise les fonctionnalités du module, mais jamais le module qui appelle des fonctionnalités du système. Sinon, ce n'est pas un système modulaire, mais un seul et même système local. Et s'il y a du réseau entre les 2, c'est un système distribué.
+
+Un module a au moins 2 origines :
+* Il a été crée en tant que tel
+* Il a été extrait d'un système existant
+
+Tout système autonome peut être module d'un autre, à condition qu'il expose ses fonctionnalités à travers des interfaces, et qu'il n'ait pas de dépendance vers l'autre système. 
+
+Bon on est ok sur le concept de module.
+
+Mais en fait on n'a même pas encore parlé de software.
+
+Nos applications sont-elles intrinsèquement modulaires ?
+
+Non bien sûr. Je viens d'évoquer les contraintes permettant la modularité, et elles ne s'appliquent pas d'elles-mêmes.
+
+Alors pourquoi se contraindre à rendre nos applications modulaires ?
+
+Il y a selon moi au moins 2 sortes de contraintes :
+* Celles que l'on choisit de s'imposer. Exemples : 
+  * Dépendre des interfaces plutôt que de leurs implémentations
+  * Faire des tests auto
+* Celles qui finissent par s'imposer d'elles-mêmes. Exemple :
+  * Déployer seulement 1 fois par mois de 20h à minuit, après 2 semaines de tests e2e manuels
+
+Autrement dit : En s'imposant délibérément et judicieusement des contraintes, on peut s'éviter les mauvaises.
+
+Ok donc quelles "mauvaises" contraintes s'imposent dans une grosse applications non modularisée ? 
+
+Prenons un bon gros monolithe distribué :
+
+// schéma
+
+```puml
+@startuml
+
+Database BigOracleDatabase
+Database AnotherDatabase
+node A [
+    A
+    --
+    description
+]
+node B [
+    B
+    --
+    description
+]
+node C [
+    C
+    --
+    description
+]
+queue UneQueue
+
+A -d-> B
+A <- B
+A -r-> C
+B -> C
+A -> BigOracleDatabase
+B -> BigOracleDatabase
+C -> BigOracleDatabase
+B -> AnotherDatabase
+C -> AnotherDatabase
+A -> UneQueue
+UneQueue -> B
+UneQueue -> C
+@enduml
+```
+
+
+Qu'y observe-t-on ?
+* A dépend d'un endpoint de B
+  * Pas de contrat d'interface sur ce endpoint
+* Le contexte métier des "xxx" est réparti dans A, dans B et dans C.
+* Quand A change pour faire plaisir à B, C qui dépend aussi de A connait une régression, à moins de s'adapter lui aussi.
+
+Contraintes (et leurs effets) : 
+* Chaque développeur doit connaitre la totalité de l'application pour y apporter tout changement.
+  * Leur charge mentale déborde -> ils font des erreurs 
+  * Définir le scope fonctionnel des tests unitaires est difficile
+* 

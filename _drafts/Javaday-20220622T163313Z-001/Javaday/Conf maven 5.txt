@@ -1,0 +1,12 @@
+Problème : le pom v4 ne peut pas bouger.
+
+Build model  to Raw model to consumer model (pomv4)
+
+Mvn wrapper
+
+Maven build cache extension (comme en gradle) -> dans maven 3.9 et 4
+
+Mvn daemon : build parallel avec output bufferisé, et affiché trié à la fin
+
+
+Mojohaus : obtenir un build plan

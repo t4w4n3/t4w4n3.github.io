@@ -1,0 +1,10 @@
+Conf valhalla
+
+Réconcilier java avec le hardware modern
+
+No allocation for intermediary objects
+
+Improve information density
+
+Garder la compatibilité
+

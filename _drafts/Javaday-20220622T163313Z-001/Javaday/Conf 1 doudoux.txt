@@ -1,0 +1,18 @@
+Arguments exploit et management pour migrer de version de java.
+
+
+Meilleur restitution de la mémoire : baisse des coûts cloud.
+Facilite le recrutement
+Jlink : plus petit jre
+Meilleur sécurité (certificats, protocoles)
+Meilleures perf
+
+
+Javalmanac.io : voir les modif de java.
+
+Multirelease jar
+
+Projets en cours : loom, Panama, amber, valhalla, leyden
+
+Maven 5
+

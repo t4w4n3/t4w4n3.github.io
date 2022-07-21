@@ -1,0 +1,25 @@
+Oomkill
+
+Diag jvm tool : jcmd
+VM.flags
+VM.native_memory
+Nativememorytracking
+virtual / reserved / commited memory
+
+Oomkill counts only dirty memory
+AlwaysPreTouch
+
+Partie 2
+------
+
+Jstat : temps de compilation
+
+Compilateurs C1 C2
+Eviter le full GC end plein milieu de la compil : set  meta space size
+
+CPU shares
+CPU quotas
+
+La JVM c'edt pas que de la heap
+Les parties native de la mémoire sont difficiles à monitorer
+Ce sont les parties mouvantes qui provoquent les oomkill

@@ -1,0 +1,7 @@
+Pas que pour les MS finalement.
+En faire le max au buildtime.
+Concurrent de quarkus.
+Optimisation de compilation en fonction de la run target (aws, gcp,  ...)-> deduceEnvironment
+
+Rajoute une étape avant la native image : créer un nouveau jar, mais aot optimized
+
