@@ -128,7 +128,7 @@ Ryuk ne supprimera alors cet unique conteneur qu'à la toute fin de la suite de 
 Cependant, cette même documentation nous prévient que ça ne suffit pas à éviter les effets de bords inattendus avec le
 mode parallèle de Junit.
 
-![singletonContainers.png](../assets/images/singletonContainers.png)
+![singletonContainers.png](/assets/images/singletonContainers.png)
 
 En effet, il manque un détail pour que ça fonctionne : `.withReuse(true)`
 
