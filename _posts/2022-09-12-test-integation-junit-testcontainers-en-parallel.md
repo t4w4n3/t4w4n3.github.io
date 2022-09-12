@@ -150,7 +150,7 @@ Par exemple : Un `MongoDbContainer` + un `LocalStackContainer`.
 On aurait donc besoin d'un `SingletonMongoDbContainer` abstrait et d'un `SingletonLocalStackContainer`.  
 Problème : pas d'héritage multiple en Java.  
 Passer par 2 interfaces plutôt que 2 classes abstraites ? Pas possible, car les variables de `GenericContainer` doivent
-être `static`. Or les attribut d'une interface ont beau être `static`, ils se dupliquent sur chacune des implementation.
+être `static`. Or les attributs d'une interface ont beau être `static`, ils se dupliquent sur chacune des implementation.
 Et donc adieu l'unicité nécessaire.  
 Dommage pas de `trait` en Java.
 
