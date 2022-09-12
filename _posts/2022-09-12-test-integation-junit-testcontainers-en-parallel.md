@@ -143,7 +143,7 @@ public abstract class SingletonMongoContainer {
 Avec cette option, le `SingletonContainer` sera bien partagé entre les tests et leur thread respectif, et son cycle de
 vie sera correctement géré.
 
-Venons-en maintenant boss final du donjon : **Utiliser 2 sous-types de `GenericContainer` dans un test d'une suite
+Venons-en maintenant au boss final du donjon : **Utiliser 2 sous-types de `GenericContainer` dans un test d'une suite
 exécutée en parallel**.  
 Par exemple : Un `MongoDbContainer` + un `LocalStackContainer`.
 
