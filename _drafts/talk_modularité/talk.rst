@@ -1,53 +1,93 @@
 :title: Hovercraft! demo
 :data-transition-duration: 1500
-:css: hovercraft.css
-
-This is a demo for Hovercraft! You can view it as a finished presentation
-at http://regebro.github.io/hovercraft/
-
-
-It's also useful as an example, in which case it's supposed to be read as
-`source code <../_sources/examples/hovercraft.txt>`_.
+:css: talk.css
 
 You can render this presentation to HTML with the command::
 
-    hovercraft hovercraft.rst outdir
+    hovercraft talk.rst outdir
 
 And then view the outdir/index.html file to see how it turned out.
 
-If you are seeing this text, and not reading this as source code, you are
-doing it wrong! It's going to be confusing and not very useful.
-
-Use The Source, Luke! But first you probably want to read through the
-official documentation at https://hovercraft.readthedocs.io/
-
 ----
 
-The problem:
-============
-
-Making presentations is no *fun!*
----------------------------------
+La modularité
+=============
 
 .. note::
 
-    Welcome to the presenter console!
+    Bonjour à tous.
+
+    Pour commencer, je remercie <EVENT> d'avoir accepté mon talk / de m'avoir inviter.
+
+    J'ai aussi beaucoup de gratitude pour ma boite de services, Younup, qui me donne le temps et l'encouragement pour ce genre d'activité.
+
+    Aujourd'hui je vous propose de parler de modularité.
 
 ----
 
-GUI tools are inflexible
-========================
-
-* It's hard to reorganize or import text
-
-* Slow and memory hungry
-
-* You get caught up in design early in the process.
+Pourquoi ce sujet ?
 
 .. note::
 
-    Here you have a view of the current slide, a preview of the next slide
-    and your notes.
+    Quand je fais des appli métier, j'ai plein de choses à penser. Sur le métier lui-même, sur les différents contextes métiers qui interagissent entre eux, et aussi sur les préoccupations techniques : outillage, opérationnel, observabilité, sécurité.
+
+    L'accumulation de préoccupations a un effet inévitable : l'erreur humaine, l'oubli. Cela induit une baisse de performance business, non-business, et de bien-être.
+
+    Je souhaite éviter ces effets. Pour cela je dois alors soulager ma charge mentale.
+
+    Pour réduire ma charge mentale, j'**encapsule** des choses dans des boites. Sous certaines contraintes, je peux alors utiliser/déplacer ces boites en faisant **abstraction** de ce qu'elles contiennent ou de comment elles fonctionnent.
+
+    J'obtiens alors un système modulaire.
+
+    Ces contraintes ce sont celles de la modularité. Depuis que je les applique, j'ai la sensation d'être plus performant et plus épanoui dans mon travail.
+
+    Et donc je souhaite partager mes connaissances sur le sujet.
+
+----
+
+:id: whoAmI
+
+Antoine Salesse
+===============
+
+Développeur (de logiciels)
+--------------------------
+
+.. image:: images/tawane-younup_transparancy_circle.png
+    :height: 200px
+
+|
+
+.. class:: substep
+
+    .. image:: images/younup_logo_transparency.png
+            :width: 300px
+
+
+.. container:: substep aligned
+
+    .. image:: images/linkedIn_Logo.png
+        :width: 60px
+
+    @antoine-salesse
+
+.. container:: substep aligned
+
+    .. image:: images/keyboard_logo.png
+        :width: 60px
+
+    @t4w4n3.github.io
+
+.. note::
+
+    Je m'appelle Antoine Salesse.
+
+    Je fais de l'ingénierie logicielle depuis 2012, toujours plus ou moins autour de Java, et principalement sur du backend.
+
+    Ça fait 3 ans que je travaille avec passion pour Younup et ses clients
+
+
+    Faire un détour sur la slide de Younup
 
 ----
 
