@@ -58,11 +58,12 @@ Développeur (de logiciels)
 
 |
 
-.. class:: substep
+.. container:: substep
 
     .. image:: images/younup_logo_transparency.png
             :width: 300px
 
+    younup.fr/blog
 
 .. container:: substep aligned
 
@@ -76,34 +77,52 @@ Développeur (de logiciels)
     .. image:: images/keyboard_logo.png
         :width: 60px
 
-    @t4w4n3.github.io
+    t4w4n3.github.io
 
 .. note::
 
     Je m'appelle Antoine Salesse.
 
-    Je fais de l'ingénierie logicielle depuis 2012, toujours plus ou moins autour de Java, et principalement sur du backend.
+    Dans la vie, je suis papa et je fais de l'ingénierie logicielle depuis 2012, toujours plus ou moins autour de Java, et principalement sur du backend.
 
-    Ça fait 3 ans que je travaille avec passion pour Younup et ses clients
+    Ça fait 3 ans que je travaille avec passion pour Younup et ses clients.
 
+    Younup c'est une ESN native de Nantes et présente aussi à Rennes, Bordeaux et Lille.
 
-    Faire un détour sur la slide de Younup
+    J'y interviens chez des clients pour des missions de dev backend ou de lead dev.
+
+    J'y donne aussi des formations en internes et aux clients sur SpringBoot, Java, le testing, la POO, l'architecture hexagonale.
+
+    Je fais passer les entretiens tech backend Java. On ne fait pas de tests technique, on fait tout à la discussion avec des questions graduelles et orientées sur le projet pro du candidat.
+
+    J'y ai du temps hors mission pour écrire des médias qui font rayonner la boite et ses consultants : articles tech, quickies, talks
+
+    Vous pouvez trouver tout ça sur notre blog.
+
+    Je suis assez actif sur LinkedIn, c'est là que je poste mes réflexions à propos du software.
+
+    Je publie aussi sur un blog Jekyll minimaliste : t4w4n3.github.io
 
 ----
 
-Use reStructuredText!
-=====================
+Qu'est ce qu'un module ?
+========================
 
-* You can use your favorite text-editor!
+|
 
-* Many tools available: Landslide, S5
+.. class:: substep
 
-* Convenient (and powerful!)
+Extension facultative à un système autonome
 
 .. note::
 
-    You also have a clock and a timer, so you know how much time you have
-    left.
+    Bon, pour commencer demandons nous : "qu'est-ce qu'un module ?"
+
+    Oublions le software 2 minutes. "Qu'est-ce qu'un module ?"
+
+    Je vous propose cette définition : "C'est une extension facultative à un système autonome."
+
+    "Système autonome" = Le système fonctionnait même sans le module.
 
 ----
 
