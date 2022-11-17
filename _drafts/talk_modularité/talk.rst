@@ -1,4 +1,4 @@
-:title: Hovercraft! demo
+:title: Les enjeux de la modularité logicielle
 :data-transition-duration: 1500
 :css: talk.css
 
@@ -10,16 +10,16 @@ And then view the outdir/index.html file to see how it turned out.
 
 ----
 
-La modularité
-=============
+Les enjeux de la modularité logicielle
+======================================
 
 .. note::
 
     Bonjour à tous.
 
-    Pour commencer, je remercie <EVENT> d'avoir accepté mon talk / de m'avoir inviter.
+    Pour commencer, je remercie <EVENT> d'avoir accepté mon talk / de m'avoir invité
 
-    J'ai aussi beaucoup de gratitude pour ma boite de services, Younup, qui me donne le temps et l'encouragement pour ce genre d'activité.
+    J'ai aussi beaucoup de gratitude pour ma boite de services, Younup, qui me donne le temps, l'encouragement et l'accompagnement pour ce genre d'activité.
 
     Aujourd'hui je vous propose de parler de modularité.
 
@@ -27,21 +27,27 @@ La modularité
 
 Pourquoi ce sujet ?
 
+.. class:: substep
+
+    This paragraph will be shown when you press <next>
+
+    This will show on the second <next> press
+
 .. note::
 
     Quand je fais des appli métier, j'ai plein de choses à penser. Sur le métier lui-même, sur les différents contextes métiers qui interagissent entre eux, et aussi sur les préoccupations techniques : outillage, opérationnel, observabilité, sécurité.
 
-    L'accumulation de préoccupations a un effet inévitable : l'erreur humaine, l'oubli. Cela induit une baisse de performance business, non-business, et de bien-être.
+    L'accumulation de préoccupations a un effet inévitable : l'erreur humaine, l'oubli. Cela induit une baisse de performance organisationnelle et non-commercial, ainsi que de bien-être.
 
     Je souhaite éviter ces effets. Pour cela je dois alors soulager ma charge mentale.
 
     Pour réduire ma charge mentale, j'**encapsule** des choses dans des boites. Sous certaines contraintes, je peux alors utiliser/déplacer ces boites en faisant **abstraction** de ce qu'elles contiennent ou de comment elles fonctionnent.
 
-    J'obtiens alors un système modulaire.
+    Ces contraintes ce sont celles qui font qu'un système est modulaire.
 
-    Ces contraintes ce sont celles de la modularité. Depuis que je les applique, j'ai la sensation d'être plus performant et plus épanoui dans mon travail.
+    Les enjeux c'est : Qu'est-ce qui va se passer si on ne les applique pas ? Et si on les applique ?
 
-    Et donc je souhaite partager mes connaissances sur le sujet.
+    J'observe régulièrement les 2 cas. Je vais vous raconter des histoires dans ces cas. Puis bien sûr on verra du code modulaire, dans le monde Java.
 
 ----
 
@@ -56,7 +62,55 @@ Développeur (de logiciels)
 .. image:: images/tawane-younup_transparancy_circle.png
     :height: 200px
 
-|
+.. container:: substep
+
+    .. image:: images/Duke_logo.png
+            :width: 30px
+
+    .. image:: images/kotlin.png
+            :width: 40px
+
+    .. image:: images/Gradle_Logo.png
+            :width: 60px
+
+    .. image:: images/aws.png
+            :width: 60px
+
+    .. image:: images/docker.png
+            :width: 65px
+
+    .. image:: images/gitlab.png
+            :width: 40px
+
+    .. image:: images/github_logo.png
+            :width: 40px
+
+    .. image:: images/micrometer.png
+            :width: 40px
+
+    .. image:: images/micronaut.png
+            :width: 45px
+
+    .. image:: images/spring.png
+            :width: 40px
+
+    .. image:: images/quarkus.png
+            :width: 40px
+
+    .. image:: images/jakarta.png
+            :width: 40px
+
+    .. image:: images/junit5-logo-1.png
+            :width: 40px
+
+    .. image:: images/tux.png
+            :width: 40px
+
+    .. image:: images/k8s.png
+            :width: 50px
+
+    .. image:: images/terraform.png
+            :width: 40px
 
 .. container:: substep
 
@@ -81,27 +135,19 @@ Développeur (de logiciels)
 
 .. note::
 
-    Je m'appelle Antoine Salesse.
+    Et au fait, je m'appelle Antoine.
 
-    Dans la vie, je suis papa et je fais de l'ingénierie logicielle depuis 2012, toujours plus ou moins autour de Java, et principalement sur du backend.
+    Dans la vie, mes 2 drivers principaux c'est être papa, depuis 2018, et faire du software, depuis 2012, toujours plus ou moins autour de backends Java.
 
     Ça fait 3 ans que je travaille avec passion pour Younup et ses clients.
 
-    Younup c'est une ESN native de Nantes et présente aussi à Rennes, Bordeaux et Lille.
+    Younup c'est une ESN native de Nantes et présente aussi à Rennes, Bordeaux, Lille et Lyon.
 
-    J'y interviens chez des clients pour des missions de dev backend ou de lead dev.
+    J'y fais du consulting backend et lead dev, des formations internes, des entretiens tech, et des contributions de médias : articles tech, quickies, et maintenant talk.
 
-    J'y donne aussi des formations en internes et aux clients sur SpringBoot, Java, le testing, la POO, l'architecture hexagonale.
+    Je suis actif sur LinkedIn, c'est là que je poste mes réflexions à propos du software.
 
-    Je fais passer les entretiens tech backend Java. On ne fait pas de tests technique, on fait tout à la discussion avec des questions graduelles et orientées sur le projet pro du candidat.
-
-    J'y ai du temps hors mission pour écrire des médias qui font rayonner la boite et ses consultants : articles tech, quickies, talks
-
-    Vous pouvez trouver tout ça sur notre blog.
-
-    Je suis assez actif sur LinkedIn, c'est là que je poste mes réflexions à propos du software.
-
-    Je publie aussi sur un blog Jekyll minimaliste : t4w4n3.github.io
+    Je publie aussi sur un blog tech : t4w4n3.github.io
 
 ----
 
@@ -114,6 +160,12 @@ Qu'est ce qu'un module ?
 
 Extension facultative à un système autonome
 
+|
+
+.. class:: substep
+
+Le système fonctionnait déjà sans le module
+
 .. note::
 
     Bon, pour commencer demandons nous : "qu'est-ce qu'un module ?"
@@ -122,33 +174,31 @@ Extension facultative à un système autonome
 
     Je vous propose cette définition : "C'est une extension facultative à un système autonome."
 
-    "Système autonome" = Le système fonctionnait même sans le module.
+    "Système autonome" = Le système fonctionnait déjà sans le module.
 
 ----
 
-But then there was Prezi
-========================
-
-Sliding from left to right is no longer enough.
-You need to be able to...
+Ajout de fonctionnalité(s)
+==========================
 
 .. note::
 
-    If you click on the timer it restarts from zero. This is handy when you
-    are rehearsing the presentation and need to make sure it fits in the time
-    allocated.
+    L'ajout d'un module au système ajoute une ou plusieurs fonctionnalités à ce système.
 
 ----
 
-:data-y: r1000
+L'ajout d'un module est facile et simple
+========================================
 
-...pan...
-=========
+|
+
+.. class:: substep
+
+    Ou alors correctement documenté
 
 .. note::
 
-    If you have more notes than fit in the console, you can scroll down, but
-    more handily, you can scroll the text up by pressing space bar.
+    Vous remarquerez la distinction faite entre facilité et simplicité.
 
 ----
 
