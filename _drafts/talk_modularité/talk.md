@@ -1,4 +1,7 @@
-# Les applications modulaires permettent de scaler en RH + perf
+# Les enjeux de la modularité, et comment la mettre en place
+
+// Les enjeux de la modularité, et comment l'implémenter
+// Les applications modulaires permettent de scaler en RH + perf
 
 ## Pitch
 
@@ -48,7 +51,7 @@ C'est une extension facultative à un système autonome.
 
 L'ajout d'un module au système ajoute une ou plusieurs fonctionnalités à ce système.
 
-L'ajout d'un module est facile et simple (plug-n-play but not hack-n-grrrrr).
+L'ajout d'un module est facile et simple (plug-n-play but not hacky style).
 
 Un module est une encapsulation de fonctionnalités.
 
@@ -104,44 +107,42 @@ Trouvons-en quelques-une.
 
 Pour ça, souvenons-nous d'un bon gros monolith distribué comme on en connait tous, voire qu'on a même participé à faire émerger ainsi.
 Plusieurs bounded contexts y sont dispersés.
-Leur logique est à droite à gauche, dans le front, dans la base de données, dans des procstock.
+Leur logique est à droite à gauche, dans le front, dans la base de données, dans des procédures stockées.
 La modélisation métier est faite en partie en base de données.
+Les bases de données sont chacune appelées par plusieurs applications.
 Il y a de la logique métier en base de données, voire en procédure stockée.
 Il y a peu d'interfaces, les morceaux de code s'appellent les uns les autres au travers de tout le système.
-Les fonctionnalités exposées ne sont pas versionnées.
 
-Autre chose vous vient en tête sur un monolith distribué que vous avez connu ?
-
-Alors, quels sont les contraintes et leurs effets qui vont venir s'imposer dans ce système ?
-
-* Chaque développeur doit connaitre la totalité du système pour y apporter un changement
-  * Effet : leur charge mentale déborde
-    * Effet : burnouts
-    * Effet : perte d'implication
-    * Effet : perte de productivité
-    * Effet : Ils font des erreurs
-      * Effet : Le système se dégrade davantage
-      * Effet : Le confiance se dégrade
-* Effet : Le système est difficile à tester automatiquement
+Je ne connais aucun développeur qui ait assez de charge mentale pour maitriser ce genre de système.  
+Et fatalement :
+* La charge mentale déborde
+  * Burnouts
+  * Perte d'implication
+  * Perte de productivité
+  * Ils font des erreurs
+    * Le système se dégrade davantage
+    * La confiance dans l'équipe et envers elle se dégrade
+* Le système est difficile à tester automatiquement
   * La couverture des fonctionnalités est loin des 100%
     * Le déploiement fait peur
       * On déploie moins souvent
         * La réactivité business s'effondre
           * Si un concurrent est meilleur alors c'est la fin
-    * Le refacto fait peur
+    * Le refacto fait peur (et c'est légitime)
       * Le code se dégrade
         * Changer le code devient difficile
           * La réactivité business s'effondre
             * Si un concurrent est meilleur alors c'est la fin
-Bref : on perd de la satisfaction et de l'argent. 
+Bref : on perd de la satisfaction et de l'argent.
+
 
 Ces effets sont dramatiques non ?
 
-
+Et pourtant si fréquents.
 
 --------
-Ils sont même à l'opposé des objectifs fondamentaux des organisations qui font du software, c'est à dire :
-Ils amènent d'ailleurs à la question : C'est quoi les objectifs fondamentaux des acteurs d'un logiciel ? Je vous propose ceux-là :
+Ils sont même à l'opposé des objectifs fondamentaux des organisations qui font du software, c'est-à-dire :
+Ils amènent d'ailleurs à la question : Quels sont les objectifs fondamentaux des acteurs d'un logiciel ? Je vous propose ceux-là :
 
 
 * Job satisfaction
@@ -156,4 +157,29 @@ Qui sait où j'ai été prendre ces objectifs ?
 
 Bien vu : Accelerate
 
-C'est à la fois un livre et une publication scientifique dans laquelle les auteurs ont analysé quelles pratiques Lean et Devops sont appliquées chez les organisations qui performent, ainsi que les corrélations entre ces pratiques et ces objectifs habituels des organisations.
+C'est une publication scientifique dans laquelle les auteurs ont analysé quelles pratiques Lean et Devops sont appliquées chez les organisations qui performent, ainsi que les corrélations entre ces pratiques et ces objectifs habituels des organisations.
+
+------
+
+Et tous les effets cités précédemment auraient pu être évités avec plus de modularité ?
+
+C'est ce que je pense.
+
+> Réduire les canaux de communication permet de produire des systèmes plus découplés, et qui font donc de meilleurs candidats à la modularité.
+
+> Teams Topologies : il faut limiter la taille des logiciels (ou les modules dans notre cas) à la charge mentale des équipes qui les développent.
+
+-------
+
+Si vous avez suivi le talk de Julien Topçu sur la loi de Conway, vous savez qu'avant de changer votre organisation, il faut assainir votre système.
+
+Et oui, on est plus souvent confronté à des systèmes existants que des projets from scratch. Il faut apprendre à aimer les systèmes legacy.
+
+Cal Newport a écrit tout un bouquin pour expliquer que : "Passion comes from mastery".  
+En apprenant à maitriser l'assainissement de systèmes legacy, on finit par aimer ça.
+
+--------
+
+Je suis développeur logiciel, et ça fait une dizaine d'années que je travaille sur des backend d'applications de gestion en Java.
+
+Je vous propose d'aller mettre le nez dans 
