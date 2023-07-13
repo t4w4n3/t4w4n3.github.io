@@ -1,3 +1,10 @@
+---
+layout: post
+title:  "Resilience with Java : The rate limiter"
+date:   2022-10-15 12:00:00 +0100
+categories: java
+---
+
 # Resilience with Java : The rate limiter
 
     The database admin : Please, reduce the number of incoming queries, because the CPU load of the database is too high.
