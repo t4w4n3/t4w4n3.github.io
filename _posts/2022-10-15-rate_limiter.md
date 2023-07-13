@@ -36,7 +36,7 @@ Resilience in distributed systems is the ability of a system to continue to func
 
 Here we will use the RateLimiter.
 
-[[https://resilience4j.readme.io/docs/ratelimiter]]
+[https://resilience4j.readme.io/docs/ratelimiter](https://resilience4j.readme.io/docs/ratelimiter)
 
 Lets start with a simple use-case : an `executorService` is given a threadpool of 1000 and is submitted 1000 times this
 task :
@@ -129,4 +129,4 @@ We didn't show it, but Resilience4J also have compatibility with many libraries 
 
 Don't forget it in a distributed architecture where deployment entities all have different scaling capacities. Then, you will finally be allowed to use the word "microservices".
 
-Sources can be found here : [[https://github.com/t4w4n3/ratelimiter-demo]]
+Sources can be found here : [https://github.com/t4w4n3/ratelimiter-demo](https://github.com/t4w4n3/ratelimiter-demo)
