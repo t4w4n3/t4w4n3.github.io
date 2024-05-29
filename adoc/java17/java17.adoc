@@ -1,5 +1,5 @@
 = Le record & array pattern matching avec Java 17
-Antoine Salesse - a.salesse@younup.fr
+Antoine Salesse - antoine.salesse@wescale.fr
 :toc: preamble
 :caution-caption: ⚠
 :tabsize: 2

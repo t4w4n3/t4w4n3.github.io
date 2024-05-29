@@ -114,7 +114,7 @@ Pour cela, on a le plugin gmavenplus :
 Je n'ai plus le code en question sous la main, alors voici un exemple de controller Spring-mvc parfait pour la démo :
 
 ```java
-package fr.younup.helloworldapp.controller;
+package fr.tawane.helloworldapp.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -138,9 +138,9 @@ public class HelloWorldController {
 ## Implémentation de la classe de test d'un controller MVC
 
 ```groovy
-package fr.younup.helloworldapp.controller
+package fr.tawane.helloworldapp.controller
 
-import fr.younup.helloworldapp.model.helloWorldModel
+import fr.tawane.helloworldapp.model.helloWorldModel
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.mock.web.MockHttpServletRequest

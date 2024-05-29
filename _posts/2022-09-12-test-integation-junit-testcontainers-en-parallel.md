@@ -90,10 +90,6 @@ On se tourne alors vers TestContainers.
 TestContainers démarre un conteneur docker (ou [containerd](https://containerd.io/)) avec le même composant que celui
 qui sera utilisé en environnement déployé.
 
-Pour plus d'information sur la mise en place de
-TestContainers, [Kévin Kouomeu](https://www.linkedin.com/in/kevin-kouomeu/) a un super article sur le sujet
-=> https://www.younup.fr/blog/tests-integration-avec-springboot-docker-testcontainers
-
 En dehors de la mise en place, TestContainers possède un mécanisme de gestion du cycle de vie des conteneurs demandés
 dans les tests d'intégration composant.
 
